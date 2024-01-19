@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Workshopper.Domain\Workshopper.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
