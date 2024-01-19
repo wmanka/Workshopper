@@ -1,0 +1,9 @@
+﻿@adminId =9143449b-779d-411c-a273-2afd6cce6f7c
+
+POST {{host}}/subscriptions
+Content-Type: application/json
+
+{
+    "SubscriptionType": "Starter",
+    "AdminId": "{{adminId}}"
+}

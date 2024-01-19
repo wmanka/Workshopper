@@ -1,3 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using FastEndpoints;
 
-Console.WriteLine("Hello, World!");
+var builder = WebApplication.CreateBuilder();
+{
+    builder.Services.AddFastEndpoints();
+}
+
+var app = builder.Build();
+{
+    app.UseFastEndpoints();
+    app.Run();
+}
