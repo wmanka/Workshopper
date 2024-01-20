@@ -11,6 +11,15 @@ public class CreateSubscriptionEndpoint : Endpoint<CreateSubscriptionRequest,
     {
         Post("/subscriptions");
         AllowAnonymous();
+        Description(b => b
+            .ProducesProblemDetails(400, "application/json+problem"));
+
+        Summary(s =>
+        {
+            s.Summary = "Create a subscription";
+            s.ExampleRequest = new CreateSubscriptionRequest(SubscriptionType.Pro, Guid.NewGuid());
+            s.ResponseExamples[200] = new CreateSubscriptionResponse(Guid.NewGuid(), SubscriptionType.Pro);
+        });
     }
 
     public override async Task<Results<Ok<CreateSubscriptionResponse>, NotFound, ProblemDetails>> ExecuteAsync(
