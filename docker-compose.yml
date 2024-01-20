@@ -1,0 +1,62 @@
+﻿version: '3.8'
+name: workshopper
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: workshopper_dev
+      PGUSER: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - workshopper-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+  workshopper-api:
+    container_name: workshopper-api
+    build:
+      context: ./Workshopper.Api
+      dockerfile: Dockerfile
+    image: workshopper-api
+    restart: always
+    ports:
+      - "5002:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: test
+      DB_NAME: workshopper_dev
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+    networks:
+      - workshopper-net
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
+      interval: 30s
+      timeout: 3s
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  workshopper-net:
+    name: workshopper-net
+    driver: bridge

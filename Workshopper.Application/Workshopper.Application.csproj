@@ -12,4 +12,12 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Workshopper.Domain\Workshopper.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Subscriptions\Queries\GetSubscription\" />
+    </ItemGroup>
+
 </Project>
