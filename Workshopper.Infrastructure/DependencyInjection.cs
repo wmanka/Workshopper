@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Workshopper.Application;
 using Workshopper.Application.Common.Interfaces;
 using Workshopper.Infrastructure.Common.Persistence;
+using Workshopper.Infrastructure.Sessions.Persistence;
 using Workshopper.Infrastructure.Subscriptions.Persistence;
 
 namespace Workshopper.Infrastructure;
@@ -16,6 +17,7 @@ public static class DependencyInjection
         services
             .AddOptionsWithValidateOnStart<DatabaseOptions>()
             .BindConfiguration(DatabaseOptions.SectionName);
+
         services.AddSingleton<IValidateOptions<DatabaseOptions>, DatabaseOptionsValidator>();
 
         services.AddDbContext<WorkshopperDbContext>();
@@ -24,6 +26,8 @@ public static class DependencyInjection
             x.GetRequiredService<WorkshopperDbContext>());
 
         services.AddScoped<ISubscriptionsRepository, SubscriptionsRepository>();
+        services.AddScoped<IOnlineSessionsRepository, OnlineSessionsRepository>();
+        services.AddScoped<IStationarySessionsRepository, StationarySessionsRepository>();
 
         return services;
     }

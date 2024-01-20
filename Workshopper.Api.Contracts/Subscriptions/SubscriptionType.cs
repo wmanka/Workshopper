@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Workshopper.Contracts.Subscriptions;
+namespace Workshopper.Api.Contracts.Subscriptions;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SubscriptionType

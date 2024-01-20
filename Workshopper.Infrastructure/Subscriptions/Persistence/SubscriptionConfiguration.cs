@@ -5,7 +5,7 @@ using Workshopper.Infrastructure.Common.Persistence;
 
 namespace Workshopper.Infrastructure.Subscriptions.Persistence;
 
-public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
+internal class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
 {
     public void Configure(EntityTypeBuilder<Subscription> builder)
     {

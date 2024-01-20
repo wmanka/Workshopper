@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Domain", "Works
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Infrastructure", "Workshopper.Infrastructure\Workshopper.Infrastructure.csproj", "{2E02BBB7-D7E6-444B-B571-43395653AFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Contracts", "Workshopper.Contracts\Workshopper.Contracts.csproj", "{3AA807C2-CFE2-44A6-993B-909627AF94CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Contracts", "Workshopper.Api.Contracts\Workshopper.Api.Contracts.csproj", "{3AA807C2-CFE2-44A6-993B-909627AF94CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Domain", "01 Domain", "{B7A08E47-8AE5-449B-95AB-6E35EFC81B7B}"
 EndProject
@@ -26,6 +26,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Scripts", "06 Scripts", 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.DatabaseUpdater", "Workshopper.DatabaseUpdater\Workshopper.DatabaseUpdater.csproj", "{11579DF1-7D53-4BC9-B73B-5526686C2919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Sessions", "Workshopper.Api.Sessions\Workshopper.Api.Sessions.csproj", "{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Sessions.Contracts", "Workshopper.Api.Sessions.Contracts\Workshopper.Api.Sessions.Contracts.csproj", "{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{11579DF1-7D53-4BC9-B73B-5526686C2919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11579DF1-7D53-4BC9-B73B-5526686C2919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11579DF1-7D53-4BC9-B73B-5526686C2919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37B263F6-5B8E-4571-A28E-ED56E47608D9} = {B7A08E47-8AE5-449B-95AB-6E35EFC81B7B}
@@ -65,5 +77,7 @@ Global
 		{3AA807C2-CFE2-44A6-993B-909627AF94CA} = {882065E3-B667-4723-AD00-C3487804AD62}
 		{2E02BBB7-D7E6-444B-B571-43395653AFCF} = {8C3D3F6B-0066-400C-A9C1-A742D6A2A62F}
 		{11579DF1-7D53-4BC9-B73B-5526686C2919} = {8C3D3F6B-0066-400C-A9C1-A742D6A2A62F}
+		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F} = {882065E3-B667-4723-AD00-C3487804AD62}
+		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF} = {882065E3-B667-4723-AD00-C3487804AD62}
 	EndGlobalSection
 EndGlobal

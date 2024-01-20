@@ -1,4 +1,4 @@
-﻿using Workshopper.Contracts.Subscriptions;
+﻿using Workshopper.Api.Contracts.Subscriptions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Workshopper.Application.Subscriptions.Commands.CreateSubscription;
 using DomainSubscriptionType = Workshopper.Domain.Subscriptions.SubscriptionType;

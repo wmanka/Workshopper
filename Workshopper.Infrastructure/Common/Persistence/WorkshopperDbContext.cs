@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Workshopper.Application.Common.Interfaces;
+using Workshopper.Domain.Sessions;
 using Workshopper.Domain.Subscriptions;
 
 namespace Workshopper.Infrastructure.Common.Persistence;
@@ -10,6 +11,10 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
     private readonly IOptions<DatabaseOptions> _databaseOptions;
 
     public DbSet<Subscription> Subscriptions { get; set; } = null!;
+
+    public DbSet<StationarySession> StationarySessions { get; set; } = null!;
+
+    public DbSet<OnlineSession> OnlineSessions { get; set; } = null!;
 
     public WorkshopperDbContext(
         DbContextOptions<WorkshopperDbContext> options,
@@ -41,6 +46,13 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
 
         modelBuilder.HasDefaultSchema(DatabaseSchema.Public);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(WorkshopperDbContext).Assembly);
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder
+            .Properties<DateTimeOffset>()
+            .HaveConversion<DateTimeOffsetConverter>();
     }
 
     public async Task CommitChangesAsync()

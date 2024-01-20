@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Sessions\Queries\" />
       <Folder Include="Subscriptions\Queries\GetSubscription\" />
     </ItemGroup>
 

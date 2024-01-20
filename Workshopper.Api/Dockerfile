@@ -10,7 +10,7 @@ WORKDIR /src
 COPY ["Workshopper.Api/Workshopper.Api.csproj", "Workshopper.Api/"]
 COPY ["Workshopper.Application/Workshopper.Application.csproj", "Workshopper.Application/"]
 COPY ["Workshopper.Domain/Workshopper.Domain.csproj", "Workshopper.Domain/"]
-COPY ["Workshopper.Contracts/Workshopper.Contracts.csproj", "Workshopper.Contracts/"]
+COPY ["Workshopper.Api.Contracts/Workshopper.Api.Contracts.csproj", "Workshopper.Api.Contracts/"]
 COPY ["Workshopper.Infrastructure/Workshopper.Infrastructure.csproj", "Workshopper.Infrastructure/"]
 RUN dotnet restore "Workshopper.Api/Workshopper.Api.csproj"
 COPY . .

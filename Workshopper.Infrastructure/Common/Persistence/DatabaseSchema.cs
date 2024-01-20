@@ -1,6 +1,7 @@
 ﻿namespace Workshopper.Infrastructure.Common.Persistence;
 
-public class DatabaseSchema
+public static class DatabaseSchema
 {
     public const string Public = "public";
+    public const string Sessions = "sessions";
 }

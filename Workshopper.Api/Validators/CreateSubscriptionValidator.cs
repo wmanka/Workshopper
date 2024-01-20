@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using FluentValidation;
-using Workshopper.Contracts.Subscriptions;
+using Workshopper.Api.Contracts.Subscriptions;
 
 namespace Workshopper.Api.Validators;
 
