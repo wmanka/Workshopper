@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj" />
       <ProjectReference Include="..\Workshopper.Contracts\Workshopper.Contracts.csproj" />
+      <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
