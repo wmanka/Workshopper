@@ -12,8 +12,8 @@ using Workshopper.Infrastructure.Common.Persistence;
 namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 {
     [DbContext(typeof(WorkshopperDbContext))]
-    [Migration("20240120170200_AddSubscriptionTypeColumn")]
-    partial class AddSubscriptionTypeColumn
+    [Migration("20240120170819_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,8 +32,9 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<int>("SubscriptionType")
-                        .HasColumnType("integer")
+                    b.Property<string>("SubscriptionType")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("subscription_type");
 
                     b.Property<Guid>("_adminId")

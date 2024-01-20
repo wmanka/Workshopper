@@ -19,7 +19,9 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false)
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    subscription_type = table.Column<string>(type: "text", nullable: false),
+                    admin_id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -29,8 +29,9 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<int>("SubscriptionType")
-                        .HasColumnType("integer")
+                    b.Property<string>("SubscriptionType")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("subscription_type");
 
                     b.Property<Guid>("_adminId")
