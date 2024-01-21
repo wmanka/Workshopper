@@ -32,6 +32,34 @@ services:
     image: workshopper-api
     restart: always
     ports:
+      - "5001:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: test
+      DB_NAME: workshopper_dev
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+    networks:
+      - workshopper-net
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
+      interval: 30s
+      timeout: 3s
+
+  workshopper-sessions:
+    container_name: workshopper-sessions
+    build:
+      context: ./Workshopper.Api.Sessions
+      dockerfile: Dockerfile
+    image: workshopper-sessions
+    restart: always
+    ports:
       - "5002:8080"
     depends_on:
       - postgres

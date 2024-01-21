@@ -14,15 +14,13 @@ var builder = WebApplication.CreateBuilder();
         .AddPresentation()
         .AddApplication()
         .AddInfrastructure();
-
-    builder.Services.AddHealthChecks();
 }
 
 var app = builder.Build();
 {
-    app.UseDefaultExceptionHandler();
-
-    app.UseFastEndpoints(c =>
+    app
+        .UseDefaultExceptionHandler()
+        .UseFastEndpoints(c =>
         {
             c.Errors.UseProblemDetails();
         })

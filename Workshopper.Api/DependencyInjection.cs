@@ -1,7 +1,6 @@
 ﻿using FastEndpoints.Swagger;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Workshopper.Api.Sessions;
+namespace Workshopper.Api;
 
 public static class DependencyInjection
 {
@@ -13,7 +12,7 @@ public static class DependencyInjection
             {
                 o.DocumentSettings = s =>
                 {
-                    s.Title = "Workshopper API - Sessions";
+                    s.Title = "Workshopper API";
                     s.Version = "v1";
                 };
             });

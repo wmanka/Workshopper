@@ -1,32 +1,27 @@
 ﻿using FastEndpoints.Swagger;
+using Workshopper.Api;
 using Workshopper.Application;
 using Workshopper.Infrastructure;
 
 var builder = WebApplication.CreateBuilder();
 {
     builder.Services
-        .AddFastEndpoints()
-        .SwaggerDocument(o =>
-        {
-            o.DocumentSettings = s =>
-            {
-                s.Title = "Workshopper API";
-                s.Version = "v1";
-            };
-        });
-
-    builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure();
 }
 
 var app = builder.Build();
 {
-    app.UseFastEndpoints(x =>
+    app
+        .UseDefaultExceptionHandler()
+        .UseFastEndpoints(x =>
         {
             x.Errors.UseProblemDetails();
         })
         .UseSwaggerGen();
+
+    app.MapHealthChecks("/health");
 
     app.Run();
 }
