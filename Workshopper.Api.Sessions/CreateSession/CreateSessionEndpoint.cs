@@ -1,9 +1,7 @@
 ﻿using Workshopper.Api.Sessions.Contracts.Sessions;
-using Workshopper.Application.Sessions.Commands.CreateOnlineSession;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
-using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
-namespace Workshopper.Api.Sessions.Endpoints;
+namespace Workshopper.Api.Sessions.CreateSession;
 
 public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessionResponse>
 {
@@ -34,32 +32,18 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 
     public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct)
     {
-        if (!DomainDeliveryType.TryFromName(request.DeliveryType.ToString(), out var deliveryType))
-        {
-            ThrowError(x => x.DeliveryType, "Invalid delivery type");
-        }
-
-        if (!DomainSessionType.TryFromName(request.SessionType.ToString(), out var sessionType))
-        {
-            ThrowError(x => x.SessionType, "Invalid session type");
-        }
+        var deliveryType = DomainDeliveryType.FromName(request.DeliveryType.ToString());
 
         var sessionId = Guid.Empty;
         if (deliveryType == DomainDeliveryType.Online)
         {
-            sessionId = await new CreateOnlineSessionCommand
-            {
-                SessionType = sessionType,
-                Title = request.Title,
-                Description = request.Description,
-                StartDateTime = request.StartDateTime,
-                EndDateTime = request.EndDateTime,
-                Places = request.Places,
-                Link = request.Link!
-            }.ExecuteAsync(ct);
+            var command = CreateSessionMapper.ToCreateOnlineSessionCommand(request);
+            sessionId = await command.ExecuteAsync(ct);
         }
         else if (deliveryType == DomainDeliveryType.Stationary)
         {
+            var command = CreateSessionMapper.ToCreateStationarySessionCommand(request);
+            sessionId = await command.ExecuteAsync(ct);
         }
 
         await SendOkAsync(
