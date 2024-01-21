@@ -1,7 +1,6 @@
 ﻿using FastEndpoints.Swagger;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Workshopper.Api.Sessions;
 using Workshopper.Application;
 using Workshopper.Infrastructure;

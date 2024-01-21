@@ -2,7 +2,7 @@
 using Workshopper.Application.Subscriptions.Commands.CreateSubscription;
 using DomainSubscriptionType = Workshopper.Domain.Subscriptions.SubscriptionType;
 
-namespace Workshopper.Api.Endpoints;
+namespace Workshopper.Api.Subscriptions;
 
 public class CreateSubscriptionEndpoint : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {

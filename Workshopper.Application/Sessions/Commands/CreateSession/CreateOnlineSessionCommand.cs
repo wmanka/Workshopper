@@ -2,7 +2,7 @@
 
 namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
-public record CreateOnlineSessionCommand : ICommand<Guid>, ICreateSessionCommand
+public record CreateOnlineSessionCommand : ICreateSessionCommand
 {
     public SessionType SessionType { get; init; } = null!;
 

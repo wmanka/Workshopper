@@ -2,7 +2,7 @@
 
 namespace Workshopper.Domain.Sessions;
 
-public abstract class Session
+public abstract class Session : DomainEntity
 {
     public Guid Id { get; private set; }
 

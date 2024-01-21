@@ -8,7 +8,10 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         services
-            .AddFastEndpoints()
+            .AddFastEndpoints(o =>
+            {
+                o.IncludeAbstractValidators = true;
+            })
             .SwaggerDocument(o =>
             {
                 o.DocumentSettings = s =>

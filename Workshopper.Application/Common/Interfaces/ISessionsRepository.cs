@@ -6,4 +6,5 @@ public interface ISessionsRepository
 {
     public void UpdateSession(Session session);
     public Task<Session?> GetSessionAsync(Guid id);
+    public Task<bool> AnyAsync(Specification<Session> specification);
 }

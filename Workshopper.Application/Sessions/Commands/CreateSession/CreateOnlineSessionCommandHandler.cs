@@ -18,6 +18,17 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
 
     public override async Task<Guid> ExecuteAsync(CreateOnlineSessionCommand command, CancellationToken ct = new())
     {
+        var validationResult = await new CreateOnlineSessionCommandValidator().ValidateAsync(command, ct);
+        if (!validationResult.IsValid)
+        {
+            foreach (var validationFailure in validationResult.Errors)
+            {
+                AddError(validationFailure);
+            }
+        }
+
+        ThrowIfAnyErrors();
+
         var onlineSession = new OnlineSession(
             command.Title,
             command.Description,
