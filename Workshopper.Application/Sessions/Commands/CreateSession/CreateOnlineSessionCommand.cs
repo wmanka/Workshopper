@@ -1,8 +1,8 @@
 ﻿using Workshopper.Domain.Sessions;
 
-namespace Workshopper.Application.Sessions.Commands.CreateStationarySession;
+namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
-public record CreateStationarySessionCommand : ICommand<Guid>
+public record CreateOnlineSessionCommand : ICommand<Guid>, ICreateSessionCommand
 {
     public SessionType SessionType { get; init; } = null!;
 
@@ -16,5 +16,5 @@ public record CreateStationarySessionCommand : ICommand<Guid>
 
     public int Places { get; init; }
 
-    public string Address { get; init; } = null!;
+    public string Link { get; init; } = null!;
 }

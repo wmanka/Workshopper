@@ -1,7 +1,7 @@
 ﻿using Workshopper.Application.Common.Interfaces;
 using Workshopper.Domain.Sessions;
 
-namespace Workshopper.Application.Sessions.Commands.CreateStationarySession;
+namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
 public class CreateStationarySessionCommandHandler : CommandHandler<CreateStationarySessionCommand, Guid>
 {

@@ -32,5 +32,29 @@ public class CreateSessionValidator : Validator<CreateSessionRequest>
         RuleFor(x => x.Title)
             .NotEmpty()
             .MaximumLength(250);
+
+        RuleFor(x => x.Description)
+            .MaximumLength(250);
+
+        RuleFor(x => x.StartDateTime)
+            .NotNull();
+
+        RuleFor(x => x.EndDateTime)
+            .NotNull();
+
+        RuleFor(x => x.Places)
+            .NotNull();
+
+        When((request, context) => request.DeliveryType == DeliveryType.Online,
+            () =>
+            {
+                Include(new CreateOnlineSessionValidator());
+            });
+
+        When((request, context) => request.DeliveryType == DeliveryType.Stationary,
+            () =>
+            {
+                Include(new CreateStationarySessionValidator());
+            });
     }
 }

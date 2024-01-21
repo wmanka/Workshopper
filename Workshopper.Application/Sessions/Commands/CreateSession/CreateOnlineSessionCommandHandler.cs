@@ -1,7 +1,7 @@
 ﻿using Workshopper.Application.Common.Interfaces;
 using Workshopper.Domain.Sessions;
 
-namespace Workshopper.Application.Sessions.Commands.CreateOnlineSession;
+namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
 public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSessionCommand, Guid>
 {

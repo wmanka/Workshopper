@@ -1,5 +1,8 @@
 ﻿using Workshopper.Api.Sessions.Contracts.Sessions;
+using Workshopper.Application.Sessions.Commands;
+using Workshopper.Application.Sessions.Commands.CreateSession;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
+using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
 namespace Workshopper.Api.Sessions.CreateSession;
 
@@ -9,6 +12,7 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
     {
         Post("/sessions");
         AllowAnonymous();
+        Validator<CreateSessionValidator>();
         Description(b => b
             .ProducesProblemDetails(400, "application/json+problem"));
 
@@ -32,19 +36,18 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 
     public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct)
     {
-        var deliveryType = DomainDeliveryType.FromName(request.DeliveryType.ToString());
+        var command = CreateSessionCommandFactory.CreateSessionCommand(
+            DomainDeliveryType.FromName(request.DeliveryType.ToString()),
+            DomainSessionType.FromName(request.SessionType.ToString()),
+            request.Title,
+            request.Description,
+            request.StartDateTime,
+            request.EndDateTime,
+            request.Places,
+            request.Link,
+            request.Address);
 
-        var sessionId = Guid.Empty;
-        if (deliveryType == DomainDeliveryType.Online)
-        {
-            var command = CreateSessionMapper.ToCreateOnlineSessionCommand(request);
-            sessionId = await command.ExecuteAsync(ct);
-        }
-        else if (deliveryType == DomainDeliveryType.Stationary)
-        {
-            var command = CreateSessionMapper.ToCreateStationarySessionCommand(request);
-            sessionId = await command.ExecuteAsync(ct);
-        }
+        var sessionId = await command.ExecuteAsync(ct);
 
         await SendOkAsync(
             new CreateSessionResponse(sessionId),
