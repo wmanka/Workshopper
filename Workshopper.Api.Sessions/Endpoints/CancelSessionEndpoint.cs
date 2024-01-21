@@ -1,20 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Workshopper.Api.Sessions.Contracts.Sessions;
+﻿using Workshopper.Api.Sessions.Contracts.Sessions;
 using Workshopper.Application.Sessions.Commands.CancelSession;
 
 namespace Workshopper.Api.Sessions.Endpoints;
 
-public class CancelSessionEndpoint : Endpoint<CancelSessionRequest,
-    Results<NoContent, NotFound, ProblemDetails>>
+public class CancelSessionEndpoint : Endpoint<CancelSessionRequest>
 {
     public override void Configure()
     {
         Post("/sessions/cancel");
         AllowAnonymous();
-        Description(b => b
-            .ProducesProblemDetails(400, "application/json+problem"));
-
         Summary(s =>
         {
             s.Summary = "Create a session";
@@ -22,14 +16,13 @@ public class CancelSessionEndpoint : Endpoint<CancelSessionRequest,
         });
     }
 
-    public override async Task<Results<NoContent, NotFound, ProblemDetails>> ExecuteAsync(
-        CancelSessionRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CancelSessionRequest request, CancellationToken ct)
     {
         await new CancelSessionCommand
         {
-            Id = req.Id
+            Id = request.Id
         }.ExecuteAsync(ct);
 
-        return TypedResults.NoContent();
+        await SendNoContentAsync(ct);
     }
 }

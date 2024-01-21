@@ -1,4 +1,8 @@
-﻿using Workshopper.Application.Common.Interfaces;
+﻿using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Workshopper.Application.Common.Interfaces;
+using Workshopper.Domain.Common;
 
 namespace Workshopper.Application.Sessions.Commands.CancelSession;
 
@@ -17,13 +21,22 @@ public class CancelSessionCommandHandler : CommandHandler<CancelSessionCommand, 
 
     public override async Task<Guid> ExecuteAsync(CancelSessionCommand command, CancellationToken ct = new())
     {
+        // throw new UnauthorizedAccessException();
+
         var session = await _sessionsRepository.GetSessionAsync(command.Id);
         if (session is null)
         {
             ThrowError("Session not found");
         }
 
-        session.Cancel();
+        try
+        {
+            session.Cancel();
+        }
+        catch (DomainException ex)
+        {
+            ThrowError(ex.Message);
+        }
 
         _sessionsRepository.UpdateSession(session);
         await _unitOfWork.CommitChangesAsync();

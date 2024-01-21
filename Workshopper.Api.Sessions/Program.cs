@@ -1,31 +1,22 @@
 ﻿using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
+using Workshopper.Api.Sessions;
 using Workshopper.Application;
 using Workshopper.Infrastructure;
 
 var builder = WebApplication.CreateBuilder();
 {
     builder.Services
-        .AddFastEndpoints()
-        .SwaggerDocument(o =>
-        {
-            o.DocumentSettings = s =>
-            {
-                s.Title = "Workshopper API - Sessions";
-                s.Version = "v1";
-            };
-        });
-
-    builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure();
 }
 
 var app = builder.Build();
 {
-    app.UseFastEndpoints(x =>
+    app.UseFastEndpoints(c =>
         {
-            x.Errors.UseProblemDetails();
+            c.Errors.UseProblemDetails();
         })
         .UseSwaggerGen();
 

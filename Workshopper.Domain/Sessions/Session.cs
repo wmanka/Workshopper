@@ -1,4 +1,6 @@
-﻿namespace Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Common;
+
+namespace Workshopper.Domain.Sessions;
 
 public abstract class Session
 {
@@ -42,12 +44,12 @@ public abstract class Session
     {
         if (IsCanceled)
         {
-            throw new InvalidOperationException("The session has already been canceled");
+            throw new DomainException("The session has already been canceled");
         }
 
         if (DateTimeOffset.Now >= StartDateTime)
         {
-            throw new InvalidOperationException("The session has already started");
+            throw new DomainException("The session has already started");
         }
 
         IsCanceled = true;

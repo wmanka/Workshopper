@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Workshopper.Api.Sessions.Contracts.Sessions;
+﻿using Workshopper.Api.Sessions.Contracts.Sessions;
 using Workshopper.Application.Sessions.Commands.CreateOnlineSession;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
 using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
 namespace Workshopper.Api.Sessions.Endpoints;
 
-public class CreateSessionEndpoint : Endpoint<CreateSessionRequest,
-    Results<Ok<CreateSessionResponse>, NotFound, ProblemDetails>>
+public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessionResponse>
 {
     public override void Configure()
     {
@@ -27,7 +24,7 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest,
                 null,
                 DateTimeOffset.Now,
                 DateTimeOffset.Now,
-                50,
+                12,
                 "https://zoom.us/j/1234567890?pwd=QWERTYUIOPASDFGHJKLZXCVBNM",
                 null);
 
@@ -35,42 +32,38 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest,
         });
     }
 
-    public override async Task<Results<Ok<CreateSessionResponse>, NotFound, ProblemDetails>> ExecuteAsync(
-        CreateSessionRequest req, CancellationToken ct)
+    public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct)
     {
-        if (!DomainDeliveryType.TryFromName(req.DeliveryType.ToString(), out var deliveryType))
+        if (!DomainDeliveryType.TryFromName(request.DeliveryType.ToString(), out var deliveryType))
         {
             ThrowError(x => x.DeliveryType, "Invalid delivery type");
         }
 
-        if (!DomainSessionType.TryFromName(req.SessionType.ToString(), out var sessionType))
+        if (!DomainSessionType.TryFromName(request.SessionType.ToString(), out var sessionType))
         {
             ThrowError(x => x.SessionType, "Invalid session type");
         }
 
         var sessionId = Guid.Empty;
-        if (deliveryType == DomainDeliveryType.Online) // todo:
+        if (deliveryType == DomainDeliveryType.Online)
         {
             sessionId = await new CreateOnlineSessionCommand
             {
                 SessionType = sessionType,
-                Title = req.Title,
-                Description = req.Description,
-                StartDateTime = req.StartDateTime,
-                EndDateTime = req.EndDateTime,
-                Places = req.Places,
-                Link = req.Link!
+                Title = request.Title,
+                Description = request.Description,
+                StartDateTime = request.StartDateTime,
+                EndDateTime = request.EndDateTime,
+                Places = request.Places,
+                Link = request.Link!
             }.ExecuteAsync(ct);
         }
         else if (deliveryType == DomainDeliveryType.Stationary)
         {
         }
-        else
-        {
-            ThrowError(x => x.DeliveryType, "Invalid delivery type");
-        }
 
-        return TypedResults.Ok(
-            new CreateSessionResponse(sessionId));
+        await SendOkAsync(
+            new CreateSessionResponse(sessionId),
+            ct);
     }
 }
