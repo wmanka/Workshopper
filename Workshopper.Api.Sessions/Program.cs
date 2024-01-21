@@ -20,6 +20,8 @@ var builder = WebApplication.CreateBuilder();
 
 var app = builder.Build();
 {
+    app.UseDefaultExceptionHandler();
+
     app.UseFastEndpoints(c =>
         {
             c.Errors.UseProblemDetails();
