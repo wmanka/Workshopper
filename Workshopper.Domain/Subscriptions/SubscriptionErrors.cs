@@ -1,6 +1,6 @@
 ﻿namespace Workshopper.Domain.Subscriptions;
 
-public class SubscriptionErrors
+public static class SubscriptionErrors
 {
-    
+    public const string DuplicateName = "Subscription with given name already exists";
 }

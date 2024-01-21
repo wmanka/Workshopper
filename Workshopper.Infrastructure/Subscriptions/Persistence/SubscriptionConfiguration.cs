@@ -17,12 +17,14 @@ internal class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription
             .ValueGeneratedNever()
             .IsRequired();
 
-        builder.Property("_adminId")
-            .HasColumnName("admin_id");
+        builder.Property(x => x.Name)
+            .HasMaxLength(250)
+            .IsRequired();
 
         builder.Property(x => x.SubscriptionType)
             .HasConversion(
                 subscriptionType => subscriptionType.Name,
-                value => SubscriptionType.FromName(value, false));
+                value => SubscriptionType.FromName(value, false))
+            .IsRequired();
     }
 }

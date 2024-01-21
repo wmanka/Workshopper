@@ -19,8 +19,8 @@ public class CreateSubscriptionCommandHandler : CommandHandler<CreateSubscriptio
     public override async Task<Guid> ExecuteAsync(CreateSubscriptionCommand command, CancellationToken ct = new())
     {
         var subscription = new Subscription(
-            command.SubscriptionType,
-            command.AdminId);
+            command.Name,
+            command.SubscriptionType);
 
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);
         await _unitOfWork.CommitChangesAsync();

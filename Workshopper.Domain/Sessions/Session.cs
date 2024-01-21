@@ -44,12 +44,12 @@ public abstract class Session
     {
         if (IsCanceled)
         {
-            throw new DomainException("The session has already been canceled");
+            throw new DomainException(SessionErrors.SessionAlreadyCanceled);
         }
 
         if (DateTimeOffset.Now >= StartDateTime)
         {
-            throw new DomainException("The session has already started");
+            throw new DomainException(SessionErrors.SessionAlreadyStarted);
         }
 
         IsCanceled = true;

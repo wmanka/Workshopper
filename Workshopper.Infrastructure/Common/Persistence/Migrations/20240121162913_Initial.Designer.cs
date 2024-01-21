@@ -12,7 +12,7 @@ using Workshopper.Infrastructure.Common.Persistence;
 namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 {
     [DbContext(typeof(WorkshopperDbContext))]
-    [Migration("20240120212325_Initial")]
+    [Migration("20240121162913_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -84,14 +84,16 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("name");
+
                     b.Property<string>("SubscriptionType")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("subscription_type");
-
-                    b.Property<Guid>("_adminId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("admin_id");
 
                     b.HasKey("Id")
                         .HasName("pk_subscriptions");

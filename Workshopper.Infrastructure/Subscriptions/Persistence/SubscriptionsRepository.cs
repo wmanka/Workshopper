@@ -7,14 +7,11 @@ namespace Workshopper.Infrastructure.Subscriptions.Persistence;
 internal class SubscriptionsRepository : ISubscriptionsRepository
 {
     private readonly WorkshopperDbContext _context;
-    private readonly IUnitOfWork _unitOfWork;
 
     public SubscriptionsRepository(
-        WorkshopperDbContext dbContext,
-        IUnitOfWork unitOfWork)
+        WorkshopperDbContext dbContext)
     {
         _context = dbContext;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task AddSubscriptionAsync(Subscription subscription)

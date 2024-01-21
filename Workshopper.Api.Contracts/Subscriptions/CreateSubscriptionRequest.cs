@@ -1,3 +1,3 @@
 ﻿namespace Workshopper.Api.Contracts.Subscriptions;
 
-public record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Guid AdminId);
+public record CreateSubscriptionRequest(string Name, SubscriptionType SubscriptionType);

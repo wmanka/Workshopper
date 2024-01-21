@@ -6,6 +6,7 @@ namespace Workshopper.Api.Contracts.Subscriptions;
 public enum SubscriptionType
 {
     Starter,
+    Standard,
     Pro,
     Enterprise
 }
