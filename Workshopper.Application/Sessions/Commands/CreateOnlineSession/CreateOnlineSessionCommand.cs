@@ -1,6 +1,6 @@
 ﻿using Workshopper.Domain.Sessions;
 
-namespace Workshopper.Application.Sessions.Commands.CreateSession;
+namespace Workshopper.Application.Sessions.Commands.CreateOnlineSession;
 
 public record CreateOnlineSessionCommand : ICommand<Guid>
 {

@@ -13,8 +13,8 @@ internal class OnlineSessionsRepository : IOnlineSessionsRepository
         _context = context;
     }
 
-    public async Task AddSessionAsync(OnlineSession subscription)
+    public async Task AddOnlineSessionAsync(OnlineSession onlineSession)
     {
-        await _context.OnlineSessions.AddAsync(subscription);
+        await _context.OnlineSessions.AddAsync(onlineSession);
     }
 }

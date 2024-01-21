@@ -1,7 +1,7 @@
 ﻿using Workshopper.Application.Common.Interfaces;
 using Workshopper.Domain.Sessions;
 
-namespace Workshopper.Application.Sessions.Commands.CreateSession;
+namespace Workshopper.Application.Sessions.Commands.CreateOnlineSession;
 
 public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSessionCommand, Guid>
 {
@@ -18,7 +18,7 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
 
     public override async Task<Guid> ExecuteAsync(CreateOnlineSessionCommand command, CancellationToken ct = new())
     {
-        var session = new OnlineSession(
+        var onlineSession = new OnlineSession(
             command.Title,
             command.Description,
             command.SessionType,
@@ -28,9 +28,9 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
             command.Link
         );
 
-        await _onlineSessionsRepository.AddSessionAsync(session);
+        await _onlineSessionsRepository.AddOnlineSessionAsync(onlineSession);
         await _unitOfWork.CommitChangesAsync();
 
-        return session.Id;
+        return onlineSession.Id;
     }
 }

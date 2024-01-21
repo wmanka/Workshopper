@@ -13,8 +13,8 @@ internal class StationarySessionsRepository : IStationarySessionsRepository
         _context = context;
     }
 
-    public async Task AddSessionAsync(StationarySession subscription)
+    public async Task AddStationarySessionAsync(StationarySession stationarySession)
     {
-        await _context.StationarySessions.AddAsync(subscription);
+        await _context.StationarySessions.AddAsync(stationarySession);
     }
 }

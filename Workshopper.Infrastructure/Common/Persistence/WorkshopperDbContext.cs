@@ -12,6 +12,8 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
 
     public DbSet<Subscription> Subscriptions { get; set; } = null!;
 
+    public DbSet<Session> Sessions { get; set; } = null!;
+
     public DbSet<StationarySession> StationarySessions { get; set; } = null!;
 
     public DbSet<OnlineSession> OnlineSessions { get; set; } = null!;

@@ -4,5 +4,5 @@ namespace Workshopper.Application.Common.Interfaces;
 
 public interface IOnlineSessionsRepository
 {
-    public Task AddSessionAsync(OnlineSession session);
+    public Task AddOnlineSessionAsync(OnlineSession onlineSession);
 }

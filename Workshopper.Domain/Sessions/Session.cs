@@ -53,7 +53,6 @@ public abstract class Session
         IsCanceled = true;
     }
 
-
     private Session()
     {
     }

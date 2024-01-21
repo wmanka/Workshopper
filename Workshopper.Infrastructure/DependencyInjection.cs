@@ -26,6 +26,8 @@ public static class DependencyInjection
             x.GetRequiredService<WorkshopperDbContext>());
 
         services.AddScoped<ISubscriptionsRepository, SubscriptionsRepository>();
+
+        services.AddScoped<ISessionsRepository, SessionsRepository>();
         services.AddScoped<IOnlineSessionsRepository, OnlineSessionsRepository>();
         services.AddScoped<IStationarySessionsRepository, StationarySessionsRepository>();
 

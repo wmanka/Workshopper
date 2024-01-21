@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Workshopper.Api.Sessions.Contracts.Sessions;
-using Workshopper.Application.Sessions.Commands.CreateSession;
+using Workshopper.Application.Sessions.Commands.CreateOnlineSession;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
 using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
