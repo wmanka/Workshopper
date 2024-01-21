@@ -16,7 +16,7 @@ public class CreateOnlineSessionCommandValidator : Validator<CreateOnlineSession
                 var userId = Guid.NewGuid(); // todo: get user id from claims
                 if (await repository.AnyAsync(new SessionDuringTimeSpecification(command.StartDateTime, command.EndDateTime, userId)))
                 {
-                    context.AddFailure(SessionErrors.SessionTimeCollides);
+                    context.AddFailure(SessionErrors.SessionTimeOverlaps);
                 }
             });
     }

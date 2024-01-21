@@ -35,7 +35,7 @@ internal class SessionConfiguration : IEntityTypeConfiguration<Session>
             .IsRequired();
 
         builder.Property(x => x.Description)
-            .HasMaxLength(500)
+            .HasMaxLength(250)
             .IsRequired(false);
 
         builder.Property(x => x.StartDateTime)

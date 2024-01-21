@@ -35,8 +35,26 @@ public abstract class Session : DomainEntity
         Title = title;
         Description = description;
         SessionType = sessionType;
+
+        if (startDateTime <= DateTimeOffset.Now)
+        {
+            throw new DomainException(SessionErrors.StartTimeMustBeGreaterThanNow);
+        }
+
         StartDateTime = startDateTime;
+
+        if (endDateTime <= startDateTime)
+        {
+            throw new DomainException(SessionErrors.EndTimeMustBeGreaterThanStartTime);
+        }
+
         EndDateTime = endDateTime;
+
+        if (places <= 0)
+        {
+            throw new DomainException(SessionErrors.NumberOfPlacesMustBeGreaterThanZero);
+        }
+
         Places = places;
     }
 

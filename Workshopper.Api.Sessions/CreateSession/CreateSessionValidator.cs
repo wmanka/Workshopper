@@ -37,13 +37,16 @@ public class CreateSessionValidator : Validator<CreateSessionRequest>
             .MaximumLength(250);
 
         RuleFor(x => x.StartDateTime)
-            .NotNull();
+            .NotNull()
+            .GreaterThan(DateTimeOffset.Now);
 
         RuleFor(x => x.EndDateTime)
-            .NotNull();
+            .NotNull()
+            .GreaterThan(x => x.StartDateTime);
 
         RuleFor(x => x.Places)
-            .NotNull();
+            .NotNull()
+            .GreaterThanOrEqualTo(1);
 
         When((request, context) => request.DeliveryType == DeliveryType.Online,
             () =>
