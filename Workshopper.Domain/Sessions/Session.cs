@@ -1,11 +1,10 @@
 ﻿using Workshopper.Domain.Common;
+using Workshopper.Domain.Sessions.Events;
 
 namespace Workshopper.Domain.Sessions;
 
 public abstract class Session : DomainEntity
 {
-    public Guid Id { get; private set; }
-
     public DeliveryType DeliveryType { get; protected init; } = null!;
 
     public SessionType SessionType { get; }
@@ -30,8 +29,8 @@ public abstract class Session : DomainEntity
         DateTimeOffset endDateTime,
         int places,
         Guid? id = null)
+        : base(id ?? Guid.NewGuid())
     {
-        Id = id ?? Guid.NewGuid();
         Title = title;
         Description = description;
         SessionType = sessionType;
@@ -71,6 +70,8 @@ public abstract class Session : DomainEntity
         }
 
         IsCanceled = true;
+
+        _domainEvents.Add(new SessionCanceledEvent(this));
     }
 
     private Session()

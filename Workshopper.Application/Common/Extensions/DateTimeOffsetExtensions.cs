@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Domain.Common;
+﻿namespace Workshopper.Application.Common.Extensions;
 
 public static class DateTimeOffsetExtensions
 {

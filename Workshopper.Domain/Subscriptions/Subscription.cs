@@ -1,9 +1,9 @@
-﻿namespace Workshopper.Domain.Subscriptions;
+﻿using Workshopper.Domain.Common;
 
-public class Subscription
+namespace Workshopper.Domain.Subscriptions;
+
+public class Subscription : DomainEntity
 {
-    public Guid Id { get; private set; }
-
     public string Name { get; private set; }
 
     public SubscriptionType SubscriptionType { get; private set; }
