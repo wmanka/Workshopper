@@ -43,6 +43,11 @@ public static class CreateSessionCommandFactory
             };
         }
 
+        if (deliveryType == DeliveryType.Hybrid)
+        {
+            throw new NotImplementedException();
+        }
+
         throw new InvalidOperationException("Delivery type is not valid");
     }
 }

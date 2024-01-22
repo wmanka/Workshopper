@@ -18,6 +18,8 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
 
     public DbSet<OnlineSession> OnlineSessions { get; set; } = null!;
 
+    public DbSet<HybridSession> HybridSessions { get; set; } = null!;
+
     public WorkshopperDbContext(
         DbContextOptions<WorkshopperDbContext> options,
         IOptions<DatabaseOptions> databaseOptions)
