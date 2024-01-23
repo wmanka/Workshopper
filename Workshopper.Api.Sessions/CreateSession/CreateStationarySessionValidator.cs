@@ -7,8 +7,8 @@ public class CreateStationarySessionValidator : Validator<CreateSessionRequest>
 {
     public CreateStationarySessionValidator()
     {
-        RuleFor(x => x.Address)
-            .NotEmpty()
-            .MaximumLength(250);
+        // RuleFor(x => x.Address)
+        //     .NotEmpty()
+        //     .MaximumLength(250);
     }
 }

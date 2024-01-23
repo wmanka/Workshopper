@@ -1,10 +1,12 @@
-﻿namespace Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Common;
+
+namespace Workshopper.Domain.Sessions;
 
 public sealed class HybridSession : Session
 {
     public string Link { get; private set; }
 
-    public string Address { get; private set; }
+    public Address Address { get; private set; }
 
     public HybridSession(
         string title,
@@ -14,7 +16,7 @@ public sealed class HybridSession : Session
         DateTimeOffset endDateTime,
         int places,
         string link,
-        string address,
+        Address address,
         Guid? id = null)
         : base(title,
             description,

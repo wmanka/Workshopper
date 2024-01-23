@@ -1,4 +1,5 @@
-﻿using Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Common;
+using Workshopper.Domain.Sessions;
 
 namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
@@ -13,7 +14,7 @@ public static class CreateSessionCommandFactory
         DateTimeOffset endDateTime,
         int places,
         string? link,
-        string? address)
+        Address? address)
     {
         if (deliveryType == DeliveryType.Online)
         {

@@ -9,4 +9,4 @@ public record CreateSessionRequest(
     DateTimeOffset EndDateTime,
     int Places,
     string? Link,
-    string? Address);
+    Address? Address);

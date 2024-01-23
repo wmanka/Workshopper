@@ -1,8 +1,10 @@
-﻿namespace Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Common;
+
+namespace Workshopper.Domain.Sessions;
 
 public sealed class StationarySession : Session
 {
-    public string Address { get; private set; } // todo: to value object
+    public Address Address { get; private set; }
 
     public StationarySession(
         string title,
@@ -11,7 +13,7 @@ public sealed class StationarySession : Session
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         int places,
-        string address,
+        Address address,
         Guid? id = null)
         : base(title,
             description,

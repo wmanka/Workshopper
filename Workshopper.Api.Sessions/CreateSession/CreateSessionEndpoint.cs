@@ -1,6 +1,6 @@
 ﻿using Workshopper.Api.Sessions.Contracts.Sessions;
-using Workshopper.Application.Sessions.Commands;
 using Workshopper.Application.Sessions.Commands.CreateSession;
+using DomainAddress = Workshopper.Domain.Common.Address;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
 using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
@@ -20,15 +20,15 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
         {
             s.Summary = "Create a session";
             s.ExampleRequest = new CreateSessionRequest(
-                DeliveryType.Online,
-                SessionType.Lecture,
+                DeliveryType.Stationary,
+                SessionType.Workshop,
                 "Git Basics",
                 null,
-                DateTimeOffset.Now,
-                DateTimeOffset.Now,
+                DateTimeOffset.Now.AddHours(1),
+                DateTimeOffset.Now.AddHours(2),
                 12,
                 "https://zoom.us/j/1234567890?pwd=QWERTYUIOPASDFGHJKLZXCVBNM",
-                null);
+                new Address("1 Main Street", "Apt 2", "London", "UK", "SW1A 1AA"));
 
             s.ResponseExamples[200] = new CreateSessionResponse(Guid.NewGuid());
         });
@@ -45,7 +45,9 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             request.EndDateTime,
             request.Places,
             request.Link,
-            request.Address);
+            request.Address != null
+                ? new DomainAddress(request.Address.Line1, request.Address.Line2, request.Address.City, request.Address.Country, request.Address.PostCode)
+                : null);
 
         var sessionId = await command.ExecuteAsync(ct);
 
