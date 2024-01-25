@@ -8,6 +8,10 @@
 
     <ItemGroup>
       <PackageReference Include="ardalis.smartenum" Version="8.0.0" />
+      <PackageReference Include="FastEndpoints.Generator" Version="5.21.2">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="FastEndpoints.Messaging.Core" Version="5.21.2" />
     </ItemGroup>
 

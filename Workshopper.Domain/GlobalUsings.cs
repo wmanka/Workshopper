@@ -1,1 +1,2 @@
-﻿global using Ardalis.SmartEnum;
+﻿global using FastEndpoints;
+global using Ardalis.SmartEnum;

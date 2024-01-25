@@ -1,4 +1,6 @@
-﻿namespace Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Common;
+
+namespace Workshopper.Domain.Sessions;
 
 public sealed class OnlineSession : Session
 {

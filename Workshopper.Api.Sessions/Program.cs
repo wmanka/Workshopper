@@ -19,6 +19,7 @@ var app = builder.Build();
 {
     app
         .UseDefaultExceptionHandler()
+        .UseInfrastructureMiddleware()
         .UseFastEndpoints(c =>
         {
             c.Errors.UseProblemDetails();

@@ -11,6 +11,8 @@ public static class DependencyInjection
             .AddFastEndpoints(o =>
             {
                 o.IncludeAbstractValidators = true;
+                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.Sessions.DiscoveredTypes.All);
+                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Application.DiscoveredTypes.All);
             })
             .SwaggerDocument(o =>
             {

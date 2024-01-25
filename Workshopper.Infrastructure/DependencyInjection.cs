@@ -14,6 +14,8 @@ public static class DependencyInjection
     {
         services.AddApplication();
 
+        services.AddHttpContextAccessor();
+
         services
             .AddOptionsWithValidateOnStart<DatabaseOptions>()
             .BindConfiguration(DatabaseOptions.SectionName);

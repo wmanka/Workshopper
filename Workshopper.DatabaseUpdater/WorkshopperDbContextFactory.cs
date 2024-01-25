@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -24,7 +25,8 @@ public class WorkshopperDbContextFactory : IDesignTimeDbContextFactory<Workshopp
             .Get<DatabaseOptions>();
 
         var options = Options.Create(databaseOptions!);
+        var httpContextAccessor = new HttpContextAccessor();
 
-        return new WorkshopperDbContext(opts.Options, options);
+        return new WorkshopperDbContext(opts.Options, options, httpContextAccessor);
     }
 }
