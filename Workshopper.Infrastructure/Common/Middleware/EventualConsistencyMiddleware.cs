@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Workshopper.Domain.Common;
 using Workshopper.Infrastructure.Common.Persistence;
 
 namespace Workshopper.Infrastructure.Common.Middleware;
@@ -27,11 +28,12 @@ public class EventualConsistencyMiddleware()
             try
             {
                 if (httpContext.Items.TryGetValue("DomainEventsQueue", out var value)
-                    && value is Queue<IEvent> domainEventsQueue)
+                    && value is Queue<IDomainEvent> domainEventsQueue)
                 {
                     while (domainEventsQueue!.TryDequeue(out var domainEvent))
                     {
-                        await domainEvent.PublishAsync();
+                        // await domainEvent.PublishAsync(); // todo why it doesn't work
+                        await (domainEvent as IEvent).PublishAsync();
                     }
                 }
 

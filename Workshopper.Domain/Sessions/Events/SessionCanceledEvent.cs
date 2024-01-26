@@ -2,4 +2,4 @@
 
 namespace Workshopper.Domain.Sessions.Events;
 
-public record SessionCanceledEvent(Session Session) : IEvent;
+public record SessionCanceledEvent(Session Session) : IDomainEvent;

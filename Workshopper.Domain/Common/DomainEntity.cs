@@ -2,7 +2,7 @@
 
 public class DomainEntity
 {
-    protected readonly List<IEvent> _domainEvents = [];
+    protected readonly List<IDomainEvent> _domainEvents = [];
 
     public Guid Id { get; protected set; }
 
@@ -15,7 +15,7 @@ public class DomainEntity
     {
     }
 
-    public List<IEvent> ApplyDomainEvents()
+    public List<IDomainEvent> ApplyDomainEvents()
     {
         var domainEvents = _domainEvents.ToList();
 

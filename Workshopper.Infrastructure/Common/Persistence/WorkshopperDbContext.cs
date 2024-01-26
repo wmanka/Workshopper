@@ -84,22 +84,22 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
         await base.SaveChangesAsync();
     }
 
-    private async static Task PublishDomainEvents(List<IEvent> domainEvents)
+    private async static Task PublishDomainEvents(List<IDomainEvent> domainEvents)
     {
         foreach (var domainEvent in domainEvents)
         {
-            await domainEvent.PublishAsync();
+            await (domainEvent as IEvent).PublishAsync();
         }
     }
 
     private bool IsUserWaitingOnline() => _httpContextAccessor.HttpContext is not null;
 
-    private void AddDomainEventsToQueue(List<IEvent> domainEvents)
+    private void AddDomainEventsToQueue(List<IDomainEvent> domainEvents)
     {
         var domainEventsQueue = _httpContextAccessor.HttpContext!.Items.TryGetValue("DomainEventsQueue", out var value)
-                                && value is Queue<IEvent> queue
+                                && value is Queue<IDomainEvent> queue
             ? queue
-            : new Queue<IEvent>();
+            : new Queue<IDomainEvent>();
 
         domainEvents.ForEach(domainEventsQueue.Enqueue);
 
