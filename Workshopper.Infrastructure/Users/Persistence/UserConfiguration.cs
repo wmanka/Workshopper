@@ -29,11 +29,9 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(x => x.HostProfile)
             .WithOne(x => x.User)
             .HasForeignKey<HostProfile>(x => x.UserId);
-        // .IsRequired(false);
 
         builder.HasOne(x => x.AttendeeProfile)
             .WithOne(x => x.User)
             .HasForeignKey<AttendeeProfile>(x => x.UserId);
-        // .IsRequired(false);
     }
 }

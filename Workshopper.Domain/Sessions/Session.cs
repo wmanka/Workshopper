@@ -67,30 +67,30 @@ public abstract class Session : DomainEntity
         _domainEvents.Add(new SessionCanceledEvent(this));
     }
 
-    // public void AddAttendee(AttendeeProfile attendee)
-    // {
-    //     if (Attendees.Any(x => x.Id == attendee.Id))
-    //     {
-    //         throw new DomainException(SessionErrors.AttendeeAlreadyAdded);
-    //     }
-    //
-    //     if (Attendees.Count >= Places)
-    //     {
-    //         throw new DomainException(SessionErrors.SessionIsFull);
-    //     }
-    //
-    //     _attendees.Add(attendee);
-    // }
-    //
-    // public void RemoveAttendee(AttendeeProfile attendee)
-    // {
-    //     if (Attendees.All(x => x.Id != attendee.Id))
-    //     {
-    //         throw new DomainException(SessionErrors.AttendeeNotAdded);
-    //     }
-    //
-    //     _attendees.Remove(attendee);
-    // }
+    public void AddAttendee(AttendeeProfile attendee)
+    {
+        if (Attendees.Any(x => x.Id == attendee.Id))
+        {
+            throw new DomainException(SessionErrors.AttendeeAlreadyAdded);
+        }
+
+        if (Attendees.Count >= Places)
+        {
+            throw new DomainException(SessionErrors.SessionIsFull);
+        }
+
+        _attendees.Add(attendee);
+    }
+
+    public void RemoveAttendee(AttendeeProfile attendee)
+    {
+        if (Attendees.All(x => x.Id != attendee.Id))
+        {
+            throw new DomainException(SessionErrors.AttendeeNotAdded);
+        }
+
+        _attendees.Remove(attendee);
+    }
 
     private Session()
         : this(default!, default!, default!, default!, default!, default!, default!)

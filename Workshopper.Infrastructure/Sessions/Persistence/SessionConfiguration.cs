@@ -23,11 +23,6 @@ internal class SessionConfiguration : IEntityTypeConfiguration<Session>
                 value => DeliveryType.FromName(value, false))
             .IsRequired();
 
-        // builder.HasDiscriminator(x => x.DeliveryType)
-        //     .HasValue<StationarySession>(DeliveryType.Stationary)
-        //     .HasValue<OnlineSession>(DeliveryType.Online)
-        //     .HasValue<HybridSession>(DeliveryType.Hybrid);
-
         builder.Property(x => x.SessionType)
             .HasConversion(
                 sessionType => sessionType.Name,
