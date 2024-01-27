@@ -36,6 +36,7 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
             command.StartDateTime,
             command.EndDateTime,
             command.Places,
+            command.HostProfileId,
             command.Link
         );
 

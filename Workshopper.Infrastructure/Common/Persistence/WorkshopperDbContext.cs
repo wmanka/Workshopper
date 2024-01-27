@@ -6,6 +6,8 @@ using Workshopper.Application.Common.Interfaces;
 using Workshopper.Domain.Common;
 using Workshopper.Domain.Sessions;
 using Workshopper.Domain.Subscriptions;
+using Workshopper.Domain.Users;
+using Workshopper.Domain.Users.UserProfiles;
 
 namespace Workshopper.Infrastructure.Common.Persistence;
 
@@ -23,6 +25,16 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
     public DbSet<OnlineSession> OnlineSessions { get; set; } = null!;
 
     public DbSet<HybridSession> HybridSessions { get; set; } = null!;
+
+    public DbSet<User> Users { get; set; } = null!;
+
+    public DbSet<UserProfile> UserProfiles { get; set; } = null!;
+
+    public DbSet<HostProfile> HostProfiles { get; set; } = null!;
+
+    public DbSet<AttendeeProfile> AttendeeProfiles { get; set; } = null!;
+
+    public DbSet<SessionAttendance> SessionAttendances { get; set; } = null!;
 
     public WorkshopperDbContext(
         DbContextOptions<WorkshopperDbContext> options,

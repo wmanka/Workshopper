@@ -1,4 +1,6 @@
-﻿namespace Workshopper.Api.Sessions.Contracts.Sessions;
+﻿using FastEndpoints;
+
+namespace Workshopper.Api.Sessions.Contracts.Sessions;
 
 public record CreateSessionRequest(
     DeliveryType DeliveryType,
@@ -9,4 +11,8 @@ public record CreateSessionRequest(
     DateTimeOffset EndDateTime,
     int Places,
     string? Link,
-    Address? Address);
+    Address? Address)
+{
+    [FromClaim("profile-id")]
+    public string HostProfileId { get; set; }
+};

@@ -1,10 +1,33 @@
 ﻿using Workshopper.Domain.Common;
 using Workshopper.Domain.Sessions.Events;
+using Workshopper.Domain.Users.UserProfiles;
 
 namespace Workshopper.Domain.Sessions;
 
 public abstract class Session : DomainEntity
 {
+    private readonly List<AttendeeProfile> _attendees = [];
+
+    protected Session(
+        string title,
+        string? description,
+        SessionType sessionType,
+        DateTimeOffset startDateTime,
+        DateTimeOffset endDateTime,
+        int places,
+        Guid hostProfileId,
+        Guid? id = null)
+        : base(id ?? Guid.NewGuid())
+    {
+        Title = title;
+        Description = description;
+        SessionType = sessionType;
+        HostProfileId = hostProfileId;
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
+        Places = places;
+    }
+
     public DeliveryType DeliveryType { get; protected init; } = null!;
 
     public SessionType SessionType { get; }
@@ -21,41 +44,11 @@ public abstract class Session : DomainEntity
 
     public bool IsCanceled { get; private set; }
 
-    protected Session(
-        string title,
-        string? description,
-        SessionType sessionType,
-        DateTimeOffset startDateTime,
-        DateTimeOffset endDateTime,
-        int places,
-        Guid? id = null)
-        : base(id ?? Guid.NewGuid())
-    {
-        Title = title;
-        Description = description;
-        SessionType = sessionType;
+    public Guid HostProfileId { get; set; }
 
-        // if (startDateTime <= DateTimeOffset.Now) // todo hmmm
-        // {
-        //     throw new DomainException(SessionErrors.StartTimeMustBeGreaterThanNow);
-        // }
+    public HostProfile HostProfile { get; set; }
 
-        StartDateTime = startDateTime;
-
-        // if (endDateTime <= startDateTime)
-        // {
-        //     throw new DomainException(SessionErrors.EndTimeMustBeGreaterThanStartTime);
-        // }
-
-        EndDateTime = endDateTime;
-
-        // if (places <= 0)
-        // {
-        //     throw new DomainException(SessionErrors.NumberOfPlacesMustBeGreaterThanZero);
-        // }
-
-        Places = places;
-    }
+    public IReadOnlyList<AttendeeProfile> Attendees => _attendees.AsReadOnly();
 
     public void Cancel()
     {
@@ -74,7 +67,33 @@ public abstract class Session : DomainEntity
         _domainEvents.Add(new SessionCanceledEvent(this));
     }
 
+    // public void AddAttendee(AttendeeProfile attendee)
+    // {
+    //     if (Attendees.Any(x => x.Id == attendee.Id))
+    //     {
+    //         throw new DomainException(SessionErrors.AttendeeAlreadyAdded);
+    //     }
+    //
+    //     if (Attendees.Count >= Places)
+    //     {
+    //         throw new DomainException(SessionErrors.SessionIsFull);
+    //     }
+    //
+    //     _attendees.Add(attendee);
+    // }
+    //
+    // public void RemoveAttendee(AttendeeProfile attendee)
+    // {
+    //     if (Attendees.All(x => x.Id != attendee.Id))
+    //     {
+    //         throw new DomainException(SessionErrors.AttendeeNotAdded);
+    //     }
+    //
+    //     _attendees.Remove(attendee);
+    // }
+
     private Session()
+        : this(default!, default!, default!, default!, default!, default!, default!)
     {
     }
 }

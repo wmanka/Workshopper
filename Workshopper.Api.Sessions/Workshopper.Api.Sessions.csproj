@@ -9,23 +9,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Workshopper.Api.Sessions.Contracts\Workshopper.Api.Sessions.Contracts.csproj" />
-      <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj" />
-      <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj" />
+        <ProjectReference Include="..\Workshopper.Api.Sessions.Contracts\Workshopper.Api.Sessions.Contracts.csproj"/>
+        <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj"/>
+        <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.21.2" />
+        <PackageReference Include="FastEndpoints" Version="5.21.2"/>
         <PackageReference Include="FastEndpoints.Generator" Version="5.21.2">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.21.2" />
+        <PackageReference Include="FastEndpoints.Security" Version="5.21.2"/>
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.21.2"/>
     </ItemGroup>
 
     <ItemGroup>
         <Content Include="..\.dockerignore">
-          <Link>.dockerignore</Link>
+            <Link>.dockerignore</Link>
         </Content>
         <Content Include="appsettings.json">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

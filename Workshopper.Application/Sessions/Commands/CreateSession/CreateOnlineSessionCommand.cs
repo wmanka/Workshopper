@@ -16,5 +16,7 @@ public record CreateOnlineSessionCommand : ICreateSessionCommand
 
     public int Places { get; init; }
 
+    public Guid HostProfileId { get; set; }
+
     public string Link { get; init; } = null!;
 }

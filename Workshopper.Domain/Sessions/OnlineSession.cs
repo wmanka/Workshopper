@@ -1,6 +1,4 @@
-﻿using Workshopper.Domain.Common;
-
-namespace Workshopper.Domain.Sessions;
+﻿namespace Workshopper.Domain.Sessions;
 
 public sealed class OnlineSession : Session
 {
@@ -13,6 +11,7 @@ public sealed class OnlineSession : Session
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         int places,
+        Guid hostProfileId,
         string link,
         Guid? id = null)
         : base(title,
@@ -21,6 +20,7 @@ public sealed class OnlineSession : Session
             startDateTime,
             endDateTime,
             places,
+            hostProfileId,
             id)
     {
         DeliveryType = DeliveryType.Online;
@@ -28,7 +28,7 @@ public sealed class OnlineSession : Session
     }
 
     private OnlineSession()
-        : this(default!, default!, default!, default!, default!, default!, default!)
+        : this(default!, default!, default!, default!, default!, default!, default!, default!)
     {
     }
 }

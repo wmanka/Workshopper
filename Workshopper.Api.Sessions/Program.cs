@@ -18,6 +18,8 @@ var builder = WebApplication.CreateBuilder();
 var app = builder.Build();
 {
     app
+        .UseAuthentication()
+        .UseAuthorization()
         .UseDefaultExceptionHandler()
         .UseInfrastructureMiddleware()
         .UseFastEndpoints(c =>

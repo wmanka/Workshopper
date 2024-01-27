@@ -12,8 +12,8 @@ using Workshopper.Infrastructure.Common.Persistence;
 namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 {
     [DbContext(typeof(WorkshopperDbContext))]
-    [Migration("20240123181743_AddSessionAddressAsOwnedEntity")]
-    partial class AddSessionAddressAsOwnedEntity
+    [Migration("20240127094330_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,10 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("end_date_time");
 
+                    b.Property<Guid>("HostProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("host_profile_id");
+
                     b.Property<bool>("IsCanceled")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -73,9 +77,37 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HostProfileId")
+                        .HasDatabaseName("ix_sessions_host_profile_id");
+
                     b.ToTable("sessions", "sessions");
 
                     b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Sessions.SessionAttendance", b =>
+                {
+                    b.Property<Guid>("AttendeeProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("attendee_profile_id");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("session_id");
+
+                    b.Property<bool>("IsCanceled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_canceled");
+
+                    b.HasKey("AttendeeProfileId", "SessionId")
+                        .HasName("pk_session_attendances");
+
+                    b.HasIndex("SessionId")
+                        .HasDatabaseName("ix_session_attendances_session_id");
+
+                    b.ToTable("session_attendances", "sessions");
                 });
 
             modelBuilder.Entity("Workshopper.Domain.Subscriptions.Subscription", b =>
@@ -99,6 +131,82 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasName("pk_subscriptions");
 
                     b.ToTable("subscriptions", "public");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("AttendeeProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("attendee_profile_id");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("email");
+
+                    b.Property<Guid?>("HostProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("host_profile_id");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("password");
+
+                    b.HasKey("Id")
+                        .HasName("pk_users");
+
+                    b.ToTable("users", "public");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.UserProfile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("ProfileType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("profile_type");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_profiles");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_user_profiles_user_id");
+
+                    b.HasIndex("ProfileType", "UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_user_profiles_profile_type_user_id");
+
+                    b.ToTable("user_profiles", "public");
+
+                    b.HasDiscriminator<string>("ProfileType");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Workshopper.Domain.Sessions.HybridSession", b =>
@@ -132,6 +240,75 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                     b.HasBaseType("Workshopper.Domain.Sessions.Session");
 
                     b.ToTable("stationary_sessions", "sessions");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.AttendeeProfile", b =>
+                {
+                    b.HasBaseType("Workshopper.Domain.Users.UserProfiles.UserProfile");
+
+                    b.HasDiscriminator().HasValue("Attendee");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.HostProfile", b =>
+                {
+                    b.HasBaseType("Workshopper.Domain.Users.UserProfiles.UserProfile");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("bio");
+
+                    b.Property<string>("Company")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("company");
+
+                    b.Property<bool>("IsVerified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_verified");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("title");
+
+                    b.HasDiscriminator().HasValue("Host");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Sessions.Session", b =>
+                {
+                    b.HasOne("Workshopper.Domain.Users.UserProfiles.HostProfile", "HostProfile")
+                        .WithMany("HostedSessions")
+                        .HasForeignKey("HostProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_sessions_user_profiles_host_profile_id");
+
+                    b.Navigation("HostProfile");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Sessions.SessionAttendance", b =>
+                {
+                    b.HasOne("Workshopper.Domain.Users.UserProfiles.AttendeeProfile", "Attendee")
+                        .WithMany()
+                        .HasForeignKey("AttendeeProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_attendances_user_profiles_attendee_profile_id");
+
+                    b.HasOne("Workshopper.Domain.Sessions.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_session_attendances_sessions_session_id");
+
+                    b.Navigation("Attendee");
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("Workshopper.Domain.Sessions.HybridSession", b =>
@@ -258,6 +435,42 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 
                     b.Navigation("Address")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.AttendeeProfile", b =>
+                {
+                    b.HasOne("Workshopper.Domain.Users.User", "User")
+                        .WithOne("AttendeeProfile")
+                        .HasForeignKey("Workshopper.Domain.Users.UserProfiles.AttendeeProfile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_profiles_users_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.HostProfile", b =>
+                {
+                    b.HasOne("Workshopper.Domain.Users.User", "User")
+                        .WithOne("HostProfile")
+                        .HasForeignKey("Workshopper.Domain.Users.UserProfiles.HostProfile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_profiles_users_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.User", b =>
+                {
+                    b.Navigation("AttendeeProfile");
+
+                    b.Navigation("HostProfile");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.UserProfiles.HostProfile", b =>
+                {
+                    b.Navigation("HostedSessions");
                 });
 #pragma warning restore 612, 618
         }

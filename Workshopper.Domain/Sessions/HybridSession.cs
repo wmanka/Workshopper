@@ -15,6 +15,7 @@ public sealed class HybridSession : Session
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         int places,
+        Guid hostProfileId,
         string link,
         Address address,
         Guid? id = null)
@@ -24,6 +25,7 @@ public sealed class HybridSession : Session
             startDateTime,
             endDateTime,
             places,
+            hostProfileId,
             id)
     {
         DeliveryType = DeliveryType.Online;
@@ -32,7 +34,7 @@ public sealed class HybridSession : Session
     }
 
     private HybridSession()
-        : this(default!, default!, default!, default!, default!, default!, default!, default!)
+        : this(default!, default!, default!, default!, default!, default!, default!, default!, default!)
     {
     }
 }

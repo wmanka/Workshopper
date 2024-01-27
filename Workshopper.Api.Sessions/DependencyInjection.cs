@@ -1,4 +1,5 @@
-﻿using FastEndpoints.Swagger;
+﻿using FastEndpoints.Security;
+using FastEndpoints.Swagger;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Workshopper.Api.Sessions;
@@ -14,6 +15,8 @@ public static class DependencyInjection
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.Sessions.DiscoveredTypes.All);
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Application.DiscoveredTypes.All);
             })
+            .AddJWTBearerAuth("TokenSigningKey")
+            .AddAuthorization()
             .SwaggerDocument(o =>
             {
                 o.DocumentSettings = s =>

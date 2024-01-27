@@ -25,6 +25,7 @@ public class CreateStationarySessionCommandHandler : CommandHandler<CreateStatio
             command.StartDateTime,
             command.EndDateTime,
             command.Places,
+            command.HostProfileId,
             command.Address
         );
 

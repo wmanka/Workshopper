@@ -13,6 +13,7 @@ public sealed class StationarySession : Session
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         int places,
+        Guid hostProfileId,
         Address address,
         Guid? id = null)
         : base(title,
@@ -21,6 +22,7 @@ public sealed class StationarySession : Session
             startDateTime,
             endDateTime,
             places,
+            hostProfileId,
             id)
     {
         DeliveryType = DeliveryType.Stationary;
@@ -28,7 +30,7 @@ public sealed class StationarySession : Session
     }
 
     private StationarySession()
-        : this(default!, default!, default!, default!, default!, default!, default!)
+        : this(default!, default!, default!, default!, default!, default!, default!, default!)
     {
     }
 }

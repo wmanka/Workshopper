@@ -13,6 +13,7 @@ public static class CreateSessionCommandFactory
         DateTimeOffset startDateTime,
         DateTimeOffset endDateTime,
         int places,
+        Guid hostProfileId,
         string? link,
         Address? address)
     {
@@ -26,6 +27,7 @@ public static class CreateSessionCommandFactory
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
                 Places = places,
+                HostProfileId = hostProfileId,
                 Link = link!
             };
         }
@@ -40,6 +42,7 @@ public static class CreateSessionCommandFactory
                 StartDateTime = startDateTime,
                 EndDateTime = endDateTime,
                 Places = places,
+                HostProfileId = hostProfileId,
                 Address = address!
             };
         }

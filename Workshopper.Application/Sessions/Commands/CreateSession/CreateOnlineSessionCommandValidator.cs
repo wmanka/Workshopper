@@ -13,8 +13,10 @@ public class CreateOnlineSessionCommandValidator : Validator<CreateOnlineSession
             .CustomAsync(async (command, context, ct) =>
             {
                 var repository = Resolve<ISessionsRepository>();
-                var userId = Guid.NewGuid(); // todo: get user id from claims
-                if (await repository.AnyAsync(new SessionDuringTimeSpecification(command.StartDateTime, command.EndDateTime, userId)))
+                if (await repository.AnyAsync(new SessionDuringTimeSpecification(
+                        command.StartDateTime,
+                        command.EndDateTime,
+                        command.HostProfileId)))
                 {
                     context.AddFailure(SessionErrors.SessionTimeOverlaps);
                 }

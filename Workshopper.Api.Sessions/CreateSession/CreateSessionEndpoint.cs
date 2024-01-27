@@ -1,4 +1,5 @@
-﻿using Workshopper.Api.Sessions.Contracts.Sessions;
+﻿using System.Security.Claims;
+using Workshopper.Api.Sessions.Contracts.Sessions;
 using Workshopper.Application.Sessions.Commands.CreateSession;
 using DomainAddress = Workshopper.Domain.Common.Address;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
@@ -44,9 +45,15 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             request.StartDateTime,
             request.EndDateTime,
             request.Places,
+            Guid.Parse(request.HostProfileId),
             request.Link,
             request.Address != null
-                ? new DomainAddress(request.Address.Line1, request.Address.Line2, request.Address.City, request.Address.Country, request.Address.PostCode)
+                ? new DomainAddress(
+                    request.Address.Line1,
+                    request.Address.Line2,
+                    request.Address.City,
+                    request.Address.Country,
+                    request.Address.PostCode)
                 : null);
 
         var sessionId = await command.ExecuteAsync(ct);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Workshopper.Domain.Sessions;
-using Workshopper.Infrastructure.Common;
 using Workshopper.Infrastructure.Common.Persistence;
 
 namespace Workshopper.Infrastructure.Sessions.Persistence;
@@ -23,6 +22,11 @@ internal class SessionConfiguration : IEntityTypeConfiguration<Session>
                 deliveryType => deliveryType.Name,
                 value => DeliveryType.FromName(value, false))
             .IsRequired();
+
+        // builder.HasDiscriminator(x => x.DeliveryType)
+        //     .HasValue<StationarySession>(DeliveryType.Stationary)
+        //     .HasValue<OnlineSession>(DeliveryType.Online)
+        //     .HasValue<HybridSession>(DeliveryType.Hybrid);
 
         builder.Property(x => x.SessionType)
             .HasConversion(
@@ -51,6 +55,12 @@ internal class SessionConfiguration : IEntityTypeConfiguration<Session>
             .HasDefaultValue(false)
             .IsRequired();
 
-        builder.HasQueryFilter(x => x.IsCanceled == false);
+        builder.HasMany(x => x.Attendees)
+            .WithMany(x => x.AttendedSessions)
+            .UsingEntity<SessionAttendance>();
+
+        builder.Navigation(x => x.Attendees).UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        // builder.HasQueryFilter(x => x.IsCanceled == false);
     }
 }
