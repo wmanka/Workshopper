@@ -1,4 +1,4 @@
-﻿using Workshopper.Api.Sessions.Contracts.Sessions;
+﻿using Workshopper.Api.Sessions.Contracts.CancelSession;
 using Workshopper.Application.Sessions.Commands.CancelSession;
 
 namespace Workshopper.Api.Sessions.CancelSession;

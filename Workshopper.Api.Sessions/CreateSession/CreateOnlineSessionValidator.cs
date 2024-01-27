@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Workshopper.Api.Sessions.Contracts.Sessions;
+using Workshopper.Api.Sessions.Contracts.CreateSession;
 
 namespace Workshopper.Api.Sessions.CreateSession;
 

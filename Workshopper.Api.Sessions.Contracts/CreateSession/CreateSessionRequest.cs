@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 
-namespace Workshopper.Api.Sessions.Contracts.Sessions;
+namespace Workshopper.Api.Sessions.Contracts.CreateSession;
 
 public record CreateSessionRequest(
     DeliveryType DeliveryType,

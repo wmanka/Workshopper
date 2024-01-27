@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Sessions", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Sessions.Contracts", "Workshopper.Api.Sessions.Contracts\Workshopper.Api.Sessions.Contracts.csproj", "{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth", "Workshopper.Api.Auth\Workshopper.Api.Auth.csproj", "{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth.Contracts", "Workshopper.Api.Auth.Contracts\Workshopper.Api.Auth.Contracts.csproj", "{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37B263F6-5B8E-4571-A28E-ED56E47608D9} = {B7A08E47-8AE5-449B-95AB-6E35EFC81B7B}
@@ -79,5 +91,7 @@ Global
 		{11579DF1-7D53-4BC9-B73B-5526686C2919} = {8C3D3F6B-0066-400C-A9C1-A742D6A2A62F}
 		{D1D44993-C74C-4A4B-8B5D-1F1F6ACF8D0F} = {882065E3-B667-4723-AD00-C3487804AD62}
 		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF} = {882065E3-B667-4723-AD00-C3487804AD62}
+		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C} = {882065E3-B667-4723-AD00-C3487804AD62}
+		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B} = {882065E3-B667-4723-AD00-C3487804AD62}
 	EndGlobalSection
 EndGlobal

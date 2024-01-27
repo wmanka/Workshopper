@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using Workshopper.Api.Sessions.Contracts.Sessions;
+using Workshopper.Api.Sessions.Contracts;
+using Workshopper.Api.Sessions.Contracts.CreateSession;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
 using DomainSessionType = Workshopper.Domain.Sessions.SessionType;
 
