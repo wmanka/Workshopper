@@ -5,19 +5,19 @@ namespace Workshopper.Domain.Users;
 
 public class User : DomainEntity
 {
-    protected User(
+    public User(
         string email,
-        string password,
+        string hash,
         Guid? id = null)
         : base(id ?? Guid.NewGuid())
     {
         Email = email;
-        Password = password;
+        Hash = hash;
     }
 
     public string Email { get; private set; }
 
-    public string Password { get; private set; }
+    public string Hash { get; private set; }
 
     public HostProfile? HostProfile { get; private set; }
 

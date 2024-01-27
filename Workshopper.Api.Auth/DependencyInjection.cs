@@ -1,5 +1,6 @@
-﻿using FastEndpoints.Security;
-using FastEndpoints.Swagger;
+﻿using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NSwag;
 
 namespace Workshopper.Api.Auth;
 
@@ -14,15 +15,17 @@ public static class DependencyInjection
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.Auth.DiscoveredTypes.All);
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Application.DiscoveredTypes.All);
             })
-            .AddJWTBearerAuth("TokenSigningKey")
             .AddAuthorization()
             .SwaggerDocument(o =>
             {
                 o.DocumentSettings = s =>
                 {
+                    s.DocumentName = "Workshopper API - Auth";
                     s.Title = "Workshopper API - Auth";
                     s.Version = "v1";
                 };
+
+                o.EnableJWTBearerAuth = true;
             });
 
         services.AddHealthChecks();

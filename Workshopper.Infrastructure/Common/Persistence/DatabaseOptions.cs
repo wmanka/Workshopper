@@ -10,5 +10,5 @@ public class DatabaseOptions
     /// <summary>
     /// Connection string to database
     /// </summary>
-    public string ConnectionString { get; set; } = null!;
+    public string ConnectionString { get; init; } = null!;
 }

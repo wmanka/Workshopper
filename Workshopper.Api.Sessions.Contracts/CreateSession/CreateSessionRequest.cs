@@ -13,6 +13,6 @@ public record CreateSessionRequest(
     string? Link,
     Address? Address)
 {
-    [FromClaim("profile-id")]
+    [FromClaim("ProfileId")]
     public string HostProfileId { get; set; }
 };

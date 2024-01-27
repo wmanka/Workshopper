@@ -22,7 +22,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(250)
             .IsRequired();
 
-        builder.Property(x => x.Password)
+        builder.Property(x => x.Hash)
             .HasMaxLength(250)
             .IsRequired();
 

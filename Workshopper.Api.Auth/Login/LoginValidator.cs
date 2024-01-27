@@ -10,7 +10,7 @@ public class LoginValidator : Validator<LoginRequest>
             .NotEmpty()
             .MaximumLength(250);
 
-        RuleFor(x => x.Password)
+        RuleFor(x => x.Hash)
             .NotEmpty()
             .MaximumLength(250);
     }
