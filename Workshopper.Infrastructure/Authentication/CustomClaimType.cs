@@ -2,7 +2,8 @@
 
 public static class CustomClaimType
 {
-    public const string UserId = "UserId";
-    public const string ProfileId = "ProfileId";
-    public const string ProfileType = "ProfileType";
+    public const string UserId = "userId";
+    public const string ProfileId = "profileId";
+    public const string ProfileType = "profile_type";
+    public const string Role = "role";
 }

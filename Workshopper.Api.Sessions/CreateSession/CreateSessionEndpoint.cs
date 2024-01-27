@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using Workshopper.Api.Sessions.Contracts;
+﻿using Workshopper.Api.Sessions.Contracts;
 using Workshopper.Api.Sessions.Contracts.CreateSession;
+using Workshopper.Application.Common.Roles;
 using Workshopper.Application.Sessions.Commands.CreateSession;
 using DomainAddress = Workshopper.Domain.Common.Address;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;
@@ -13,8 +13,9 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
     public override void Configure()
     {
         Post("/sessions");
-        AllowAnonymous();
+        Roles(DomainRoles.Host);
         Validator<CreateSessionValidator>();
+
         Description(b => b
             .ProducesProblemDetails(400, "application/json+problem"));
 
@@ -46,7 +47,6 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
             request.StartDateTime,
             request.EndDateTime,
             request.Places,
-            Guid.Parse(request.HostProfileId),
             request.Link,
             request.Address != null
                 ? new DomainAddress(

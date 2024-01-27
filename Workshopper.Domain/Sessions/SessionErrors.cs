@@ -11,4 +11,5 @@ public static class SessionErrors
     public const string AttendeeAlreadyAdded = "Attendee has already been added to the session";
     public const string SessionIsFull = "Session is full";
     public const string AttendeeNotAdded = "Attendee has not been added to the session";
+    public const string OnlyHostCanCreateSession = "Only host can create session";
 }

@@ -5,10 +5,9 @@ namespace Workshopper.Application.Sessions.Specifications;
 
 internal class SessionDuringTimeSpecification : Specification<Session>
 {
-    public SessionDuringTimeSpecification(DateTimeOffset startDateTime, DateTimeOffset endDateTime, Guid creatorId)
+    public SessionDuringTimeSpecification(DateTimeOffset startDateTime, DateTimeOffset endDateTime)
     {
         AddFilter(session => (session.StartDateTime <= endDateTime && session.StartDateTime >= startDateTime) ||
                              (session.StartDateTime >= startDateTime && session.StartDateTime <= endDateTime));
-        // todo: add creator id
     }
 }

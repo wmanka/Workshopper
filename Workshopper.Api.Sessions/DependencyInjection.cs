@@ -1,5 +1,7 @@
 ﻿using FastEndpoints.Swagger;
 using Microsoft.Extensions.DependencyInjection;
+using Workshopper.Api.Sessions.Services;
+using Workshopper.Application.Common.Interfaces;
 
 namespace Workshopper.Api.Sessions;
 
@@ -24,6 +26,8 @@ public static class DependencyInjection
                 };
             })
             .AddHealthChecks();
+
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 
         return services;
     }

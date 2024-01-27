@@ -29,8 +29,6 @@ public class LoginCommandHandler : CommandHandler<LoginCommand, string>
         if (user is null || !_passwordHasher.IsCorrectPassword(command.Password, user.Hash))
         {
             ThrowError(UserErrors.InvalidCredentials);
-
-            return null;
         }
 
         var token = _jwtTokenGenerator.GenerateToken(user);

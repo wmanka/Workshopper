@@ -7,18 +7,27 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
 {
     private readonly IOnlineSessionsRepository _onlineSessionsRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ICurrentUserProvider _currentUserProvider;
 
     public CreateOnlineSessionCommandHandler(
         IOnlineSessionsRepository onlineSessionsRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        ICurrentUserProvider currentUserProvider)
     {
         _onlineSessionsRepository = onlineSessionsRepository;
         _unitOfWork = unitOfWork;
+        _currentUserProvider = currentUserProvider;
     }
 
     public override async Task<Guid> ExecuteAsync(CreateOnlineSessionCommand command, CancellationToken ct = new())
     {
-        var validationResult = await new CreateOnlineSessionCommandValidator().ValidateAsync(command, ct);
+        var currentUser = _currentUserProvider.GetCurrentUser();
+        if (currentUser is null || !currentUser.IsHost)
+        {
+            ThrowError(SessionErrors.OnlyHostCanCreateSession);
+        }
+
+        var validationResult = await new CreateOnlineSessionCommandValidator().ValidateAsync(command, ct); // todo:
         if (!validationResult.IsValid)
         {
             foreach (var validationFailure in validationResult.Errors)
@@ -36,7 +45,7 @@ public class CreateOnlineSessionCommandHandler : CommandHandler<CreateOnlineSess
             command.StartDateTime,
             command.EndDateTime,
             command.Places,
-            command.HostProfileId,
+            currentUser.ProfileId!.Value,
             command.Link
         );
 

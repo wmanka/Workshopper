@@ -15,8 +15,7 @@ public class CreateOnlineSessionCommandValidator : Validator<CreateOnlineSession
                 var repository = Resolve<ISessionsRepository>();
                 if (await repository.AnyAsync(new SessionDuringTimeSpecification(
                         command.StartDateTime,
-                        command.EndDateTime,
-                        command.HostProfileId)))
+                        command.EndDateTime)))
                 {
                     context.AddFailure(SessionErrors.SessionTimeOverlaps);
                 }

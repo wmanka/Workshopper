@@ -17,7 +17,5 @@ public record CreateStationarySessionCommand : ICreateSessionCommand
 
     public int Places { get; init; }
 
-    public Guid HostProfileId { get; set; }
-
     public Address Address { get; init; } = null!;
 }
