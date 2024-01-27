@@ -1,10 +1,12 @@
-﻿namespace Workshopper.Api.Auth.Register;
+﻿using Workshopper.Application.Users.Commands.Register;
+
+namespace Workshopper.Api.Auth.Register;
 
 public class RegisterEndpoint : Endpoint<RegisterRequest>
 {
     public override void Configure()
     {
-        Post("/sessions");
+        Post("/register");
         AllowAnonymous();
         Description(b => b
             .ProducesProblemDetails(400, "application/json+problem"));
@@ -21,6 +23,12 @@ public class RegisterEndpoint : Endpoint<RegisterRequest>
 
     public override async Task HandleAsync(RegisterRequest request, CancellationToken ct)
     {
+        var command = new RegisterCommand(
+            request.Email,
+            request.Password);
+
+        await command.ExecuteAsync(ct);
+
         await SendOkAsync(ct);
     }
 }

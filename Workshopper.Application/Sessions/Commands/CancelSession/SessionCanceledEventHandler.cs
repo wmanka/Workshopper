@@ -14,7 +14,8 @@ public class SessionCanceledEventHandler : IEventHandler<SessionCanceledEvent>
 
     public Task HandleAsync(SessionCanceledEvent eventModel, CancellationToken ct)
     {
-        _logger.LogInformation(message: "Session '{title}' was cancelled", eventModel.Session.Title);
+        _logger.LogInformation(
+            "Session '{title}' was cancelled", eventModel.Session.Title);
 
         return Task.CompletedTask;
     }

@@ -20,7 +20,7 @@ public static class DependencyInjection
             {
                 o.DocumentSettings = s =>
                 {
-                    s.Title = "Workshopper API - Sessions";
+                    s.Title = "Workshopper API - Auth";
                     s.Version = "v1";
                 };
             });

@@ -1,4 +1,4 @@
-﻿using FastEndpoints.Security;
+﻿using Workshopper.Application.Users.Commands.Login;
 
 namespace Workshopper.Api.Auth.Login;
 
@@ -21,32 +21,14 @@ public class LoginEndpoint : Endpoint<LoginRequest>
         });
     }
 
-    public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
+    public override async Task HandleAsync(LoginRequest request, CancellationToken ct)
     {
+        var command = new LoginCommand(
+            request.Email,
+            request.Password);
+
+        await command.ExecuteAsync(ct);
+
         await SendOkAsync(ct);
-        // if (await authService.CredentialsAreValid(req.Email, req.Password, ct))
-        // {
-        //     var token = JWTBearer.CreateToken(
-        //         signingKey: "TokenSigningKey",
-        //         expireAt: DateTime.UtcNow.AddDays(1),
-        //         priviledges: u =>
-        //         {
-        //             // u.Roles.Add("Manager");
-        //             // u.Permissions.AddRange(new[] { "ManageUsers", "ManageInventory" });
-        //             u.Claims.Add(new("Email", req.Email));
-        //             u["UserID"] = "001"; //indexer based claim setting
-        //         });
-        //
-        //     await SendAsync(new
-        //         {
-        //             Email = req.Email,
-        //             Token = token
-        //         },
-        //         cancellation: ct);
-        // }
-        // else
-        // {
-        //     ThrowError("The supplied credentials are invalid!");
-        // }
     }
 }
