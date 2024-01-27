@@ -38,7 +38,7 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     email = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
-                    password = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    hash = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     host_profile_id = table.Column<Guid>(type: "uuid", nullable: true),
                     attendee_profile_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -67,6 +67,26 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                     table.PrimaryKey("pk_user_profiles", x => x.id);
                     table.ForeignKey(
                         name: "fk_user_profiles_users_user_id",
+                        column: x => x.user_id,
+                        principalSchema: "public",
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_settings",
+                schema: "public",
+                columns: table => new
+                {
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    default_profile_type = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_user_settings", x => x.user_id);
+                    table.ForeignKey(
+                        name: "fk_user_settings_users_id",
                         column: x => x.user_id,
                         principalSchema: "public",
                         principalTable: "users",
@@ -284,6 +304,10 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "subscriptions",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "user_settings",
                 schema: "public");
 
             migrationBuilder.DropTable(

@@ -33,5 +33,26 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(x => x.AttendeeProfile)
             .WithOne(x => x.User)
             .HasForeignKey<AttendeeProfile>(x => x.UserId);
+
+        builder.OwnsOne(x => x.UserSettings,
+            own =>
+            {
+                own.ToTable("user_settings", DatabaseSchema.Public);
+
+                own.WithOwner()
+                    .HasPrincipalKey(x => x.Id)
+                    .HasForeignKey(x => x.Id);
+
+                own.Property(x => x.Id)
+                    .HasColumnName("user_id")
+                    .IsRequired()
+                    .ValueGeneratedNever();
+
+                own.Property(x => x.DefaultProfileType)
+                    .HasConversion(
+                        profileType => profileType != null ? profileType.Name : string.Empty,
+                        value => ProfileType.FromName(value, false))
+                    .IsRequired(false);
+            });
     }
 }

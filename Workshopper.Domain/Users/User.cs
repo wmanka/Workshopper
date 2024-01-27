@@ -5,6 +5,7 @@ namespace Workshopper.Domain.Users;
 
 public class User : DomainEntity
 {
+
     public User(
         string email,
         string hash,
@@ -13,6 +14,7 @@ public class User : DomainEntity
     {
         Email = email;
         Hash = hash;
+        UserSettings = new UserSettings(Id);
     }
 
     public string Email { get; private set; }
@@ -26,6 +28,8 @@ public class User : DomainEntity
     public AttendeeProfile? AttendeeProfile { get; private set; }
 
     public Guid? AttendeeProfileId { get; private set; }
+
+    public UserSettings UserSettings { get; }
 
     public void CreateHostProfile(
         string firstName,

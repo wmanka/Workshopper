@@ -12,7 +12,7 @@ using Workshopper.Infrastructure.Common.Persistence;
 namespace Workshopper.Infrastructure.Common.Persistence.Migrations
 {
     [DbContext(typeof(WorkshopperDbContext))]
-    [Migration("20240127094330_Initial")]
+    [Migration("20240127173239_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -149,15 +149,15 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                         .HasColumnType("character varying(250)")
                         .HasColumnName("email");
 
-                    b.Property<Guid?>("HostProfileId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("host_profile_id");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("Hash")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)")
-                        .HasColumnName("password");
+                        .HasColumnName("hash");
+
+                    b.Property<Guid?>("HostProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("host_profile_id");
 
                     b.HasKey("Id")
                         .HasName("pk_users");
@@ -309,6 +309,32 @@ namespace Workshopper.Infrastructure.Common.Persistence.Migrations
                     b.Navigation("Attendee");
 
                     b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("Workshopper.Domain.Users.User", b =>
+                {
+                    b.OwnsOne("Workshopper.Domain.Users.UserSettings", "UserSettings", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid")
+                                .HasColumnName("user_id");
+
+                            b1.Property<string>("DefaultProfileType")
+                                .HasColumnType("text")
+                                .HasColumnName("default_profile_type");
+
+                            b1.HasKey("Id")
+                                .HasName("pk_user_settings");
+
+                            b1.ToTable("user_settings", "public");
+
+                            b1.WithOwner()
+                                .HasForeignKey("Id")
+                                .HasConstraintName("fk_user_settings_users_id");
+                        });
+
+                    b.Navigation("UserSettings")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Workshopper.Domain.Sessions.HybridSession", b =>
