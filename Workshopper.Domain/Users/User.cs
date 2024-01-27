@@ -1,4 +1,5 @@
 ﻿using Workshopper.Domain.Common;
+using Workshopper.Domain.Common.Interfaces;
 using Workshopper.Domain.Users.UserProfiles;
 
 namespace Workshopper.Domain.Users;

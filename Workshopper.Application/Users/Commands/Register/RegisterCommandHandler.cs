@@ -1,5 +1,6 @@
 ﻿using Workshopper.Application.Common.Interfaces;
 using Workshopper.Application.Users.Specifications;
+using Workshopper.Domain.Common.Interfaces;
 using Workshopper.Domain.Users;
 
 namespace Workshopper.Application.Users.Commands.Register;
@@ -8,13 +9,15 @@ public class RegisterCommandHandler : CommandHandler<RegisterCommand>
 {
     private readonly IUsersRepository _usersRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPasswordHasher _passwordHasher;
 
     public RegisterCommandHandler(
         IUsersRepository usersRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork, IPasswordHasher passwordHasher)
     {
         _usersRepository = usersRepository;
         _unitOfWork = unitOfWork;
+        _passwordHasher = passwordHasher;
     }
 
     public override async Task ExecuteAsync(RegisterCommand command, CancellationToken ct = new())
@@ -27,9 +30,11 @@ public class RegisterCommandHandler : CommandHandler<RegisterCommand>
             ThrowError(UserErrors.UserAlreadyExists);
         }
 
+        var hash = _passwordHasher.HashPassword(command.Password);
+
         var user = new User(
             command.Email,
-            command.Password);
+            hash);
 
         await _usersRepository.AddAsync(user);
         await _unitOfWork.CommitChangesAsync();

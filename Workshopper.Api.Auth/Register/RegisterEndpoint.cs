@@ -16,7 +16,7 @@ public class RegisterEndpoint : Endpoint<RegisterRequest>
             s.Summary = "Register new user";
             s.ExampleRequest = new RegisterRequest(
                 "user@email.com",
-                "p@ssword"
+                "P@ssword1!"
             );
         });
     }

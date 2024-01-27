@@ -17,7 +17,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
             s.Summary = "Login";
             s.ExampleRequest = new LoginRequest(
                 "user@email.com",
-                "p@ssword"
+                "P@ssword1!"
             );
         });
     }
