@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Common.Models;
-using Workshopper.Domain.Users.UserProfiles;
 using Workshopper.Infrastructure.Authentication;
+using DomainProfileType = Workshopper.Domain.Users.UserProfiles.ProfileType;
 
 namespace Workshopper.Api.Common;
 
@@ -28,7 +28,7 @@ public class CurrentUserProvider : ICurrentUserProvider
         }
 
         Guid.TryParse(GetClaimValue(CustomClaimType.ProfileId), out var profileId);
-        ProfileType.TryFromName(GetClaimValue(CustomClaimType.ProfileType), out var profileType);
+        DomainProfileType.TryFromName(GetClaimValue(CustomClaimType.ProfileType), out var profileType);
 
         return new CurrentUser(
             userId: userId,

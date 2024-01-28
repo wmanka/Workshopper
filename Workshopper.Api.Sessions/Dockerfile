@@ -1,13 +1,17 @@
-﻿FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
+ENV ASPNETCORE_ENVIRONMENT=Docker
 WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Workshopper.Api.Sessions/Workshopper.Api.Sessions.csproj", "Workshopper.Api.Sessions/"]
-COPY ["Workshopper.Application/Workshopper.Application.csproj", "Workshopper.Application/"]
 COPY ["Workshopper.Domain/Workshopper.Domain.csproj", "Workshopper.Domain/"]
+COPY ["Workshopper.Api.Common/Workshopper.Api.Common.csproj", "Workshopper.Api.Common/"]
+COPY ["Workshopper.Application/Workshopper.Application.csproj", "Workshopper.Application/"]
 COPY ["Workshopper.Infrastructure/Workshopper.Infrastructure.csproj", "Workshopper.Infrastructure/"]
 COPY ["Workshopper.Api.Sessions.Contracts/Workshopper.Api.Sessions.Contracts.csproj", "Workshopper.Api.Sessions.Contracts/"]
 RUN dotnet restore "Workshopper.Api.Sessions/Workshopper.Api.Sessions.csproj"

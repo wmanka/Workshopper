@@ -9,9 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Workshopper.Api.Auth.Contracts\Workshopper.Api.Auth.Contracts.csproj"/>
-        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
-        <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj"/>
-        <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -25,13 +23,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      </Content>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <Content Include="..\.dockerignore">
+          <Link>.dockerignore</Link>
+        </Content>
+        <Content Update="appsettings.docker.json">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
-    
+
 </Project>

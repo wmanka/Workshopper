@@ -8,10 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
-        <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj"/>
+        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj"/>
         <ProjectReference Include="..\Workshopper.Api.Contracts\Workshopper.Api.Contracts.csproj"/>
-        <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -25,14 +23,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\.dockerignore">
-            <Link>.dockerignore</Link>
-        </Content>
-<!--        <Content Include="appsettings.json">-->
-<!--            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>-->
-<!--            <CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
-<!--            <CopyToPublishDirectory>Always</CopyToPublishDirectory>-->
-<!--        </Content>-->
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+      <Content Update="appsettings.docker.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

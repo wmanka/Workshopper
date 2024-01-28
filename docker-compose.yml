@@ -41,6 +41,36 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
+      ASPNETCORE_ENVIRONMENT: Docker
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+    networks:
+      - workshopper-net
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
+      interval: 30s
+      timeout: 3s
+
+  workshopper-auth:
+    container_name: workshopper-auth
+    build:
+      context: ./Workshopper.Api.Auth
+      dockerfile: Dockerfile
+    image: workshopper-auth
+    restart: always
+    ports:
+      - "5002:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: test
+      DB_NAME: workshopper_dev
+      ASPNETCORE_ENVIRONMENT: Docker
     links:
       - postgres
     volumes:
@@ -60,7 +90,7 @@ services:
     image: workshopper-sessions
     restart: always
     ports:
-      - "5002:8080"
+      - "5003:8080"
     depends_on:
       - postgres
     environment:
@@ -69,6 +99,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
+      ASPNETCORE_ENVIRONMENT: Docker
     links:
       - postgres
     volumes:

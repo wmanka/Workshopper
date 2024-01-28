@@ -1,5 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
+ENV ASPNETCORE_ENVIRONMENT=Docker
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -9,9 +10,10 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Workshopper.Api.Auth/Workshopper.Api.Auth.csproj", "Workshopper.Api.Auth/"]
 COPY ["Workshopper.Api.Auth.Contracts/Workshopper.Api.Auth.Contracts.csproj", "Workshopper.Api.Auth.Contracts/"]
+COPY ["Workshopper.Infrastructure/Workshopper.Infrastructure.csproj", "Workshopper.Infrastructure/"]
 COPY ["Workshopper.Application/Workshopper.Application.csproj", "Workshopper.Application/"]
 COPY ["Workshopper.Domain/Workshopper.Domain.csproj", "Workshopper.Domain/"]
-COPY ["Workshopper.Infrastructure/Workshopper.Infrastructure.csproj", "Workshopper.Infrastructure/"]
+COPY ["Workshopper.Api.Common/Workshopper.Api.Common.csproj", "Workshopper.Api.Common/"]
 RUN dotnet restore "Workshopper.Api.Auth/Workshopper.Api.Auth.csproj"
 COPY . .
 WORKDIR "/src/Workshopper.Api.Auth"
