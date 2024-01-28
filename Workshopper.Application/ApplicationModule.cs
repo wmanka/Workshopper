@@ -10,7 +10,7 @@ using Workshopper.Domain.Users.Events;
 
 namespace Workshopper.Application;
 
-public static class DependencyInjection
+public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {

@@ -1,12 +1,9 @@
-﻿using System.Reflection;
-using Workshopper.Domain.Common;
+﻿using Workshopper.Domain.Common;
 
 namespace Workshopper.ArchitectureTests.Domain;
 
-public class DomainTests
+public class DomainTests : BaseTest
 {
-    private readonly static Assembly DomainAssembly = typeof(DomainEntity).Assembly;
-
     [Fact]
     public void DomainEvents_Should_BeSealed()
     {

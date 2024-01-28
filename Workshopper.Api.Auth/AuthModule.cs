@@ -1,8 +1,10 @@
 ﻿using FastEndpoints.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NSwag;
 
-namespace Workshopper.Api;
+namespace Workshopper.Api.Auth;
 
-public static class DependencyInjection
+public static class AuthModule
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
@@ -10,7 +12,7 @@ public static class DependencyInjection
             .AddFastEndpoints(o =>
             {
                 o.IncludeAbstractValidators = true;
-                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.DiscoveredTypes.All);
+                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.Auth.DiscoveredTypes.All);
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Application.DiscoveredTypes.All);
             })
             .AddAuthorization()
@@ -18,11 +20,15 @@ public static class DependencyInjection
             {
                 o.DocumentSettings = s =>
                 {
-                    s.Title = "Workshopper API";
+                    s.DocumentName = "Workshopper API - Auth";
+                    s.Title = "Workshopper API - Auth";
                     s.Version = "v1";
                 };
-            })
-            .AddHealthChecks();
+
+                o.EnableJWTBearerAuth = true;
+            });
+
+        services.AddHealthChecks();
 
         return services;
     }

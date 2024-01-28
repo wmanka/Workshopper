@@ -6,5 +6,8 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.Domain.DomainTests.DomainEvents_Should_BeSealed&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.Domain.DomainTests.DomainEvents_Should_HaveDomainEventPostfix&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests.DomainLayer_Should_NotHaveDependencyOnApplication&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests.ApplicationLayer_Should_HaveDependencyOnDomainLayer&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

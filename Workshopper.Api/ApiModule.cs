@@ -1,11 +1,8 @@
 ﻿using FastEndpoints.Swagger;
-using Microsoft.Extensions.DependencyInjection;
-using Workshopper.Api.Sessions.Services;
-using Workshopper.Application.Common.Interfaces;
 
-namespace Workshopper.Api.Sessions;
+namespace Workshopper.Api;
 
-public static class DependencyInjection
+public static class ApiModule
 {
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
@@ -13,7 +10,7 @@ public static class DependencyInjection
             .AddFastEndpoints(o =>
             {
                 o.IncludeAbstractValidators = true;
-                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.Sessions.DiscoveredTypes.All);
+                o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Api.DiscoveredTypes.All);
                 o.SourceGeneratorDiscoveredTypes.AddRange(Workshopper.Application.DiscoveredTypes.All);
             })
             .AddAuthorization()
@@ -21,13 +18,11 @@ public static class DependencyInjection
             {
                 o.DocumentSettings = s =>
                 {
-                    s.Title = "Workshopper API - Sessions";
+                    s.Title = "Workshopper API";
                     s.Version = "v1";
                 };
             })
             .AddHealthChecks();
-
-        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
 
         return services;
     }

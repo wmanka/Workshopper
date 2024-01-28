@@ -25,7 +25,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Workshopper.Api.Auth\Workshopper.Api.Auth.csproj" />
+      <ProjectReference Include="..\Workshopper.Api.Sessions\Workshopper.Api.Sessions.csproj" />
+      <ProjectReference Include="..\Workshopper.Api\Workshopper.Api.csproj" />
+      <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj" />
       <ProjectReference Include="..\Workshopper.Domain\Workshopper.Domain.csproj" />
+      <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
