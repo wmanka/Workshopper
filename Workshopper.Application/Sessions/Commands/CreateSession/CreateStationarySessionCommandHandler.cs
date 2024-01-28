@@ -1,4 +1,4 @@
-﻿using Workshopper.Application.Common.Interfaces;
+﻿using Workshopper.Application.Common.Abstractions;
 using Workshopper.Domain.Sessions;
 
 namespace Workshopper.Application.Sessions.Commands.CreateSession;

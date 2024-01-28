@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Http;
-using Workshopper.Application.Common.Interfaces;
+using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Users.UserProfiles;
 using Workshopper.Infrastructure.Authentication;
 
-namespace Workshopper.Api.Sessions.Services;
+namespace Workshopper.Api.Sessions.Common;
 
 public class CurrentUserProvider : ICurrentUserProvider
 {

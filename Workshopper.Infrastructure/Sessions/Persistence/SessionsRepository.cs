@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Workshopper.Application.Common;
-using Workshopper.Application.Common.Interfaces;
+using Workshopper.Application.Common.Abstractions;
+using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Sessions;
 using Workshopper.Infrastructure.Common.Persistence;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Workshopper.Domain.Users.Events;
 
-namespace Workshopper.Application.Users.Commands.Login;
+namespace Workshopper.Application.Users.Events;
 
 public class UserLoggedInEventHandler : IEventHandler<UserLoggedInDomainEvent>
 {

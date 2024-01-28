@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using FastEndpoints.Security;
 using Microsoft.Extensions.Options;
-using Workshopper.Application.Common.Interfaces;
-using Workshopper.Application.Common.Roles;
+using Workshopper.Application.Common.Abstractions;
+using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Users;
 using Workshopper.Domain.Users.UserProfiles;
 using Workshopper.Infrastructure.Common.Persistence;

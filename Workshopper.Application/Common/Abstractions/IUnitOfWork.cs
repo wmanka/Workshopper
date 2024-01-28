@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Application.Common.Interfaces;
+﻿namespace Workshopper.Application.Common.Abstractions;
 
 public interface IUnitOfWork
 {

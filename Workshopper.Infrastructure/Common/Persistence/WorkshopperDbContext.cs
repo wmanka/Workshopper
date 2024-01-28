@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Workshopper.Application.Common.Interfaces;
+using Workshopper.Application.Common.Abstractions;
 using Workshopper.Domain.Common;
 using Workshopper.Domain.Sessions;
 using Workshopper.Domain.Subscriptions;
 using Workshopper.Domain.Users;
 using Workshopper.Domain.Users.UserProfiles;
+using Workshopper.Infrastructure.Common.Converters;
 
 namespace Workshopper.Infrastructure.Common.Persistence;
 

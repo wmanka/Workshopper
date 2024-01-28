@@ -1,5 +1,6 @@
 ﻿using Workshopper.Application.Common;
 using Microsoft.EntityFrameworkCore;
+using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Common;
 
 namespace Workshopper.Infrastructure.Common.Persistence;

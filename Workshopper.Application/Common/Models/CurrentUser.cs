@@ -1,4 +1,3 @@
-using Workshopper.Application.Common.Roles;
 using Workshopper.Domain.Users.UserProfiles;
 
 namespace Workshopper.Application.Common.Models;

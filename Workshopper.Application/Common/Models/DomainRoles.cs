@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Application.Common.Roles;
+﻿namespace Workshopper.Application.Common.Models;
 
 public static class DomainRoles
 {

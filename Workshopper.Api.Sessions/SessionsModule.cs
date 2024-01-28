@@ -1,7 +1,7 @@
 ﻿using FastEndpoints.Swagger;
 using Microsoft.Extensions.DependencyInjection;
-using Workshopper.Api.Sessions.Services;
-using Workshopper.Application.Common.Interfaces;
+using Workshopper.Api.Sessions.Common;
+using Workshopper.Application.Common.Abstractions;
 
 namespace Workshopper.Api.Sessions;
 

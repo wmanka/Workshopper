@@ -1,4 +1,5 @@
 ﻿using Workshopper.Application.Common;
+using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Sessions;
 
 namespace Workshopper.Application.Sessions.Specifications;

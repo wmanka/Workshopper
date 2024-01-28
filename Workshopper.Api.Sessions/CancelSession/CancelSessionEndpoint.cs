@@ -1,5 +1,5 @@
 ﻿using Workshopper.Api.Sessions.Contracts.CancelSession;
-using Workshopper.Application.Common.Roles;
+using Workshopper.Application.Common.Models;
 using Workshopper.Application.Sessions.Commands.CancelSession;
 
 namespace Workshopper.Api.Sessions.CancelSession;

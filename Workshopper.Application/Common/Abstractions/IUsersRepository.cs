@@ -1,6 +1,7 @@
-﻿using Workshopper.Domain.Users;
+﻿using Workshopper.Application.Common.Models;
+using Workshopper.Domain.Users;
 
-namespace Workshopper.Application.Common.Interfaces;
+namespace Workshopper.Application.Common.Abstractions;
 
 public interface IUsersRepository
 {

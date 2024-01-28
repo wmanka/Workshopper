@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Workshopper.Domain.Common;
 
-namespace Workshopper.Application.Common;
+namespace Workshopper.Application.Common.Models;
 
 public abstract class Specification<TEntity>
     where TEntity : DomainEntity

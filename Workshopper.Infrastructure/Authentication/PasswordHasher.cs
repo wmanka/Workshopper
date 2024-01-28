@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-using Workshopper.Domain.Common.Interfaces;
+using Workshopper.Application.Common.Abstractions;
 
 namespace Workshopper.Infrastructure.Authentication;
 

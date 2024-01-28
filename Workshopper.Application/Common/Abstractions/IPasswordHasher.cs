@@ -1,4 +1,4 @@
-namespace Workshopper.Domain.Common.Interfaces;
+namespace Workshopper.Application.Common.Abstractions;
 
 public interface IPasswordHasher
 {

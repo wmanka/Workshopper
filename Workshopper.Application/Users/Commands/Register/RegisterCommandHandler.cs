@@ -1,6 +1,5 @@
-﻿using Workshopper.Application.Common.Interfaces;
+﻿using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Users.Specifications;
-using Workshopper.Domain.Common.Interfaces;
 using Workshopper.Domain.Users;
 
 namespace Workshopper.Application.Users.Commands.Register;

@@ -1,6 +1,6 @@
 ﻿using Workshopper.Api.Sessions.Contracts;
 using Workshopper.Api.Sessions.Contracts.CreateSession;
-using Workshopper.Application.Common.Roles;
+using Workshopper.Application.Common.Models;
 using Workshopper.Application.Sessions.Commands.CreateSession;
 using DomainAddress = Workshopper.Domain.Common.Address;
 using DomainDeliveryType = Workshopper.Domain.Sessions.DeliveryType;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Workshopper.Application.Common.Interfaces;
+using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Sessions.Specifications;
 using Workshopper.Domain.Sessions;
 

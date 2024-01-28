@@ -32,7 +32,6 @@ public class EventualConsistencyMiddleware()
                 {
                     while (domainEventsQueue!.TryDequeue(out var domainEvent))
                     {
-                        // await domainEvent.PublishAsync(); // todo why it doesn't work
                         await (domainEvent as IEvent).PublishAsync();
                     }
                 }

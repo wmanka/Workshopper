@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Workshopper.Domain.Sessions.Events;
 
-namespace Workshopper.Application.Sessions.Commands.CancelSession;
+namespace Workshopper.Application.Sessions.Events;
 
 public class SessionCanceledEventHandler : IEventHandler<SessionCanceledDomainEvent>
 {

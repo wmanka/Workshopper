@@ -23,8 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Subscriptions\Queries\GetSubscription\" />
-      <Folder Include="Users\Commands\CreateProfile\" />
+      <Folder Include="Sessions\Commands\" />
+      <Folder Include="Subscriptions\Commands\" />
     </ItemGroup>
 
 </Project>
