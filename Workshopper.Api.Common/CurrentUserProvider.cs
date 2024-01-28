@@ -4,7 +4,7 @@ using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Users.UserProfiles;
 using Workshopper.Infrastructure.Authentication;
 
-namespace Workshopper.Api.Sessions.Common;
+namespace Workshopper.Api.Common;
 
 public class CurrentUserProvider : ICurrentUserProvider
 {
@@ -22,7 +22,7 @@ public class CurrentUserProvider : ICurrentUserProvider
             return null;
         }
 
-        if (Guid.TryParse(GetClaimValue(CustomClaimType.UserId), out var userId))
+        if (!Guid.TryParse(GetClaimValue(CustomClaimType.UserId), out var userId))
         {
             return null;
         }

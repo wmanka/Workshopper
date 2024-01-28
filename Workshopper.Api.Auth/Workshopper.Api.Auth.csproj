@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Workshopper.Api.Auth.Contracts\Workshopper.Api.Auth.Contracts.csproj"/>
+        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
         <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj"/>
         <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj"/>
     </ItemGroup>
@@ -31,10 +32,6 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="CreateProfile\" />
     </ItemGroup>
     
 </Project>

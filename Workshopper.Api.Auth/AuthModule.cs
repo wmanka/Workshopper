@@ -1,6 +1,5 @@
 ﻿using FastEndpoints.Swagger;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using NSwag;
+using Workshopper.Api.Common;
 
 namespace Workshopper.Api.Auth;
 
@@ -24,11 +23,8 @@ public static class AuthModule
                     s.Title = "Workshopper API - Auth";
                     s.Version = "v1";
                 };
-
-                o.EnableJWTBearerAuth = true;
-            });
-
-        services.AddHealthChecks();
+            })
+            .AddPresentationCommon();
 
         return services;
     }

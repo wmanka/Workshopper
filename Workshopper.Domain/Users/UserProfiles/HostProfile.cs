@@ -1,4 +1,5 @@
 ﻿using Workshopper.Domain.Sessions;
+using Workshopper.Domain.Users.Events;
 
 namespace Workshopper.Domain.Users.UserProfiles;
 
@@ -6,7 +7,7 @@ public class HostProfile : UserProfile
 {
     private readonly List<Session> _hostedSessions = [];
 
-    public HostProfile(
+    private HostProfile(
         string firstName,
         string lastName,
         string? title = null,
@@ -35,13 +36,34 @@ public class HostProfile : UserProfile
 
     public IReadOnlyCollection<Session> HostedSessions => _hostedSessions.AsReadOnly();
 
+    public static HostProfile Create(
+        string firstName,
+        string lastName,
+        string? title = null,
+        string? company = null,
+        string? bio = null,
+        Guid? id = null)
+    {
+        var hostProfile = new HostProfile(
+            firstName,
+            lastName,
+            title,
+            company,
+            bio,
+            id);
+
+        hostProfile._domainEvents.Add(new UserProfileCreatedDomainEvent(hostProfile));
+
+        return hostProfile;
+    }
+
     public void Verify()
     {
         IsVerified = true;
     }
 
     private HostProfile()
-        : this(default!, default!, default!)
+        : this(default!, default!)
     {
     }
 }

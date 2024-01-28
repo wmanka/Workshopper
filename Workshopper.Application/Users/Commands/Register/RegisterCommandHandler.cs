@@ -31,7 +31,7 @@ public class RegisterCommandHandler : CommandHandler<RegisterCommand>
 
         var hash = _passwordHasher.HashPassword(command.Password);
 
-        var user = new User(
+        var user = User.Create(
             command.Email,
             hash);
 

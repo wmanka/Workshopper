@@ -1,7 +1,6 @@
 ﻿using FastEndpoints.Swagger;
 using Microsoft.Extensions.DependencyInjection;
-using Workshopper.Api.Sessions.Common;
-using Workshopper.Application.Common.Abstractions;
+using Workshopper.Api.Common;
 
 namespace Workshopper.Api.Sessions;
 
@@ -25,9 +24,7 @@ public static class SessionsModule
                     s.Version = "v1";
                 };
             })
-            .AddHealthChecks();
-
-        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+            .AddPresentationCommon();
 
         return services;
     }

@@ -1,9 +1,9 @@
-﻿using Workshopper.Api.Auth.Contracts.Login;
+﻿using Workshopper.Api.Auth.Contracts;
 using Workshopper.Application.Users.Commands.Login;
 
 namespace Workshopper.Api.Auth.Login;
 
-public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
+public class LoginEndpoint : Endpoint<LoginRequest, AuthenticationResponse>
 {
     public override void Configure()
     {
@@ -31,7 +31,7 @@ public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
         var token = await command.ExecuteAsync(ct);
 
         await SendOkAsync(
-            new LoginResponse(token),
+            new AuthenticationResponse(token),
             ct);
     }
 }

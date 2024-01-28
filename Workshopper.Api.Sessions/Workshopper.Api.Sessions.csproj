@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
         <ProjectReference Include="..\Workshopper.Api.Sessions.Contracts\Workshopper.Api.Sessions.Contracts.csproj"/>
         <ProjectReference Include="..\Workshopper.Application\Workshopper.Application.csproj"/>
         <ProjectReference Include="..\Workshopper.Infrastructure\Workshopper.Infrastructure.csproj"/>

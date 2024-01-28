@@ -1,4 +1,5 @@
 ﻿using FastEndpoints.Swagger;
+using Workshopper.Api.Common;
 
 namespace Workshopper.Api;
 
@@ -22,7 +23,7 @@ public static class ApiModule
                     s.Version = "v1";
                 };
             })
-            .AddHealthChecks();
+            .AddPresentationCommon();
 
         return services;
     }

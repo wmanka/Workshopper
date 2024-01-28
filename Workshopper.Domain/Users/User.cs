@@ -1,12 +1,12 @@
 ﻿using Workshopper.Domain.Common;
+using Workshopper.Domain.Users.Events;
 using Workshopper.Domain.Users.UserProfiles;
 
 namespace Workshopper.Domain.Users;
 
-public class User : DomainEntity
+public sealed class User : DomainEntity
 {
-
-    public User(
+    private User(
         string email,
         string hash,
         Guid? id = null)
@@ -14,7 +14,6 @@ public class User : DomainEntity
     {
         Email = email;
         Hash = hash;
-        UserSettings = new UserSettings(Id);
     }
 
     public string Email { get; private set; }
@@ -29,9 +28,22 @@ public class User : DomainEntity
 
     public Guid? AttendeeProfileId { get; private set; }
 
-    public UserSettings UserSettings { get; }
+    public UserSettings UserSettings { get; private set; }
 
-    public void CreateHostProfile(
+    public static User Create(
+        string email,
+        string hash,
+        Guid? id = null)
+    {
+        var user = new User(email, hash, id);
+        user.UserSettings = new UserSettings(user.Id);
+
+        user._domainEvents.Add(new UserRegisteredDomainEvent(user));
+
+        return user;
+    }
+
+    public void AddHostProfile(
         string firstName,
         string lastName,
         string? title,
@@ -43,7 +55,7 @@ public class User : DomainEntity
             throw new DomainException(UserErrors.ProfileAlreadyExists);
         }
 
-        HostProfile = new HostProfile(firstName, lastName, title, company, bio);
+        HostProfile = HostProfile.Create(firstName, lastName, title, company, bio);
     }
 
     private User()
