@@ -3,7 +3,7 @@ using Workshopper.Domain.Users.Events;
 
 namespace Workshopper.Application.Users.Commands.Register;
 
-public class UserRegisteredEventHandler : IEventHandler<UserRegisteredEvent>
+public class UserRegisteredEventHandler : IEventHandler<UserRegisteredDomainEvent>
 {
     private readonly ILogger<UserRegisteredEventHandler> _logger;
 
@@ -12,11 +12,11 @@ public class UserRegisteredEventHandler : IEventHandler<UserRegisteredEvent>
         _logger = logger;
     }
 
-    public Task HandleAsync(UserRegisteredEvent eventModel, CancellationToken ct)
+    public Task HandleAsync(UserRegisteredDomainEvent domainEventModel, CancellationToken ct)
     {
         _logger.LogInformation(
             "User with email '{email}' was registered successfully",
-            eventModel.User.Email);
+            domainEventModel.User.Email);
 
         return Task.CompletedTask;
     }

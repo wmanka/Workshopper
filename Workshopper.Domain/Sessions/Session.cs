@@ -64,7 +64,7 @@ public abstract class Session : DomainEntity
 
         IsCanceled = true;
 
-        _domainEvents.Add(new SessionCanceledEvent(this));
+        _domainEvents.Add(new SessionCanceledDomainEvent(this));
     }
 
     public void AddAttendee(AttendeeProfile attendee)

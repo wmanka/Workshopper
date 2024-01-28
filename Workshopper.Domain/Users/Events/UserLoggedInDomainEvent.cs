@@ -2,4 +2,4 @@
 
 namespace Workshopper.Domain.Users.Events;
 
-public record UserLoggedInEvent(User User) : IDomainEvent;
+public sealed record UserLoggedInDomainEvent(User User) : IDomainEvent;

@@ -16,10 +16,10 @@ public static class DependencyInjection
     {
         services.AddValidatorsFromAssemblyContaining<CreateOnlineSessionCommandValidator>();
 
-        services.TryAddSingleton<IEventHandler<UserRegisteredEvent>, UserRegisteredEventHandler>();
-        services.TryAddSingleton<IEventHandler<UserLoggedInEvent>, UserLoggedInEventHandler>();
+        services.TryAddSingleton<IEventHandler<UserRegisteredDomainEvent>, UserRegisteredEventHandler>();
+        services.TryAddSingleton<IEventHandler<UserLoggedInDomainEvent>, UserLoggedInEventHandler>();
 
-        services.TryAddSingleton<IEventHandler<SessionCanceledEvent>, SessionCanceledEventHandler>();
+        services.TryAddSingleton<IEventHandler<SessionCanceledDomainEvent>, SessionCanceledEventHandler>();
 
         return services;
     }

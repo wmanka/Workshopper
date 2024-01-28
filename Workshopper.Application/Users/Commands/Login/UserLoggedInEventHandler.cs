@@ -3,7 +3,7 @@ using Workshopper.Domain.Users.Events;
 
 namespace Workshopper.Application.Users.Commands.Login;
 
-public class UserLoggedInEventHandler : IEventHandler<UserLoggedInEvent>
+public class UserLoggedInEventHandler : IEventHandler<UserLoggedInDomainEvent>
 {
     private readonly ILogger<UserLoggedInEventHandler> _logger;
 
@@ -12,11 +12,11 @@ public class UserLoggedInEventHandler : IEventHandler<UserLoggedInEvent>
         _logger = logger;
     }
 
-    public Task HandleAsync(UserLoggedInEvent eventModel, CancellationToken ct)
+    public Task HandleAsync(UserLoggedInDomainEvent domainEventModel, CancellationToken ct)
     {
         _logger.LogInformation(
             "User with email '{email}' was logged in successfully",
-            eventModel.User.Email);
+            domainEventModel.User.Email);
 
         return Task.CompletedTask;
     }

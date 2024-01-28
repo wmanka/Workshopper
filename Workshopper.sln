@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth", "Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth.Contracts", "Workshopper.Api.Auth.Contracts\Workshopper.Api.Auth.Contracts.csproj", "{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.ArchitectureTests", "Workshopper.ArchitectureTests\Workshopper.ArchitectureTests.csproj", "{6F808961-FEB1-41FE-8871-70D2925E6F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F808961-FEB1-41FE-8871-70D2925E6F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F808961-FEB1-41FE-8871-70D2925E6F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F808961-FEB1-41FE-8871-70D2925E6F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F808961-FEB1-41FE-8871-70D2925E6F7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37B263F6-5B8E-4571-A28E-ED56E47608D9} = {B7A08E47-8AE5-449B-95AB-6E35EFC81B7B}
@@ -93,5 +99,6 @@ Global
 		{590952AB-A3BB-4FA9-BF5A-AEDF4B3796EF} = {882065E3-B667-4723-AD00-C3487804AD62}
 		{3ECC86F4-6A0E-4565-A4AD-9F93B99C703C} = {882065E3-B667-4723-AD00-C3487804AD62}
 		{64CA34EF-A2B3-4675-BD11-4EE9FB82603B} = {882065E3-B667-4723-AD00-C3487804AD62}
+		{6F808961-FEB1-41FE-8871-70D2925E6F7E} = {D2CBB303-D48C-485E-B2FF-9A8784F9672B}
 	EndGlobalSection
 EndGlobal
