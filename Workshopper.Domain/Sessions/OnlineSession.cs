@@ -1,10 +1,10 @@
-﻿namespace Workshopper.Domain.Sessions;
+﻿using Workshopper.Domain.Sessions.Events;
+
+namespace Workshopper.Domain.Sessions;
 
 public sealed class OnlineSession : Session
 {
-    public string Link { get; private set; }
-
-    public OnlineSession(
+    private OnlineSession(
         string title,
         string? description,
         SessionType sessionType,
@@ -25,6 +25,34 @@ public sealed class OnlineSession : Session
     {
         DeliveryType = DeliveryType.Online;
         Link = link;
+    }
+
+    public string Link { get; private set; }
+
+    public static OnlineSession Create(
+        string title,
+        string? description,
+        SessionType sessionType,
+        DateTimeOffset startDateTime,
+        DateTimeOffset endDateTime,
+        int places,
+        Guid hostProfileId,
+        string link,
+        Guid? id = null)
+    {
+        var onlineSession = new OnlineSession(title,
+            description,
+            sessionType,
+            startDateTime,
+            endDateTime,
+            places,
+            hostProfileId,
+            link,
+            id);
+
+        onlineSession._domainEvents.Add(new SessionCreatedDomainEvent(onlineSession.Id));
+
+        return onlineSession;
     }
 
     private OnlineSession()

@@ -8,5 +8,5 @@ public record CreateSessionRequest(
     DateTimeOffset StartDateTime,
     DateTimeOffset EndDateTime,
     int Places,
-    string? Link,
-    Address? Address);
+    string? Link = null,
+    Address? Address = null);

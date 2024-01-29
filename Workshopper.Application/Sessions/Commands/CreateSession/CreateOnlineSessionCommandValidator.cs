@@ -5,20 +5,36 @@ using Workshopper.Domain.Sessions;
 
 namespace Workshopper.Application.Sessions.Commands.CreateSession;
 
-public class CreateOnlineSessionCommandValidator : Validator<CreateOnlineSessionCommand>
+public class CreateOnlineSessionCommandValidator : AbstractValidator<CreateOnlineSessionCommand>
 {
-    public CreateOnlineSessionCommandValidator()
+    public CreateOnlineSessionCommandValidator(
+        ISessionsRepository sessionsRepository,
+        ICurrentUserProvider currentUserProvider)
     {
+        RuleFor(x => x.SessionType)
+            .NotNull();
+
         RuleFor(x => x)
-            .CustomAsync(async (command, context, ct) =>
+            .CustomAsync(async (command, context, _) =>
             {
-                var repository = Resolve<ISessionsRepository>();
-                if (await repository.AnyAsync(new SessionDuringTimeSpecification(
-                        command.StartDateTime,
-                        command.EndDateTime)))
+                var userProfile = currentUserProvider.GetCurrentUser();
+                var userProfileId = userProfile?.ProfileId;
+                if (userProfile is null || userProfileId is null || !userProfile.IsHost)
+                {
+                    context.AddFailure(SessionErrors.OnlyHostCanCreateSession);
+
+                    return;
+                }
+
+                if (await sessionsRepository.AnyAsync(
+                        new SessionDuringTimeSpecification(command.StartDateTime, command.EndDateTime, userProfileId.Value)))
                 {
                     context.AddFailure(SessionErrors.SessionTimeOverlaps);
                 }
             });
+
+        RuleFor(x => x.Link)
+            .NotEmpty()
+            .MaximumLength(250);
     }
 }

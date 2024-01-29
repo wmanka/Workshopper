@@ -22,6 +22,7 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
         Summary(s =>
         {
             s.Summary = "Create a session";
+
             s.ExampleRequest = new CreateSessionRequest(
                 DeliveryType.Stationary,
                 SessionType.Workshop,
@@ -30,8 +31,18 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
                 DateTimeOffset.Now.AddHours(1),
                 DateTimeOffset.Now.AddHours(2),
                 12,
-                "https://zoom.us/j/1234567890?pwd=QWERTYUIOPASDFGHJKLZXCVBNM",
+                null,
                 new Address("1 Main Street", "Apt 2", "London", "UK", "SW1A 1AA"));
+
+            s.ExampleRequest = new CreateSessionRequest(
+                DeliveryType.Online,
+                SessionType.Discussion,
+                "Git Basics Online",
+                null,
+                DateTimeOffset.Now.AddHours(1),
+                DateTimeOffset.Now.AddHours(2),
+                2,
+                "https://zoom.us/j/1234567890?pwd=QWERTYUIOPASDFGHJKLZXCVBNM");
 
             s.ResponseExamples[200] = new CreateSessionResponse(Guid.NewGuid());
         });
