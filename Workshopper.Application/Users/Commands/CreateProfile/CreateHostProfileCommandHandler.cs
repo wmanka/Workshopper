@@ -35,7 +35,7 @@ public class CreateHostProfileCommandHandler : CommandHandler<CreateHostProfileC
             ThrowError(UserErrors.UserNotFound);
         }
 
-        user.AddHostProfile(
+        user.CreateHostProfile(
             command.FirstName,
             command.LastName,
             command.Title,

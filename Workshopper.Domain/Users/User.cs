@@ -43,12 +43,12 @@ public sealed class User : DomainEntity
         return user;
     }
 
-    public void AddHostProfile(
+    public void CreateHostProfile(
         string firstName,
         string lastName,
-        string? title,
-        string? company,
-        string? bio)
+        string? title = null,
+        string? company = null,
+        string? bio = null)
     {
         if (HostProfile is not null)
         {
