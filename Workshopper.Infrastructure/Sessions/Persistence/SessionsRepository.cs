@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Workshopper.Application.Common;
 using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Sessions;
@@ -21,9 +20,14 @@ internal class SessionsRepository : ISessionsRepository
         _context.Sessions.Update(session);
     }
 
-    public async Task<Session?> GetSessionAsync(Guid id)
+    public async Task<Session?> GetAsync(Guid id)
     {
         return await _context.Sessions.FindAsync(id);
+    }
+
+    public async Task<Session?> GetAsync(Specification<Session> specification)
+    {
+        return await SpecificationEvaluator.GetQuery(_context.Sessions, specification).FirstOrDefaultAsync();
     }
 
     public async Task<bool> AnyAsync(Specification<Session> specification)

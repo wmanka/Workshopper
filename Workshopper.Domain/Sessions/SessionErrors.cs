@@ -2,6 +2,7 @@
 
 public static class SessionErrors
 {
+    public const string NotFound = "The session was not found";
     public const string SessionAlreadyCanceled = "The session has already been canceled";
     public const string SessionAlreadyStarted = "The session has already started";
     public const string SessionTimeOverlaps = "The session time overlaps with another session";
@@ -12,4 +13,6 @@ public static class SessionErrors
     public const string SessionIsFull = "Session is full";
     public const string AttendeeNotAdded = "Attendee has not been added to the session";
     public const string OnlyHostCanCreateSession = "Only host can create session";
+    public const string OnlyAttendeesCanRegisterForSession = "Only attendees can register for session";
+    public const string CantRegisteredForOwnSession = "Can't register for your own session";
 }

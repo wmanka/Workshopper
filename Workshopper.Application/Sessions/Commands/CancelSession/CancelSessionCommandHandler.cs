@@ -18,7 +18,7 @@ public class CancelSessionCommandHandler : CommandHandler<CancelSessionCommand, 
 
     public override async Task<Guid> ExecuteAsync(CancelSessionCommand command, CancellationToken ct = new())
     {
-        var session = await _sessionsRepository.GetSessionAsync(command.Id);
+        var session = await _sessionsRepository.GetAsync(command.Id);
         if (session is null)
         {
             ThrowError("Session not found");

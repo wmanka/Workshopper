@@ -52,7 +52,7 @@ public sealed class User : DomainEntity
     {
         if (HostProfile is not null)
         {
-            throw new DomainException(UserErrors.ProfileAlreadyExists);
+            throw new DomainException(UserErrors.UserProfileAlreadyExists);
         }
 
         HostProfile = HostProfile.Create(firstName, lastName, title, company, bio);

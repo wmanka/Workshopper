@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Sessions\Commands\" />
       <Folder Include="Subscriptions\Commands\" />
     </ItemGroup>
 

@@ -18,6 +18,6 @@ public class UsersTests
         action
             .Should()
             .Throw<DomainException>()
-            .WithMessage(UserErrors.ProfileAlreadyExists);
+            .WithMessage(UserErrors.UserProfileAlreadyExists);
     }
 }

@@ -67,19 +67,26 @@ public abstract class Session : DomainEntity
         _domainEvents.Add(new SessionCanceledDomainEvent(this));
     }
 
-    public void AddAttendee(AttendeeProfile attendee)
+    public void RegisterAttendee(AttendeeProfile attendee)
     {
+        if (HostProfileId == attendee.Id)
+        {
+            throw new DomainException(SessionErrors.CantRegisteredForOwnSession);
+        }
+
         if (Attendees.Any(x => x.Id == attendee.Id))
         {
             throw new DomainException(SessionErrors.AttendeeAlreadyAdded);
         }
 
-        if (Attendees.Count >= Places)
+        if (Attendees.Count == Places)
         {
             throw new DomainException(SessionErrors.SessionIsFull);
         }
 
         _attendees.Add(attendee);
+
+        _domainEvents.Add(new AttendeeRegisteredForSessionDomainEvent(Id, attendee.Id));
     }
 
     public void RemoveAttendee(AttendeeProfile attendee)
