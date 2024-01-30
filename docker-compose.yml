@@ -5,7 +5,7 @@ services:
 
   postgres:
     container_name: postgres
-    image: postgres:latest
+    image: postgres
     restart: always
     ports:
       - "5432:5432"
@@ -41,7 +41,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_ENVIRONMENT: local
     links:
       - postgres
     volumes:
@@ -70,7 +70,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_ENVIRONMENT: local
     links:
       - postgres
     volumes:
@@ -99,7 +99,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_ENVIRONMENT: local
     links:
       - postgres
     volumes:

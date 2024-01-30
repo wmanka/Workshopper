@@ -26,7 +26,7 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
-      <Content Update="appsettings.docker.json">
+      <Content Update="appsettings.local.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         <CopyToPublishDirectory>Always</CopyToPublishDirectory>
       </Content>

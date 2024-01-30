@@ -41,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Workshopper.Api.Sessions/Dockerfile-Development
+          file: Workshopper.Api.Sessions/Dockerfile
           push: true
           tags: wmanka/workshopper-api-sessions:development
