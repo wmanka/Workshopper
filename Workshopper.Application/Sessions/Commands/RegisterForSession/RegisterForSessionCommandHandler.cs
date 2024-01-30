@@ -29,7 +29,7 @@ public class RegisterForSessionCommandHandler : CommandHandler<RegisterForSessio
     public override async Task ExecuteAsync(RegisterForSessionCommand command, CancellationToken ct = new())
     {
         var currentUser = _currentUserProvider.GetCurrentUser();
-        if (currentUser is null || !currentUser.IsAttendee)
+        if (currentUser?.ProfileId is null || !currentUser.IsAttendee)
         {
             ThrowError(SessionErrors.OnlyAttendeesCanRegisterForSession);
         }
