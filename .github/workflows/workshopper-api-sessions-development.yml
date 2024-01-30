@@ -1,4 +1,4 @@
-name: Workshopper - Sessions API [DEVELOPMENT]
+name: Workshopper - Sessions API [Development]
 
 on:
   push:
@@ -36,6 +36,10 @@ jobs:
           files: '**/appsettings.json'
         env:
           Database.ConnectionString: ${{ secrets.DATABASE_CONNECTION_STRING }}
+          JwtSettings.SigningKey: ${{ secrets.JWT_SIGNING_KEY }}
+          JwtSettings.Issuer: ${{ secrets.JWT_ISSUER }}
+          JwtSettings.Audience: ${{ secrets.JWT_AUDIENCE }}
+          JwtSettings.TokenExpiration: ${{ secrets.JWT_TOKEN_EXPIRATION }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
