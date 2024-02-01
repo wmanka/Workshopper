@@ -111,6 +111,29 @@ services:
       interval: 30s
       timeout: 3s
 
+  database-updater:
+    container_name: database-updater
+    build:
+      context: ./Workshopper.DatabaseUpdater
+      dockerfile: Dockerfile
+    image: database-updater
+    restart: no
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: test
+      DB_NAME: workshopper_dev
+      ASPNETCORE_ENVIRONMENT: local
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+    networks:
+      - workshopper-net
+
 volumes:
   postgres_data:
     driver: local
