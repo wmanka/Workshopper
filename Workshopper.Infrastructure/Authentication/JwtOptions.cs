@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Infrastructure.Common.Persistence;
+﻿namespace Workshopper.Infrastructure.Authentication;
 
 public class JwtOptions
 {

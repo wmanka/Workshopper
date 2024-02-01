@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+        <PackageReference Include="ConfigCat.Client" Version="9.0.1" />
         <PackageReference Include="FastEndpoints.Generator" Version="5.21.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

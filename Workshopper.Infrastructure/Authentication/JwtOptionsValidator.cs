@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Workshopper.Infrastructure.Common.Persistence;
+namespace Workshopper.Infrastructure.Authentication;
 
 public class JwtOptionsValidator : IValidateOptions<JwtOptions>
 {

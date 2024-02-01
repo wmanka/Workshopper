@@ -1,11 +1,14 @@
-﻿using FastEndpoints.Security;
+﻿using ConfigCat.Client;
+using FastEndpoints.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Workshopper.Application;
 using Workshopper.Application.Common.Abstractions;
 using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
+using Workshopper.Infrastructure.FeatureFlags;
 using Workshopper.Infrastructure.Sessions.Persistence;
 using Workshopper.Infrastructure.Subscriptions.Persistence;
 using Workshopper.Infrastructure.Users.Persistence;
@@ -21,7 +24,8 @@ public static class InfrastructureModule
             .AddAuthentication(configuration)
             .AddAuthorization()
             .AddHttpContextAccessor()
-            .AddPersistence();
+            .AddPersistence()
+            .AddFeatureFlags(configuration);
     }
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
@@ -59,6 +63,29 @@ public static class InfrastructureModule
 
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
+    {
+        var featureFlagsSettings = new FeatureFlagsSettings();
+        configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
+        services.AddSingleton(Options.Create(featureFlagsSettings));
+        services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
+
+        services.AddSingleton<IConfigCatClient>(provider =>
+        {
+            var logger = provider.GetRequiredService<ILogger<ConfigCatClient>>();
+            var pollingInterval = TimeSpan.FromSeconds(featureFlagsSettings.PollingInterval);
+
+            return ConfigCatClient.Get(featureFlagsSettings.Key,
+                options =>
+                {
+                    options.PollingMode = PollingModes.LazyLoad(pollingInterval);
+                    options.Logger = new FeatureFlagsLoggerAdapter(logger);
+                });
+        });
 
         return services;
     }
