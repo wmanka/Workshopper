@@ -26,5 +26,7 @@ var app = builder.Build();
 
     app.MapHealthChecks("/health");
 
+    app.UseOpenTelemetryPrometheusScrapingEndpoint();
+
     app.Run();
 }
