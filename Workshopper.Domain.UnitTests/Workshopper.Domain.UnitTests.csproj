@@ -27,8 +27,4 @@
       <ProjectReference Include="..\Workshopper.Tests.Common\Workshopper.Tests.Common.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Constants\" />
-    </ItemGroup>
-
 </Project>

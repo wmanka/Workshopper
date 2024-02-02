@@ -1,4 +1,5 @@
-﻿using Workshopper.Api.Sessions.Contracts;
+﻿using ConfigCat.Client;
+using Workshopper.Api.Sessions.Contracts;
 using Workshopper.Api.Sessions.Contracts.CreateSession;
 using Workshopper.Application.Common.Models;
 using Workshopper.Application.Sessions.Commands.CreateSession;
@@ -10,6 +11,11 @@ namespace Workshopper.Api.Sessions.CreateSession;
 
 public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessionResponse>
 {
+    private readonly IConfigCatClient _configCatClient;
+    public CreateSessionEndpoint(IConfigCatClient configCatClient)
+    {
+        _configCatClient = configCatClient;
+    }
     public override void Configure()
     {
         Post("/sessions");
@@ -50,6 +56,8 @@ public class CreateSessionEndpoint : Endpoint<CreateSessionRequest, CreateSessio
 
     public override async Task HandleAsync(CreateSessionRequest request, CancellationToken ct)
     {
+        // var x = await _configCatClient.GetValueAsync("notifications-enabled", false, cancellationToken: ct);
+
         var command = CreateSessionCommandFactory.CreateSessionCommand(
             DomainDeliveryType.FromName(request.DeliveryType.ToString()),
             DomainSessionType.FromName(request.SessionType.ToString()),
