@@ -40,6 +40,8 @@ jobs:
           JwtSettings.Issuer: ${{ secrets.JWT_ISSUER }}
           JwtSettings.Audience: ${{ secrets.JWT_AUDIENCE }}
           JwtSettings.TokenExpiration: ${{ secrets.JWT_TOKEN_EXPIRATION }}
+          FeatureFlagsSettings.Key: ${{ secrets.FEATURE_FLAGS_TOKEN }}
+          FeatureFlagsSettings.PollingInterval: ${{ secrets.FEATURE_FLAGS_POLLING_INTERVAL }}
           
       - name: Build and push
         uses: docker/build-push-action@v5

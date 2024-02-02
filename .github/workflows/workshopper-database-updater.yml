@@ -36,6 +36,8 @@ jobs:
           files: '**/appsettings.json'
         env:
           Database.ConnectionString: ${{ secrets.DATABASE_CONNECTION_STRING }}
+          FeatureFlagsSettings.Key: ${{ secrets.FEATURE_FLAGS_TOKEN }}
+          FeatureFlagsSettings.PollingInterval: ${{ secrets.FEATURE_FLAGS_POLLING_INTERVAL }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
