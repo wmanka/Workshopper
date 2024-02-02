@@ -29,7 +29,8 @@ jobs:
           host: ${{ secrets.VM_HOST }}
           port: ${{ secrets.VM_PORT }}
           username: ${{ secrets.VM_USERNAME }}
-          password: ${{ secrets.VM_PASSWORD }}
+          key: ${{ secrets.VM_KEY }}
+          passphrase: ${{ secrets.VM_PASSPRASE }}
           script_stop: true
           script: |
             cd /root
