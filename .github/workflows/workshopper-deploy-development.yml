@@ -1,7 +1,17 @@
 name: Workshopper - Deploy [Development]
 
 on:
-  workflow_call:
+  workflow_run:
+    workflows: [
+        "Workshopper - API [Development]",
+        "Workshopper - Database Updater [Development]",
+        "Workshopper - Auth API [Development]",
+        "Workshopper - Sessions API [Development]"
+        ]
+    types:
+      - completed
+    branches:
+      - develop
 
 jobs:
 
