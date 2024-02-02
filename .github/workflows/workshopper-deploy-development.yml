@@ -1,6 +1,8 @@
 name: Workshopper - Deploy [Development]
 
 on:
+  push:
+    branches: [ "develop" ]
   workflow_run:
     workflows: [
         "Workshopper - API [Development]",
