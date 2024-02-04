@@ -9,18 +9,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
+        <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FastEndpoints.Generator" Version="5.22.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0" />
+        <PackageReference Include="FastEndpoints.Generator" Version="5.22.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0"/>
     </ItemGroup>
 
     <ItemGroup>
+        <Content Update="appsettings.production.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
         <Content Update="appsettings.staging.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
