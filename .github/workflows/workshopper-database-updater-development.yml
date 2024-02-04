@@ -29,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Workshopper.Api.DatabaseUpdater/Dockerfile
+          file: Workshopper.DatabaseUpdater/Dockerfile
           push: false
