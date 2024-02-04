@@ -1,4 +1,5 @@
-name: Workshopper - Auth API [Development]
+name: Workshopper - Database Updater [Development]
+
 
 on:
   push:
@@ -28,5 +29,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: Workshopper.Api.Auth/Dockerfile
+          file: Workshopper.Api.DatabaseUpdater/Dockerfile
           push: false

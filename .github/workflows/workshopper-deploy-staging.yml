@@ -1,29 +1,29 @@
-name: Workshopper - Deploy [Development]
+name: Workshopper - Deploy [Staging]
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "staging" ]
   workflow_run:
     workflows: [
-        "Workshopper - API [Development]",
-        "Workshopper - Database Updater [Development]",
-        "Workshopper - Auth API [Development]",
-        "Workshopper - Sessions API [Development]"
+        "Workshopper - API [Staging]",
+        "Workshopper - Database Updater [Staging]",
+        "Workshopper - Auth API [Staging]",
+        "Workshopper - Sessions API [Staging]"
         ]
     types:
       - completed
     branches:
-      - develop
+      - staging
 
 jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    environment: development
+    environment: staging
 
     steps:
 
-      - name: SSH into Development Server
+      - name: SSH into Staging Server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VM_HOST }}

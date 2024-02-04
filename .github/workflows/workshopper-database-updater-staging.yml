@@ -1,15 +1,15 @@
-name: Workshopper - Database Updater [Development]
+name: Workshopper - Database Updater [Staging]
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "staging" ]
 
 jobs:
 
   build-and-push:
 
     runs-on: ubuntu-latest
-    environment: development
+    environment: staging
 
     steps:
 
@@ -33,7 +33,7 @@ jobs:
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
         with:
-          files: '**/appsettings.json'
+          files: '**/appsettings.staging.json'
         env:
           Database.ConnectionString: ${{ secrets.DATABASE_CONNECTION_STRING }}
           FeatureFlagsSettings.Key: ${{ secrets.FEATURE_FLAGS_TOKEN }}
@@ -45,4 +45,4 @@ jobs:
           context: .
           file: Workshopper.DatabaseUpdater/Dockerfile
           push: true
-          tags: wmanka/workshopper-database-updater:development
+          tags: wmanka/workshopper-database-updater:staging
