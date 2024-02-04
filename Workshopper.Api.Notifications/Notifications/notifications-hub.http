@@ -1,0 +1,7 @@
+﻿WEBSOCKET ws://localhost:5000/notifications-hub
+Content-Type: application/json
+
+// RS (record separator) character at the end of the message is needed
+===
+{"protocol":"json","version":1}
+===

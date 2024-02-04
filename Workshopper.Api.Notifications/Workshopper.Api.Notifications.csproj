@@ -6,4 +6,32 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Workshopper.Api.Common\Workshopper.Api.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FastEndpoints.Generator" Version="5.22.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\groups.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\index.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\signalr.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\signalr.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\signalr.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\signalr.min.js.map" />
+    </ItemGroup>
+
 </Project>
