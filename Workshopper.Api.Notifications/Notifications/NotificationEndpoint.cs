@@ -4,9 +4,9 @@ namespace Workshopper.Api.Notifications.Notifications;
 
 public class NotificationEndpoint : EndpointWithoutRequest
 {
-    private readonly IHubContext<NotificationsHub> _notificationsHub;
+    private readonly IHubContext<NotificationsHub, INotificationsHubClient> _notificationsHub;
 
-    public NotificationEndpoint(IHubContext<NotificationsHub> notificationsHub)
+    public NotificationEndpoint(IHubContext<NotificationsHub, INotificationsHubClient> notificationsHub)
     {
         _notificationsHub = notificationsHub;
     }
@@ -22,14 +22,8 @@ public class NotificationEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await _notificationsHub.Clients.All.SendAsync(
-            "ReceiveNotification",
-            new
-            {
-                message = "Notification content"
-            },
-            cancellationToken: ct);
+        await _notificationsHub.Clients.All.ReceiveNotification("Test notification");
 
-        await SendOkAsync(ct);
+        await SendNoContentAsync(ct);
     }
 }

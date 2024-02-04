@@ -103,7 +103,7 @@ public static class InfrastructureModule
                     options =>
                     {
                         options.FlagOverrides = FlagOverrides.LocalDictionary(
-                            CustomFlagOverrides.LocalDictionary,
+                            CustomFeatureFlagOverrides.LocalDictionary,
                             OverrideBehaviour.LocalOnly);
                     });
             });

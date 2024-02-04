@@ -1,11 +1,14 @@
 ﻿namespace Workshopper.Infrastructure.FeatureFlags;
 
-public static class CustomFlagOverrides
+public static class CustomFeatureFlagOverrides
 {
     public readonly static IDictionary<string, object> LocalDictionary = new Dictionary<string, object>
     {
         {
-            "notificationsEnabled", true
+            FeatureFlags.NotificationsEnabled, true
+        },
+        {
+            FeatureFlags.PaymentsEnabled, false
         }
     };
 }

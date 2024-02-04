@@ -14,7 +14,7 @@ public class FeatureFlagsProcessor : IGlobalPreProcessor
     public async Task PreProcessAsync(IPreProcessorContext ctx, CancellationToken ct)
     {
         var notificationsEnabled = await _configCatClient.GetValueAsync(
-            key: "notifications-enabled",
+            key: Infrastructure.FeatureFlags.FeatureFlags.NotificationsEnabled,
             defaultValue: false,
             cancellationToken: ct);
 
