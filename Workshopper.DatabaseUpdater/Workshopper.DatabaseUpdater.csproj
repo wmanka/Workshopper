@@ -27,21 +27,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="appsettings.production.json">
+        <Content Include="appsettings.production.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
-        <Content Update="appsettings.staging.json">
+        <Content Include="appsettings.staging.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
-        <Content Update="appsettings.development.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        <Content Include="appsettings.development.json" Condition="" >
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
-        <Content Update="appsettings.development.container.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        <Content Include="appsettings.development.container.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
 
         <Content Include="..\.dockerignore">
