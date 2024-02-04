@@ -3,6 +3,7 @@ using FastEndpoints.Security;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -74,15 +75,15 @@ public static class InfrastructureModule
 
     private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
     {
-        services.AddSingleton<IConfigCatClient>(provider =>
+        if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
         {
-            if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
-            {
-                var featureFlagsSettings = new FeatureFlagsSettings();
-                configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
-                services.AddSingleton(Options.Create(featureFlagsSettings));
-                services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
+            var featureFlagsSettings = new FeatureFlagsSettings();
+            configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
+            services.AddSingleton(Options.Create(featureFlagsSettings));
+            services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
 
+            services.AddSingleton<IConfigCatClient>(provider =>
+            {
                 var logger = provider.GetRequiredService<ILogger<ConfigCatClient>>();
                 var pollingInterval = TimeSpan.FromSeconds(featureFlagsSettings.PollingInterval);
 
@@ -92,16 +93,21 @@ public static class InfrastructureModule
                         options.PollingMode = PollingModes.LazyLoad(pollingInterval);
                         options.Logger = new FeatureFlagsLoggerAdapter(logger);
                     });
-            }
-
-            return ConfigCatClient.Get("development",
-                options =>
-                {
-                    options.FlagOverrides = FlagOverrides.LocalDictionary(
-                        CustomFlagOverrides.LocalDictionary,
-                        OverrideBehaviour.LocalOnly);
-                });
-        });
+            });
+        }
+        else
+        {
+            services.AddSingleton<IConfigCatClient>(_ =>
+            {
+                return ConfigCatClient.Get("development",
+                    options =>
+                    {
+                        options.FlagOverrides = FlagOverrides.LocalDictionary(
+                            CustomFlagOverrides.LocalDictionary,
+                            OverrideBehaviour.LocalOnly);
+                    });
+            });
+        }
 
         return services;
     }
@@ -130,4 +136,5 @@ public static class InfrastructureModule
 
         return services;
     }
+
 }

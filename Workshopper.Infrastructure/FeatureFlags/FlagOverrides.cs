@@ -7,5 +7,5 @@ public static class CustomFlagOverrides
         {
             "notificationsEnabled", true
         }
-    }.AsReadOnly();
+    };
 }
