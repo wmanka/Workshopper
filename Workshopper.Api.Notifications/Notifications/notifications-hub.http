@@ -5,3 +5,9 @@ Content-Type: application/json
 ===
 {"protocol":"json","version":1}
 ===
+{
+    "arguments": ["This is the notification message."],
+    "target": "SendNotification",
+    "type": 1
+}
+===

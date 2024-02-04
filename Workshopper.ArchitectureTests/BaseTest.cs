@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Workshopper.Api;
 using Workshopper.Api.Auth;
+using Workshopper.Api.Notifications;
 using Workshopper.Api.Sessions;
 using Workshopper.Application;
 using Workshopper.Domain.Common;
@@ -16,6 +17,7 @@ public abstract class BaseTest
     protected readonly static Assembly ApiAssembly = typeof(ApiModule).Assembly;
     protected readonly static Assembly SessionsApiAssembly = typeof(SessionsModule).Assembly;
     protected readonly static Assembly AuthApiAssembly = typeof(AuthModule).Assembly;
+    protected readonly static Assembly NotificationsApiAssembly = typeof(NotificationsModule).Assembly;
 
     protected static string[] DomainAssemblies =>
     [
@@ -36,6 +38,7 @@ public abstract class BaseTest
     [
         ApiAssembly.GetName().Name!,
         AuthApiAssembly.GetName().Name!,
-        SessionsApiAssembly.GetName().Name!
+        SessionsApiAssembly.GetName().Name!,
+        NotificationsApiAssembly.GetName().Name!
     ];
 }

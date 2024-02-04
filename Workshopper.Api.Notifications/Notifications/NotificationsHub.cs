@@ -8,4 +8,9 @@ public sealed class NotificationsHub : Hub
     {
         await Clients.All.SendAsync("ReceiveNotification", $"{Context.ConnectionId} connected");
     }
+
+    public async Task SendNotification(string message)
+    {
+        await Clients.All.SendAsync("ReceiveNotification", message);
+    }
 }

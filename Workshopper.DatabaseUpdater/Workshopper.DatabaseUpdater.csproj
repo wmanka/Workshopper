@@ -30,12 +30,27 @@
         <Content Include="..\.dockerignore">
           <Link>.dockerignore</Link>
         </Content>
-        <Content Include="appsettings.json">
-            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        </Content>
         <Content Update="appsettings.local.json">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.production.json">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.json">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.container.json">
+          <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.staging.json">
           <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

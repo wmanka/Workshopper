@@ -13,23 +13,31 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.22.0" />
+        <PackageReference Include="FastEndpoints" Version="5.22.0"/>
         <PackageReference Include="FastEndpoints.Generator" Version="5.22.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FastEndpoints.Security" Version="5.22.0" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0" />
+        <PackageReference Include="FastEndpoints.Security" Version="5.22.0"/>
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="appsettings.docker.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        <Content Update="appsettings.staging.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
-        <Content Update="appsettings.json">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-          <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        <Content Update="appsettings.development.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.container.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
         </Content>
     </ItemGroup>
 

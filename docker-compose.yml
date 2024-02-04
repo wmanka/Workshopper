@@ -41,7 +41,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: local
+      ASPNETCORE_ENVIRONMENT: development.container
     links:
       - postgres
     volumes:
@@ -70,7 +70,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: local
+      ASPNETCORE_ENVIRONMENT: development.container
     links:
       - postgres
     volumes:
@@ -99,7 +99,36 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: local
+      ASPNETCORE_ENVIRONMENT: development.container
+    links:
+      - postgres
+    volumes:
+      - './:/src'
+    networks:
+      - workshopper-net
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
+      interval: 30s
+      timeout: 3s
+
+  workshopper-notifications:
+    container_name: workshopper-notifications
+    build:
+      context: ./Workshopper.Api.Notifications
+      dockerfile: Dockerfile
+    image: workshopper-notifications
+    restart: always
+    ports:
+      - "5004:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: test
+      DB_NAME: workshopper_dev
+      ASPNETCORE_ENVIRONMENT: development.container
     links:
       - postgres
     volumes:
@@ -126,7 +155,7 @@ services:
       DB_USER: postgres
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
-      ASPNETCORE_ENVIRONMENT: local
+      ASPNETCORE_ENVIRONMENT: development.container
     links:
       - postgres
     volumes:

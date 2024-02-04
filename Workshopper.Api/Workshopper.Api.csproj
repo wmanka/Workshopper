@@ -24,13 +24,22 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-      <Content Update="appsettings.local.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      </Content>
+        <Content Update="appsettings.staging.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.container.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

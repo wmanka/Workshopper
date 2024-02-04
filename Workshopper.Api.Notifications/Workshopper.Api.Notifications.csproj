@@ -4,6 +4,8 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UserSecretsId>27509afc-2012-4da1-b262-c167cdc8ff4d</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,19 +21,22 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      </Content>
-    </ItemGroup>
+        <Content Update="appsettings.staging.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+        <Content Update="appsettings.development.container.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\groups.html" />
-      <_ContentIncludedByDefault Remove="wwwroot\index.html" />
-      <_ContentIncludedByDefault Remove="wwwroot\signalr.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\signalr.js.map" />
-      <_ContentIncludedByDefault Remove="wwwroot\signalr.min.js" />
-      <_ContentIncludedByDefault Remove="wwwroot\signalr.min.js.map" />
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

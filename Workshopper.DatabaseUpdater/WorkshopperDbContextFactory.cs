@@ -18,16 +18,9 @@ public class WorkshopperDbContextFactory : IDesignTimeDbContextFactory<Workshopp
         var configurationBuilder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory());
 
-        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        if (environmentName == "local")
-        {
-            configurationBuilder.AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
-        }
-        else
-        {
-            configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-        }
-        
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        configurationBuilder.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+
         var configuration = configurationBuilder.Build();
 
         var databaseOptions = configuration.GetRequiredSection(DatabaseOptions.SectionName)

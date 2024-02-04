@@ -1,7 +1,9 @@
 ﻿using ConfigCat.Client;
 using FastEndpoints.Security;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OpenTelemetry.Metrics;
@@ -18,7 +20,8 @@ namespace Workshopper.Infrastructure;
 
 public static class InfrastructureModule
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
     {
         return services
             .AddApplication()
@@ -26,7 +29,7 @@ public static class InfrastructureModule
             .AddAuthorization()
             .AddHttpContextAccessor()
             .AddPersistence()
-            .AddFeatureFlags(configuration)
+            .AddFeatureFlags(configuration, environment)
             .AddTelemetry();
     }
 
@@ -69,23 +72,34 @@ public static class InfrastructureModule
         return services;
     }
 
-    private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
     {
-        var featureFlagsSettings = new FeatureFlagsSettings();
-        configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
-        services.AddSingleton(Options.Create(featureFlagsSettings));
-        services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
-
         services.AddSingleton<IConfigCatClient>(provider =>
         {
-            var logger = provider.GetRequiredService<ILogger<ConfigCatClient>>();
-            var pollingInterval = TimeSpan.FromSeconds(featureFlagsSettings.PollingInterval);
+            if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
+            {
+                var featureFlagsSettings = new FeatureFlagsSettings();
+                configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
+                services.AddSingleton(Options.Create(featureFlagsSettings));
+                services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
 
-            return ConfigCatClient.Get(featureFlagsSettings.Key,
+                var logger = provider.GetRequiredService<ILogger<ConfigCatClient>>();
+                var pollingInterval = TimeSpan.FromSeconds(featureFlagsSettings.PollingInterval);
+
+                return ConfigCatClient.Get(featureFlagsSettings.Key,
+                    options =>
+                    {
+                        options.PollingMode = PollingModes.LazyLoad(pollingInterval);
+                        options.Logger = new FeatureFlagsLoggerAdapter(logger);
+                    });
+            }
+
+            return ConfigCatClient.Get("development",
                 options =>
                 {
-                    options.PollingMode = PollingModes.LazyLoad(pollingInterval);
-                    options.Logger = new FeatureFlagsLoggerAdapter(logger);
+                    options.FlagOverrides = FlagOverrides.LocalDictionary(
+                        CustomFlagOverrides.LocalDictionary,
+                        OverrideBehaviour.LocalOnly);
                 });
         });
 
