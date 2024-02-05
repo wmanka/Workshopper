@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -69,6 +70,10 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
 
         modelBuilder.HasDefaultSchema(DatabaseSchema.Public);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(WorkshopperDbContext).Assembly);
+
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

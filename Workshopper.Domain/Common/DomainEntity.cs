@@ -15,6 +15,8 @@ public class DomainEntity
     {
     }
 
+    public IReadOnlyCollection<IDomainEvent> GetDomainEvents => _domainEvents.ToList();
+
     public List<IDomainEvent> ApplyDomainEvents()
     {
         var domainEvents = _domainEvents.ToList();

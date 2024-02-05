@@ -1,18 +1,20 @@
 ﻿using ConfigCat.Client;
 using FastEndpoints.Security;
+using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OpenTelemetry.Metrics;
 using Workshopper.Application;
+using Workshopper.Application.Bus;
 using Workshopper.Application.Common.Abstractions;
 using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
 using Workshopper.Infrastructure.FeatureFlags;
+using Workshopper.Infrastructure.MessageBus;
 using Workshopper.Infrastructure.Sessions.Persistence;
 using Workshopper.Infrastructure.Subscriptions.Persistence;
 using Workshopper.Infrastructure.Users.Persistence;
@@ -31,7 +33,8 @@ public static class InfrastructureModule
             .AddHttpContextAccessor()
             .AddPersistence()
             .AddFeatureFlags(configuration, environment)
-            .AddTelemetry();
+            .AddTelemetry()
+            .AddMessageBus(configuration, environment);
     }
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
@@ -137,4 +140,61 @@ public static class InfrastructureModule
         return services;
     }
 
+    private static IServiceCollection AddMessageBus(
+        this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+    {
+        var messageBusOptions = new MessageBusOptions();
+        configuration.Bind(MessageBusOptions.SectionName, messageBusOptions);
+        services.AddSingleton(Options.Create(messageBusOptions));
+        services.AddSingleton<IValidateOptions<MessageBusOptions>, MessageBusOptionsValidator>();
+
+        return services.AddMassTransit(x =>
+        {
+            x.UsingRabbitMq((context, cfg) => // todo: sqs dla staging i prod
+            {
+                cfg.AutoStart = true;
+                cfg.Durable = true;
+                cfg.ExchangeType = "fanout";
+
+                cfg.Host(messageBusOptions.Host,
+                    messageBusOptions.VirtualHost,
+                    h =>
+                    {
+                        h.Username(messageBusOptions.User);
+                        h.Password(messageBusOptions.Password);
+                    });
+
+                cfg.ConfigureEndpoints(context);
+            });
+
+            x.AddEntityFrameworkOutbox<WorkshopperDbContext>(o =>
+            {
+                o.UsePostgres();
+                o.UseBusOutbox();
+            });
+
+            x.SetKebabCaseEndpointNameFormatter();
+
+            x.AddConsumer<NotificationCreatedConsumer>();
+
+            // x.AddSagaStateMachine<RegistrationStateMachine, RegistrationState, RegistrationStateDefinition>()
+            //     .EntityFrameworkRepository(r =>
+            //     {
+            //         r.ExistingDbContext<WorkshopperDbContext>();
+            //         r.UsePostgres();
+            //     });
+        });
+    }
 }
+
+// public class RegistrationStateDefinition :
+//     SagaDefinition<RegistrationState>
+// {
+//     protected override void ConfigureSaga(IReceiveEndpointConfigurator endpointConfigurator,
+//         ISagaConfigurator<RegistrationState> consumerConfigurator, IRegistrationContext context)
+//     {
+//         endpointConfigurator.UseMessageRetry(r => r.Intervals(100, 500, 1000, 1000, 1000, 1000, 1000));
+//
+//         endpointConfigurator.UseEntityFrameworkOutbox<WorkshopperDbContext>(context);
+//     }
+// }

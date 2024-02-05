@@ -37,6 +37,8 @@ public class EventualConsistencyMiddleware()
                 }
 
                 await transaction.CommitAsync();
+
+                // todo: publish integration events?
             }
             catch (Exception)
             {

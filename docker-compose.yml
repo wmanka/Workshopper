@@ -23,6 +23,18 @@ services:
       interval: 1s
       timeout: 5s
       retries: 10
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: masstransit/rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - workshopper-net
 
   workshopper-api:
     container_name: workshopper-api
@@ -35,6 +47,7 @@ services:
       - "5001:8080"
     depends_on:
       - postgres
+      - rabbitmq
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -64,6 +77,7 @@ services:
       - "5002:8080"
     depends_on:
       - postgres
+      - rabbitmq
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -93,6 +107,7 @@ services:
       - "5003:8080"
     depends_on:
       - postgres
+      - rabbitmq
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -122,6 +137,7 @@ services:
       - "5004:8080"
     depends_on:
       - postgres
+      - rabbitmq
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
@@ -149,6 +165,7 @@ services:
     restart: no
     depends_on:
       - postgres
+      - rabbitmq
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
