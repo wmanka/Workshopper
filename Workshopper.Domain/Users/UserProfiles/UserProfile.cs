@@ -1,5 +1,4 @@
 ﻿using Workshopper.Domain.Common;
-using Workshopper.Domain.Sessions;
 
 namespace Workshopper.Domain.Users.UserProfiles;
 
@@ -29,4 +28,6 @@ public abstract class UserProfile : DomainEntity
         : this(default!, default!)
     {
     }
+
+    public string FullName => string.Join(" ", FirstName, LastName);
 }

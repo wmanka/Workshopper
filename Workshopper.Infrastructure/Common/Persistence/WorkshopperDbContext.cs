@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Workshopper.Application.Common.Abstractions;
 using Workshopper.Domain.Common;
+using Workshopper.Domain.Notifications;
 using Workshopper.Domain.Sessions;
 using Workshopper.Domain.Subscriptions;
 using Workshopper.Domain.Users;
@@ -37,6 +38,10 @@ public class WorkshopperDbContext : DbContext, IUnitOfWork
     public DbSet<AttendeeProfile> AttendeeProfiles { get; set; } = null!;
 
     public DbSet<SessionAttendance> SessionAttendances { get; set; } = null!;
+
+    public DbSet<Notification> Notifications { get; set; } = null!;
+
+    public DbSet<NotificationSubscription> NotificationSubscriptions { get; set; } = null!;
 
     public WorkshopperDbContext(
         DbContextOptions<WorkshopperDbContext> options,

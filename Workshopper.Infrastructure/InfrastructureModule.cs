@@ -175,26 +175,7 @@ public static class InfrastructureModule
 
             x.SetKebabCaseEndpointNameFormatter();
 
-            x.AddConsumer<NotificationCreatedConsumer>();
-
-            // x.AddSagaStateMachine<RegistrationStateMachine, RegistrationState, RegistrationStateDefinition>()
-            //     .EntityFrameworkRepository(r =>
-            //     {
-            //         r.ExistingDbContext<WorkshopperDbContext>();
-            //         r.UsePostgres();
-            //     });
+            x.AddConsumer<SessionCanceledNotificationRequestConsumer>();
         });
     }
 }
-
-// public class RegistrationStateDefinition :
-//     SagaDefinition<RegistrationState>
-// {
-//     protected override void ConfigureSaga(IReceiveEndpointConfigurator endpointConfigurator,
-//         ISagaConfigurator<RegistrationState> consumerConfigurator, IRegistrationContext context)
-//     {
-//         endpointConfigurator.UseMessageRetry(r => r.Intervals(100, 500, 1000, 1000, 1000, 1000, 1000));
-//
-//         endpointConfigurator.UseEntityFrameworkOutbox<WorkshopperDbContext>(context);
-//     }
-// }
