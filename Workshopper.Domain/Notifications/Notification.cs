@@ -34,13 +34,13 @@ public class Notification : DomainEntity
     public static Notification Create(
         NotificationType notificationType,
         string content,
-        UserProfile recepient,
+        Guid recepientId,
         Guid? id = null)
     {
         var notification = new Notification(
             notificationType,
             content,
-            recepient.Id,
+            recepientId,
             id);
 
         return notification;

@@ -15,6 +15,7 @@ using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
 using Workshopper.Infrastructure.FeatureFlags;
 using Workshopper.Infrastructure.MessageBus;
+using Workshopper.Infrastructure.Notifications.Persistence;
 using Workshopper.Infrastructure.Sessions.Persistence;
 using Workshopper.Infrastructure.Subscriptions.Persistence;
 using Workshopper.Infrastructure.Users.Persistence;
@@ -57,6 +58,8 @@ public static class InfrastructureModule
         services.AddScoped<ISessionsRepository, SessionsRepository>();
         services.AddScoped<IOnlineSessionsRepository, OnlineSessionsRepository>();
         services.AddScoped<IStationarySessionsRepository, StationarySessionsRepository>();
+
+        services.AddScoped<INotificationsRepository, NotificationsRepository>();
 
         return services;
     }

@@ -13,24 +13,26 @@ public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        // services.AddValidatorsFromAssemblyContaining<CreateOnlineSessionCommandValidator>();
-        services.AddEventHandlers();
-        services.AddValidators();
-
-        return services;
+        return services
+            .AddEventHandlers()
+            .AddValidators();
     }
 
-    private static void AddEventHandlers(this IServiceCollection services)
+    private static IServiceCollection AddEventHandlers(this IServiceCollection services)
     {
         services.TryAddSingleton<IEventHandler<UserRegisteredDomainEvent>, UserRegisteredEventHandler>();
         services.TryAddSingleton<IEventHandler<UserLoggedInDomainEvent>, UserLoggedInEventHandler>();
 
         services.TryAddSingleton<IEventHandler<SessionCreatedDomainEvent>, SessionCreatedEventHandler>();
         services.TryAddSingleton<IEventHandler<SessionCanceledDomainEvent>, SessionCanceledEventHandler>();
+
+        return services;
     }
 
-    private static void AddValidators(this IServiceCollection services)
+    private static IServiceCollection AddValidators(this IServiceCollection services)
     {
         services.TryAddScoped<IValidator<CreateOnlineSessionCommand>, CreateOnlineSessionCommandValidator>();
+
+        return services;
     }
 }
