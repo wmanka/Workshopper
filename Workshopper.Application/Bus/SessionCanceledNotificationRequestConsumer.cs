@@ -1,6 +1,8 @@
 ﻿using MassTransit;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Workshopper.Application.Common.Abstractions;
+using Workshopper.Application.Notifications;
 using Workshopper.Application.Sessions.Specifications;
 using Workshopper.Domain.Common;
 using Workshopper.Domain.Notifications;
@@ -14,16 +16,20 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
     private readonly INotificationsRepository _notificationsRepository;
     private readonly ISessionsRepository _sessionsRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IHubContext<NotificationsHub, INotificationsHubClient> _notificationsHub;
+
 
     public SessionCanceledNotificationRequestConsumer(
         ILogger<SessionCanceledNotificationRequestConsumer> logger,
         INotificationsRepository notificationsRepository,
-        IUnitOfWork unitOfWork, ISessionsRepository sessionsRepository)
+        IUnitOfWork unitOfWork, ISessionsRepository sessionsRepository,
+        IHubContext<NotificationsHub, INotificationsHubClient> notificationsHub)
     {
         _logger = logger;
         _notificationsRepository = notificationsRepository;
         _unitOfWork = unitOfWork;
         _sessionsRepository = sessionsRepository;
+        _notificationsHub = notificationsHub;
     }
 
     public async Task Consume(ConsumeContext<SessionCanceledNotificationRequest> context)
@@ -37,16 +43,17 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
         }
 
         var attendiesIds = session.Attendees.Select(a => a.Id);
-
         var notificationSubscriptions = await _notificationsRepository
-            .GetSubscriptionsAsync(NotificationType.SessionCanceled, attendiesIds);
+            .GetSubscriptionsAsync(NotificationType.SessionCanceled, attendiesIds); // todo: + sub delivery type
 
-        if (!notificationSubscriptions.Any())
+        if (notificationSubscriptions.Count == 0)
         {
             return;
         }
 
-        var recepients = notificationSubscriptions.DistinctBy(x => x.UserProfileId);
+        var recepients = notificationSubscriptions
+            .DistinctBy(x => x.UserProfileId);
+
         foreach (var recepient in recepients)
         {
             var content = $"Session {request.Title} has been canceled"; // todo: content builder
@@ -57,9 +64,11 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
                 recepient.UserProfileId);
 
             await _notificationsRepository.AddAsync(notification);
-            await _unitOfWork.CommitChangesAsync();
         }
 
-        await Task.CompletedTask;
+        await _unitOfWork.CommitChangesAsync();
+
+        // web app notifications
+        await _notificationsHub.Clients.All.ReceiveNotification("Test notification"); // todo: only for specific users
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Api.Notifications.Notifications;
+﻿namespace Workshopper.Application.Common.Abstractions;
 
 public interface INotificationsHubClient
 {

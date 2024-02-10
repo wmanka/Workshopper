@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Workshopper.Application.Common.Abstractions;
 
-namespace Workshopper.Api.Notifications.Notifications;
+namespace Workshopper.Application.Notifications;
 
 public sealed class NotificationsHub : Hub<INotificationsHubClient>
 {

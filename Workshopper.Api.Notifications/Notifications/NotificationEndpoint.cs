@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Workshopper.Application.Common.Abstractions;
+using Workshopper.Application.Notifications;
 
 namespace Workshopper.Api.Notifications.Notifications;
 

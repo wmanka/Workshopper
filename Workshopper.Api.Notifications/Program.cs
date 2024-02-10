@@ -2,8 +2,8 @@
 using FluentValidation;
 using Workshopper.Api.Notifications;
 using Workshopper.Api.Notifications.FeatureFlags;
-using Workshopper.Api.Notifications.Notifications;
 using Workshopper.Application;
+using Workshopper.Application.Notifications;
 using Workshopper.Infrastructure;
 
 ValidatorOptions.Global.LanguageManager.Enabled = false;
