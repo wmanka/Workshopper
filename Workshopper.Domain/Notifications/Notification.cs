@@ -46,6 +46,11 @@ public class Notification : DomainEntity
         return notification;
     }
 
+    public void MarkAsRead()
+    {
+        IsRead = true;
+    }
+
     private Notification()
     {
     }
