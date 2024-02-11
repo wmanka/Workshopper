@@ -1,8 +1,6 @@
-﻿using MassTransit;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Logging;
+﻿using System.Collections.Immutable;
+using MassTransit;
 using Workshopper.Application.Common.Abstractions;
-using Workshopper.Application.Notifications;
 using Workshopper.Application.Sessions.Specifications;
 using Workshopper.Domain.Common;
 using Workshopper.Domain.Notifications;
@@ -12,25 +10,24 @@ namespace Workshopper.Application.Bus;
 
 public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<SessionCanceledNotificationRequest>
 {
-    private readonly ILogger<SessionCanceledNotificationRequestConsumer> _logger;
     private readonly INotificationsRepository _notificationsRepository;
     private readonly ISessionsRepository _sessionsRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHubContext<NotificationsHub, INotificationsHubClient> _notificationsHub;
+    private readonly IPushNotificationSender _pushNotificationSender;
 
 
     public SessionCanceledNotificationRequestConsumer(
-        ILogger<SessionCanceledNotificationRequestConsumer> logger,
         INotificationsRepository notificationsRepository,
-        IUnitOfWork unitOfWork, ISessionsRepository sessionsRepository,
-        IHubContext<NotificationsHub, INotificationsHubClient> notificationsHub)
+        IUnitOfWork unitOfWork,
+        ISessionsRepository sessionsRepository,
+        IPushNotificationSender pushNotificationSender)
     {
-        _logger = logger;
         _notificationsRepository = notificationsRepository;
         _unitOfWork = unitOfWork;
         _sessionsRepository = sessionsRepository;
-        _notificationsHub = notificationsHub;
+        _pushNotificationSender = pushNotificationSender;
     }
+
 
     public async Task Consume(ConsumeContext<SessionCanceledNotificationRequest> context)
     {
@@ -42,7 +39,7 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
             throw new DomainException(SessionErrors.NotFound);
         }
 
-        var attendiesIds = session.Attendees.Select(a => a.Id);
+        var attendiesIds = session.Attendees.Select(a => a.UserId);
         var notificationSubscriptions = await _notificationsRepository
             .GetSubscriptionsAsync(NotificationType.SessionCanceled, attendiesIds); // todo: + sub delivery type
 
@@ -51,24 +48,29 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
             return;
         }
 
-        var recepients = notificationSubscriptions
-            .DistinctBy(x => x.UserProfileId);
+        var userIds = notificationSubscriptions
+            .Select(x => x.UserId)
+            .Distinct()
+            .ToImmutableList();
 
-        foreach (var recepient in recepients)
+        foreach (var userId in userIds)
         {
             var content = $"Session {request.Title} has been canceled"; // todo: content builder
 
             var notification = Notification.Create(
                 NotificationType.SessionCanceled,
                 content,
-                recepient.UserProfileId);
+                userId);
 
             await _notificationsRepository.AddAsync(notification);
         }
 
         await _unitOfWork.CommitChangesAsync();
 
-        // web app notifications
-        await _notificationsHub.Clients.All.ReceiveNotification("Test notification"); // todo: only for specific users
+        var webNotification = new PushNotification(
+            $"Session has been canceled",
+            $"Session '{request.Title}' with {request.HostName} has been canceled");
+
+        await _pushNotificationSender.SendNotificationAsync(webNotification, userIds);
     }
 }

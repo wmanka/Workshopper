@@ -28,9 +28,9 @@ internal class NotificationConfiguration : IEntityTypeConfiguration<Notification
                 x => NotificationType.FromName(x, false))
             .IsRequired();
 
-        builder.HasOne(x => x.Recepient)
+        builder.HasOne(x => x.User)
             .WithMany()
-            .HasForeignKey(x => x.RecepientId);
+            .HasForeignKey(x => x.UserId);
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();

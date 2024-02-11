@@ -4,5 +4,5 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface IStationarySessionsRepository
 {
-    public Task AddStationarySessionAsync(StationarySession stationarySession);
+    Task AddStationarySessionAsync(StationarySession stationarySession);
 }

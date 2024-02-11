@@ -5,8 +5,8 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface ISessionsRepository
 {
-    public void UpdateSession(Session session);
-    public Task<Session?> GetAsync(Guid id);
-    public Task<bool> AnyAsync(Specification<Session> specification);
-    public Task<Session?> GetAsync(Specification<Session> specification);
+    void UpdateSession(Session session);
+    Task<Session?> GetAsync(Guid id);
+    Task<bool> AnyAsync(Specification<Session> specification);
+    Task<Session?> GetAsync(Specification<Session> specification);
 }

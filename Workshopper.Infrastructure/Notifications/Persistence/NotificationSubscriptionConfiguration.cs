@@ -15,14 +15,14 @@ internal class NotificationSubscriptionConfiguration : IEntityTypeConfiguration<
         {
             x.NotificationType,
             x.NotificationDeliveryType,
-            x.UserProfileId
+            x.UserId
         });
 
         builder.HasIndex(x => new
         {
             x.NotificationType,
             x.NotificationDeliveryType,
-            x.UserProfileId
+            x.UserId
         }).IsUnique();
 
         builder.Property(x => x.NotificationType)
@@ -37,8 +37,8 @@ internal class NotificationSubscriptionConfiguration : IEntityTypeConfiguration<
                 value => NotificationDeliveryType.FromName(value, false))
             .IsRequired();
 
-        builder.HasOne(x => x.UserProfile)
+        builder.HasOne(x => x.User)
             .WithMany()
-            .HasForeignKey(x => x.UserProfileId);
+            .HasForeignKey(x => x.UserId);
     }
 }

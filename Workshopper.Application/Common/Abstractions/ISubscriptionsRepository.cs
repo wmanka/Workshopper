@@ -4,5 +4,5 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface ISubscriptionsRepository
 {
-    public Task AddSubscriptionAsync(Subscription subscription);
+    Task AddSubscriptionAsync(Subscription subscription);
 }

@@ -30,11 +30,11 @@ internal class NotificationsRepository : INotificationsRepository
         return await SpecificationEvaluator.GetQuery(_context.Notifications, specification).FirstOrDefaultAsync();
     }
 
-    public async Task<List<NotificationSubscription>> GetSubscriptionsAsync(NotificationType notificationType, IEnumerable<Guid> recepientIds)
+    public async Task<List<NotificationSubscription>> GetSubscriptionsAsync(NotificationType notificationType, IEnumerable<Guid> userIds)
     {
         return await _context.NotificationSubscriptions
             .Where(x => x.NotificationType == notificationType
-                        && recepientIds.Contains(x.UserProfileId))
+                        && userIds.Contains(x.UserId))
             .ToListAsync();
     }
 }

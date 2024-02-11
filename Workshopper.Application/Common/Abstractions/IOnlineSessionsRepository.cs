@@ -4,5 +4,5 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface IOnlineSessionsRepository
 {
-    public Task AddOnlineSessionAsync(OnlineSession onlineSession);
+    Task AddOnlineSessionAsync(OnlineSession onlineSession);
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Workshopper.Application.Bus;
 using Workshopper.Application.Sessions.Commands.CreateSession;
 using Workshopper.Application.Sessions.Events;
 using Workshopper.Application.Users.Events;
@@ -13,9 +14,13 @@ public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        return services
+        services
             .AddEventHandlers()
             .AddValidators();
+
+        services.TryAddScoped<IPushNotificationSender, PushNotificationSender>();
+
+        return services;
     }
 
     private static IServiceCollection AddEventHandlers(this IServiceCollection services)

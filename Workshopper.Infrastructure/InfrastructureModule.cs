@@ -2,6 +2,7 @@
 using FastEndpoints.Security;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,7 @@ using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
 using Workshopper.Infrastructure.FeatureFlags;
 using Workshopper.Infrastructure.MessageBus;
+using Workshopper.Infrastructure.Notifications;
 using Workshopper.Infrastructure.Notifications.Persistence;
 using Workshopper.Infrastructure.Sessions.Persistence;
 using Workshopper.Infrastructure.Subscriptions.Persistence;
@@ -35,7 +37,8 @@ public static class InfrastructureModule
             .AddPersistence()
             .AddFeatureFlags(configuration, environment)
             .AddTelemetry()
-            .AddMessageBus(configuration, environment);
+            .AddMessageBus(configuration)
+            .AddNotifications();
     }
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
@@ -144,7 +147,7 @@ public static class InfrastructureModule
     }
 
     private static IServiceCollection AddMessageBus(
-        this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+        this IServiceCollection services, IConfiguration configuration)
     {
         var messageBusOptions = new MessageBusOptions();
         configuration.Bind(MessageBusOptions.SectionName, messageBusOptions);
@@ -180,5 +183,12 @@ public static class InfrastructureModule
 
             x.AddConsumer<SessionCanceledNotificationRequestConsumer>();
         });
+    }
+
+    private static IServiceCollection AddNotifications(this IServiceCollection services)
+    {
+        services.AddSingleton<IUserIdProvider, UserIdProvider>();
+
+        return services;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Workshopper.Domain.Common;
-using Workshopper.Domain.Users.UserProfiles;
+using Workshopper.Domain.Users;
 
 namespace Workshopper.Domain.Notifications;
 
@@ -9,9 +9,9 @@ public class Notification : DomainEntity
 
     public string Content { get; private set; }
 
-    public Guid RecepientId { get; private set; }
+    public Guid UserId { get; private set; }
 
-    public UserProfile Recepient { get; private set; }
+    public User User { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
 
@@ -20,13 +20,13 @@ public class Notification : DomainEntity
     private Notification(
         NotificationType notificationType,
         string content,
-        Guid recepientId,
+        Guid userId,
         Guid? id = null)
     {
         Id = id ?? Guid.NewGuid();
         NotificationType = notificationType;
         Content = content;
-        RecepientId = recepientId;
+        UserId = userId;
         CreatedAt = DateTime.Now;
         IsRead = false;
     }
@@ -34,13 +34,13 @@ public class Notification : DomainEntity
     public static Notification Create(
         NotificationType notificationType,
         string content,
-        Guid recepientId,
+        Guid userId,
         Guid? id = null)
     {
         var notification = new Notification(
             notificationType,
             content,
-            recepientId,
+            userId,
             id);
 
         return notification;
