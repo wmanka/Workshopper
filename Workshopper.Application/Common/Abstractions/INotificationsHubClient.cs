@@ -4,5 +4,5 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface INotificationsHubClient
 {
-    Task ReceiveNotification(PushNotification notification);
+    Task ReceiveNotification(BusNotification busNotification);
 }

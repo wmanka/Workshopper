@@ -4,11 +4,11 @@ namespace Workshopper.Api.Notifications.Notifications;
 
 public class TestNotificationEndpoint : EndpointWithoutRequest
 {
-    private readonly IPushNotificationSender _pushNotificationSender;
+    private readonly INotificationSender _notificationSender;
 
-    public TestNotificationEndpoint(IPushNotificationSender pushNotificationSender)
+    public TestNotificationEndpoint(INotificationSender notificationSender)
     {
-        _pushNotificationSender = pushNotificationSender;
+        _notificationSender = notificationSender;
     }
 
     public override void Configure()
@@ -22,7 +22,7 @@ public class TestNotificationEndpoint : EndpointWithoutRequest
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        await _pushNotificationSender.SendNotificationAsync(new PushNotification(
+        await _notificationSender.SendAsync(new BusNotification(
             "Test title",
             "Test content"));
 

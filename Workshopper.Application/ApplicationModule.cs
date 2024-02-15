@@ -18,7 +18,8 @@ public static class ApplicationModule
             .AddEventHandlers()
             .AddValidators();
 
-        services.TryAddScoped<IPushNotificationSender, PushNotificationSender>();
+        services.TryAddScoped<INotificationSender, NotificationSender>();
+        services.TryAddScoped<IEmailSender, EmailSender>();
 
         return services;
     }

@@ -13,19 +13,22 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
     private readonly INotificationsRepository _notificationsRepository;
     private readonly ISessionsRepository _sessionsRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IPushNotificationSender _pushNotificationSender;
+    private readonly INotificationSender _notificationSender;
+    private readonly IEmailSender _emailSender;
 
 
     public SessionCanceledNotificationRequestConsumer(
         INotificationsRepository notificationsRepository,
         IUnitOfWork unitOfWork,
         ISessionsRepository sessionsRepository,
-        IPushNotificationSender pushNotificationSender)
+        INotificationSender notificationSender,
+        IEmailSender emailSender)
     {
         _notificationsRepository = notificationsRepository;
         _unitOfWork = unitOfWork;
         _sessionsRepository = sessionsRepository;
-        _pushNotificationSender = pushNotificationSender;
+        _notificationSender = notificationSender;
+        _emailSender = emailSender;
     }
 
 
@@ -40,37 +43,61 @@ public sealed class SessionCanceledNotificationRequestConsumer : IConsumer<Sessi
         }
 
         var attendiesIds = session.Attendees.Select(a => a.UserId);
+
+        // todo: refactor
+
         var notificationSubscriptions = await _notificationsRepository
-            .GetSubscriptionsAsync(NotificationType.SessionCanceled, attendiesIds); // todo: + sub delivery type
+            .GetSubscriptionsAsync(NotificationType.SessionCanceled, attendiesIds);
 
-        if (notificationSubscriptions.Count == 0)
-        {
-            return;
-        }
-
-        var userIds = notificationSubscriptions
-            .Select(x => x.UserId)
-            .Distinct()
+        var usersWithNotificationType = notificationSubscriptions
+            .Select(x => new
+            {
+                x.UserId,
+                x.NotificationDeliveryType
+            })
             .ToImmutableList();
 
-        foreach (var userId in userIds)
+        foreach (var userWithNotificationType in usersWithNotificationType)
         {
-            var content = $"Session {request.Title} has been canceled"; // todo: content builder
+            switch (userWithNotificationType.NotificationDeliveryType.Name)
+            {
+                case nameof(NotificationDeliveryType.Email):
+                {
+                    await _emailSender.SendAsync(new Email());
 
-            var notification = Notification.Create(
-                NotificationType.SessionCanceled,
-                content,
-                userId);
+                    break;
+                }
+                case nameof(NotificationDeliveryType.Application):
+                {
+                    var content = $"Session {request.Title} with {request.HostName} has been canceled"; // todo: content builder
 
-            await _notificationsRepository.AddAsync(notification);
+                    var notification = Notification.Create(
+                        NotificationType.SessionCanceled,
+                        content,
+                        userWithNotificationType.UserId);
+
+                    await _notificationsRepository.AddAsync(notification);
+
+                    break;
+                }
+                case nameof(NotificationDeliveryType.Sms):
+                {
+                    break;
+                }
+            }
         }
 
         await _unitOfWork.CommitChangesAsync();
 
-        var webNotification = new PushNotification(
-            $"Session has been canceled",
-            $"Session '{request.Title}' with {request.HostName} has been canceled");
+        // signalr
 
-        await _pushNotificationSender.SendNotificationAsync(webNotification, userIds);
+        var webNotification = new BusNotification(
+            $"Session has been canceled",
+            $"Session '{request.Title}' with {request.HostName} has been canceled"); // todo: content builder
+
+        await _notificationSender.SendAsync(webNotification,
+            usersWithNotificationType
+                .Where(x => x.NotificationDeliveryType == NotificationDeliveryType.Application)
+                .Select(x => x.UserId));
     }
 }

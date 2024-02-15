@@ -8,13 +8,13 @@ public sealed class NotificationsHub : Hub<INotificationsHubClient>
 {
     public override async Task OnConnectedAsync()
     {
-        await Clients.All.ReceiveNotification(new PushNotification(
+        await Clients.All.ReceiveNotification(new BusNotification(
             "User connected",
             $"{Context.ConnectionId} connected"));
     }
 
-    public async Task SendNotification(PushNotification notification)
+    public async Task SendNotification(BusNotification busNotification)
     {
-        await Clients.All.ReceiveNotification(notification);
+        await Clients.All.ReceiveNotification(busNotification);
     }
 }
