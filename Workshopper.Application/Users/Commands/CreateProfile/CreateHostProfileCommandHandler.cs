@@ -24,7 +24,7 @@ public class CreateHostProfileCommandHandler : CommandHandler<CreateHostProfileC
         var currentUser = _currentUserProvider.GetCurrentUser();
         if (currentUser is null)
         {
-            ThrowError("Unauthorized");
+            ThrowError(UserErrors.UserUnauthorized);
         }
 
         var user = await _usersRepository
