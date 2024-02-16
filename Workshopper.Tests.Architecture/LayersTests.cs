@@ -1,4 +1,4 @@
-﻿namespace Workshopper.ArchitectureTests;
+﻿namespace Workshopper.Tests.Architecture;
 
 public class LayersTests : BaseTest
 {

@@ -3,7 +3,7 @@ using Workshopper.Domain.Common;
 using Workshopper.Domain.Users;
 using Workshopper.Tests.Common.Users;
 
-namespace Workshopper.Domain.UnitTests.Users;
+namespace Workshopper.Domain.Tests.Unit.Users;
 
 public class UsersTests
 {

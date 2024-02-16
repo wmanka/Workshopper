@@ -7,7 +7,7 @@ using Workshopper.Application;
 using Workshopper.Domain.Common;
 using Workshopper.Infrastructure;
 
-namespace Workshopper.ArchitectureTests;
+namespace Workshopper.Tests.Architecture;
 
 public abstract class BaseTest
 {

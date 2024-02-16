@@ -1,6 +1,6 @@
 ﻿using Workshopper.Domain.Common;
 
-namespace Workshopper.ArchitectureTests.Domain;
+namespace Workshopper.Tests.Architecture.Domain;
 
 public class DomainTests : BaseTest
 {

@@ -2,14 +2,7 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\wiole\.nuget\packages\fastendpoints\5.21.2\lib\net8.0\FastEndpoints.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c5102f2a_002D09e7_002D4ac0_002D87cb_002D7517f40d295d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="DomainEvents_Should_BeSealed" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.Domain.DomainTests.DomainEvents_Should_BeSealed&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.Domain.DomainTests.DomainEvents_Should_HaveDomainEventPostfix&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests.DomainLayer_Should_NotHaveDependencyOnApplication&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests.ApplicationLayer_Should_HaveDependencyOnDomainLayer&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::6F808961-FEB1-41FE-8871-70D2925E6F7E::net8.0::Workshopper.ArchitectureTests.LayersTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::C72CDECA-2A56-4FB2-B177-192C15F79CE8::net8.0::Workshopper.Domain.UnitTests.Users.UsersTests.CreateHostProfile_WhenHostProfileAlreadyExists_ShouldFail&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::C72CDECA-2A56-4FB2-B177-192C15F79CE8::net8.0::Workshopper.Domain.UnitTests.Users.UsersTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=76728b35_002Ddf3d_002D4ec5_002Db50e_002D87872426eaa7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;05 Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Repos\Workshopper" Presentation="&amp;lt;05 Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

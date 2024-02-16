@@ -1,7 +1,7 @@
 using Workshopper.Application.Users.Commands.CreateProfile;
 using Workshopper.Tests.Common.Constants;
 
-namespace Workshopper.Application.SubcutaneousTests.Users.Commands.CreateProfile;
+namespace Workshopper.Application.Tests.Subcutaneous.Users.Commands.CreateProfile;
 
 public class CreateHostProfileTests
 {

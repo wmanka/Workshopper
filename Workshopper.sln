@@ -35,17 +35,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth", "Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Auth.Contracts", "Workshopper.Api.Auth.Contracts\Workshopper.Api.Auth.Contracts.csproj", "{64CA34EF-A2B3-4675-BD11-4EE9FB82603B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.ArchitectureTests", "Workshopper.ArchitectureTests\Workshopper.ArchitectureTests.csproj", "{6F808961-FEB1-41FE-8871-70D2925E6F7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Tests.Architecture", "Workshopper.Tests.Architecture\Workshopper.Tests.Architecture.csproj", "{6F808961-FEB1-41FE-8871-70D2925E6F7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Common", "Workshopper.Api.Common\Workshopper.Api.Common.csproj", "{29313545-BF4B-4DEE-89F5-E963A892059D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Tests.Common", "Workshopper.Tests.Common\Workshopper.Tests.Common.csproj", "{8F0128FB-1D31-4165-A816-16F2782197CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Domain.UnitTests", "Workshopper.Domain.UnitTests\Workshopper.Domain.UnitTests.csproj", "{C72CDECA-2A56-4FB2-B177-192C15F79CE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Domain.Tests.Unit", "Workshopper.Domain.Tests.Unit\Workshopper.Domain.Tests.Unit.csproj", "{C72CDECA-2A56-4FB2-B177-192C15F79CE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Notifications", "Workshopper.Api.Notifications\Workshopper.Api.Notifications.csproj", "{04EE2C4C-9E4E-4091-8D6B-720E8A332A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Application.SubcutaneousTests", "Workshopper.Application.SubcutaneousTests\Workshopper.Application.SubcutaneousTests.csproj", "{AEE66405-1D06-49C4-975C-B3BA76B1F394}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Application.Tests.Subcutaneous", "Workshopper.Application.Tests.Subcutaneous\Workshopper.Application.Tests.Subcutaneous.csproj", "{AEE66405-1D06-49C4-975C-B3BA76B1F394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
