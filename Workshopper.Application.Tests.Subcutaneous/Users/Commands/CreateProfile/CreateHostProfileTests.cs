@@ -6,7 +6,7 @@ namespace Workshopper.Application.Tests.Subcutaneous.Users.Commands.CreateProfil
 public class CreateHostProfileTests
 {
     [Fact]
-    public void CreateHostProfile_WhenValidCommand_ShouldCreateHostProfile()
+    public void CreateHostProfile_ShouldCreateHostProfile_WhenValidCommand()
     {
         var command = new CreateHostProfileCommand(
             Constants.UserProfiles.FirstName,

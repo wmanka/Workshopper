@@ -3,12 +3,12 @@ using Workshopper.Domain.Common;
 using Workshopper.Domain.Users;
 using Workshopper.Tests.Common.Users;
 
-namespace Workshopper.Domain.Tests.Unit.Users;
+namespace Workshopper.Domain.Tests.Unit.Users.UserProfiles;
 
-public class UsersTests
+public class HostProfileTests
 {
     [Fact]
-    public void CreateHostProfile_WhenHostProfileAlreadyExists_ShouldFail()
+    public void CreateHostProfile_ShouldReturnError_WhenHostProfileAlreadyExists()
     {
         var user = UserFactory.CreateUser(
             hostProfile: UserProfileFactory.CreateHostProfile());
