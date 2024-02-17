@@ -8,7 +8,7 @@ namespace Workshopper.Domain.Tests.Unit.Users.UserProfiles;
 public class HostProfileTests
 {
     [Fact]
-    public void CreateHostProfile_ShouldReturnError_WhenHostProfileAlreadyExists()
+    public void CreateHostProfile_ShouldThrowDomainException_WhenHostProfileAlreadyExists()
     {
         var user = UserFactory.CreateUser(
             hostProfile: UserProfileFactory.CreateHostProfile());

@@ -14,4 +14,8 @@
       <PackageReference Include="fluentassertions" Version="7.0.0-alpha.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Notifications\" />
+    </ItemGroup>
+
 </Project>
