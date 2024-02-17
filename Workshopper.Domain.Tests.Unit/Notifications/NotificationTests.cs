@@ -18,9 +18,12 @@ public class NotificationTests
             userId);
 
         notification.Should().NotBeNull();
-        notification.NotificationType.Should().Be(notificationType);
-        notification.Content.Should().Be(content);
-        notification.UserId.Should().Be(userId);
+        notification.Should().BeEquivalentTo(new
+        {
+            NotificationType = notificationType,
+            Content = content,
+            UserId = userId
+        });
     }
 
     [Fact]

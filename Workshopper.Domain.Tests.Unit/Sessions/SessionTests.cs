@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Workshopper.Domain.Common;
 using Workshopper.Domain.Sessions;
+using Workshopper.Domain.Sessions.Events;
 using Workshopper.Tests.Common.Sessions;
 
 namespace Workshopper.Domain.Tests.Unit.Sessions;
@@ -37,7 +38,7 @@ public class SessionTests
     }
 
     [Fact]
-    public void Cancel_ShouldCancelSession_WhenCancelIsPossible()
+    public void Cancel_ShouldMarkSessionAsCanceled_WhenSessionIsCancelable()
     {
         var onlineSession = SessionFactory.CreateOnlineSession();
 
@@ -48,7 +49,13 @@ public class SessionTests
     }
 
     [Fact]
-    public void Cancel_ShouldAddSessionCanceledDomainEvent()
+    public void Cancel_ShouldRaiseSessionCanceledDomainEvent_WhenSessionIsCancelable()
     {
+        var onlineSession = SessionFactory.CreateOnlineSession();
+
+        var action = () => onlineSession.Cancel();
+
+        action.Should().NotThrow<DomainException>();
+        onlineSession.GetDomainEvents.Should().ContainEquivalentOf(new SessionCanceledDomainEvent(onlineSession.Id));
     }
 }
