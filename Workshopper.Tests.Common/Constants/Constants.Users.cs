@@ -2,7 +2,7 @@
 
 public static partial class Constants
 {
-    public static class UserProfile
+    public static class User
     {
         public const string Email = "john@email.com";
         public const string Hash = "hash";

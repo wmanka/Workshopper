@@ -12,9 +12,9 @@ public static class UserFactory
         HostProfile? hostProfile = null)
     {
         var user = User.Create(
-            email: email ?? Constants.Constants.UserProfile.Email,
-            hash: hash ?? Constants.Constants.UserProfile.Hash,
-            id: id ?? Constants.Constants.UserProfile.Id);
+            email: email ?? Constants.Constants.User.Email,
+            hash: hash ?? Constants.Constants.User.Hash,
+            id: id ?? Constants.Constants.User.Id);
 
         if (hostProfile is not null)
         {
