@@ -7,13 +7,16 @@ public class CancelSessionCommandHandler : CommandHandler<CancelSessionCommand, 
 {
     private readonly ISessionsRepository _sessionsRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
     public CancelSessionCommandHandler(
         ISessionsRepository sessionsRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IDateTimeProvider dateTimeProvider)
     {
         _sessionsRepository = sessionsRepository;
         _unitOfWork = unitOfWork;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public override async Task<Guid> ExecuteAsync(CancelSessionCommand command, CancellationToken ct = new())
@@ -26,7 +29,7 @@ public class CancelSessionCommandHandler : CommandHandler<CancelSessionCommand, 
 
         try
         {
-            session.Cancel();
+            session.Cancel(_dateTimeProvider);
         }
         catch (DomainException ex)
         {

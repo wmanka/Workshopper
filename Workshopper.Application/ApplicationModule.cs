@@ -5,6 +5,7 @@ using Workshopper.Application.Bus;
 using Workshopper.Application.Sessions.Commands.CreateSession;
 using Workshopper.Application.Sessions.Events;
 using Workshopper.Application.Users.Events;
+using Workshopper.Domain;
 using Workshopper.Domain.Sessions.Events;
 using Workshopper.Domain.Users.Events;
 
@@ -15,6 +16,7 @@ public static class ApplicationModule
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services
+            .AddDomain()
             .AddEventHandlers()
             .AddValidators();
 

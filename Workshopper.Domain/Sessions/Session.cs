@@ -50,14 +50,14 @@ public abstract class Session : DomainEntity
 
     public IReadOnlyList<AttendeeProfile> Attendees => _attendees.AsReadOnly();
 
-    public void Cancel()
+    public void Cancel(IDateTimeProvider dateTimeProvider)
     {
         if (IsCanceled)
         {
             throw new DomainException(SessionErrors.SessionAlreadyCanceled);
         }
 
-        if (DateTimeOffset.Now >= StartDateTime)
+        if (dateTimeProvider.Now >= StartDateTime)
         {
             throw new DomainException(SessionErrors.SessionAlreadyStarted);
         }

@@ -1,4 +1,5 @@
-﻿using Workshopper.Domain.Common;
+﻿using NSubstitute;
+using Workshopper.Domain.Common;
 using Workshopper.Domain.Sessions;
 using Workshopper.Domain.Sessions.Events;
 using Workshopper.Tests.Common.Sessions;
@@ -7,13 +8,20 @@ namespace Workshopper.Domain.Tests.Unit.Sessions;
 
 public class SessionTests
 {
+    private readonly IDateTimeProvider _dateTimeProvider;
+
+    public SessionTests()
+    {
+        _dateTimeProvider = Substitute.For<IDateTimeProvider>();
+    }
+
     [Fact]
     public void Cancel_ShouldThrowDomainException_WhenSessionAlreadyCanceled()
     {
         var onlineSession = SessionFactory.CreateOnlineSession();
-        onlineSession.Cancel();
+        onlineSession.Cancel(_dateTimeProvider);
 
-        var action = () => onlineSession.Cancel();
+        var action = () => onlineSession.Cancel(_dateTimeProvider);
 
         action
             .Should()
@@ -24,11 +32,12 @@ public class SessionTests
     [Fact]
     public void Cancel_ShouldThrowDomainException_WhenSessionAlreadyStarted()
     {
+        _dateTimeProvider.Now.Returns(new DateTimeOffset(2027, 5, 1, 10, 0, 0, TimeSpan.Zero));
         var onlineSession = SessionFactory.CreateOnlineSession(
-            startDateTime: DateTimeOffset.Now.AddHours(-1),
-            endDateTime: DateTimeOffset.Now.AddHours(1));
+            startDateTime: _dateTimeProvider.Now.AddHours(-1),
+            endDateTime: _dateTimeProvider.Now.AddHours(1));
 
-        var action = () => onlineSession.Cancel();
+        var action = () => onlineSession.Cancel(_dateTimeProvider);
 
         action
             .Should()
@@ -41,7 +50,7 @@ public class SessionTests
     {
         var onlineSession = SessionFactory.CreateOnlineSession();
 
-        var action = () => onlineSession.Cancel();
+        var action = () => onlineSession.Cancel(_dateTimeProvider);
 
         action.Should().NotThrow<DomainException>();
         onlineSession.IsCanceled.Should().BeTrue();
@@ -52,7 +61,7 @@ public class SessionTests
     {
         var onlineSession = SessionFactory.CreateOnlineSession();
 
-        var action = () => onlineSession.Cancel();
+        var action = () => onlineSession.Cancel(_dateTimeProvider);
 
         action.Should().NotThrow<DomainException>();
         onlineSession.GetDomainEvents.Should().ContainEquivalentOf(new SessionCanceledDomainEvent(onlineSession.Id));
