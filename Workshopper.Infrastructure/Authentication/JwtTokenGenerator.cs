@@ -5,7 +5,6 @@ using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Users;
 using Workshopper.Domain.Users.UserProfiles;
-using Workshopper.Infrastructure.Common.Persistence;
 
 namespace Workshopper.Infrastructure.Authentication;
 
@@ -34,13 +33,18 @@ public class JwtTokenGenerator : IJwtTokenGenerator
     {
         var roles = new List<string>();
 
-        if (userProfile?.ProfileType == ProfileType.Host)
+        switch (userProfile?.ProfileType.Name)
         {
-            roles.Add(DomainRoles.Host);
-        }
-        else if (userProfile?.ProfileType == ProfileType.Attendee)
-        {
-            roles.Add(DomainRoles.Attendee);
+            case nameof(ProfileType.Host):
+                roles.Add(DomainRoles.Host);
+                break;
+            case nameof(ProfileType.Attendee):
+                roles.Add(DomainRoles.Attendee);
+                break;
+            case nameof(ProfileType.Worker):
+                roles.Add(DomainRoles.Worker);
+                // todo: permissions
+                break;
         }
 
         return roles;

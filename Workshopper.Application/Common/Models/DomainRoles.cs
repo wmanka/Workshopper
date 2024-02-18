@@ -4,4 +4,5 @@ public static class DomainRoles
 {
     public const string Attendee = "attendee";
     public const string Host = "host";
+    public const string Worker = "worker";
 }

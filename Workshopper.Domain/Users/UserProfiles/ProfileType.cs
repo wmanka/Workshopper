@@ -4,4 +4,5 @@ public class ProfileType(string name, int value) : SmartEnum<ProfileType>(name, 
 {
     public readonly static ProfileType Attendee = new(nameof(Attendee), 0);
     public readonly static ProfileType Host = new(nameof(Host), 1);
+    public readonly static ProfileType Worker = new(nameof(Worker), 2);
 }
