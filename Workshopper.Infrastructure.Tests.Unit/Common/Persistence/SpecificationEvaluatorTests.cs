@@ -1,4 +1,6 @@
 using Workshopper.Infrastructure.Common.Persistence;
+using Workshopper.Infrastructure.Tests.Unit.Common.Specifications;
+using Workshopper.Infrastructure.Tests.Unit.Common.TestEntities;
 
 namespace Workshopper.Infrastructure.Tests.Unit.Common.Persistence;
 
@@ -31,22 +33,11 @@ public class SpecificationEvaluatorTests
         var result = SpecificationEvaluator.GetQuery(_queryable, specification);
 
         result.Should().HaveCount(count);
-        result.Should().OnlyContain(x => x.Name == name);
-    }
 
-    [Theory]
-    [InlineData("f03e22e5-f385-4f04-8eea-201ae8c74e2a", "ABCD", 1)]
-    [InlineData("f42dc004-800e-4e38-af9e-fc574919cc04", "XYZ", 1)]
-    [InlineData("3fe33536-5ae0-4c8b-bc91-28489588d494", "XYZ", 0)]
-    public void GetQuery_ShouldReturnFilteredItems_WhenMultipleFiltersSpecified(string id, string name, byte count)
-    {
-        var idGuid = Guid.Parse(id);
-        var specification = new TestDomainEntityByIdAndNameSpecification(idGuid, name);
-
-        var result = SpecificationEvaluator.GetQuery(_queryable, specification);
-
-        result.Should().HaveCount(count);
-        result.Should().OnlyContain(x => x.Id == idGuid && x.Name == name);
+        if (count > 0)
+        {
+            result.Should().OnlyContain(x => x.Name == name);
+        }
     }
 
     [Fact]

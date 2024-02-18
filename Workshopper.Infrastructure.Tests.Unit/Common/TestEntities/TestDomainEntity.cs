@@ -1,6 +1,7 @@
 ﻿using Workshopper.Domain.Common;
+using Workshopper.Infrastructure.Tests.Unit.Common.Persistence;
 
-namespace Workshopper.Infrastructure.Tests.Unit.Common.Persistence;
+namespace Workshopper.Infrastructure.Tests.Unit.Common.TestEntities;
 
 internal sealed class TestDomainEntity : DomainEntity
 {
@@ -17,11 +18,4 @@ internal sealed class TestDomainEntity : DomainEntity
     public string? Name { get; set; }
 
     public ChildTestDomainEntity? Child { get; private set; }
-}
-
-internal sealed class ChildTestDomainEntity : DomainEntity
-{
-    public ChildTestDomainEntity(Guid id) : base(id)
-    {
-    }
 }

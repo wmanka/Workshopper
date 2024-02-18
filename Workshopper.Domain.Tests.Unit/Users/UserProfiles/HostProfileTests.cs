@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Workshopper.Domain.Common;
+﻿using Workshopper.Domain.Common;
 using Workshopper.Domain.Users;
 using Workshopper.Domain.Users.Events;
 using Workshopper.Tests.Common.Constants;

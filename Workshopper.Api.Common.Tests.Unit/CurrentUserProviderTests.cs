@@ -23,13 +23,11 @@ public class CurrentUserProviderTests
     public void GetCurrentUser_ReturnCurrentUser_WhenCurrentUserExists()
     {
         var userId = Guid.NewGuid();
-        // var profileId = Guid.NewGuid();
         _httpContextAccessor.Configure().HttpContext.Returns(new DefaultHttpContext
         {
             User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
             {
-                new Claim(CustomClaimType.UserId, userId.ToString()),
-                // new Claim(CustomClaimType.ProfileId, profileId.ToString())
+                new Claim(CustomClaimType.UserId, userId.ToString())
             }))
         });
 
