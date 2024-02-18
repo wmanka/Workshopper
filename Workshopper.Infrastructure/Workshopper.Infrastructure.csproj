@@ -38,4 +38,8 @@
         <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Workshopper.Infrastructure.Tests.Unit"/>
+    </ItemGroup>
+
 </Project>

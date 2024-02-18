@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Application.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Infrastructure.Tests.Unit", "Workshopper.Infrastructure.Tests.Unit\Workshopper.Infrastructure.Tests.Unit.csproj", "{98E2A9DD-BC55-4A30-84C7-DE577242DA64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshopper.Api.Common.Tests.Unit", "Workshopper.Api.Common.Tests.Unit\Workshopper.Api.Common.Tests.Unit.csproj", "{FEF0E671-F134-4584-8DF9-9DBA0EC029CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{98E2A9DD-BC55-4A30-84C7-DE577242DA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E2A9DD-BC55-4A30-84C7-DE577242DA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E2A9DD-BC55-4A30-84C7-DE577242DA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEF0E671-F134-4584-8DF9-9DBA0EC029CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEF0E671-F134-4584-8DF9-9DBA0EC029CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEF0E671-F134-4584-8DF9-9DBA0EC029CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEF0E671-F134-4584-8DF9-9DBA0EC029CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37B263F6-5B8E-4571-A28E-ED56E47608D9} = {B7A08E47-8AE5-449B-95AB-6E35EFC81B7B}
@@ -142,5 +148,6 @@ Global
 		{04EE2C4C-9E4E-4091-8D6B-720E8A332A18} = {882065E3-B667-4723-AD00-C3487804AD62}
 		{AEE66405-1D06-49C4-975C-B3BA76B1F394} = {D2CBB303-D48C-485E-B2FF-9A8784F9672B}
 		{98E2A9DD-BC55-4A30-84C7-DE577242DA64} = {D2CBB303-D48C-485E-B2FF-9A8784F9672B}
+		{FEF0E671-F134-4584-8DF9-9DBA0EC029CF} = {D2CBB303-D48C-485E-B2FF-9A8784F9672B}
 	EndGlobalSection
 EndGlobal
