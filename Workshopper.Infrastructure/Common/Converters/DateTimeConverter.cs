@@ -2,7 +2,7 @@
 
 namespace Workshopper.Infrastructure.Common.Converters;
 
-public class DateTimeOffsetConverter : ValueConverter<DateTimeOffset, DateTimeOffset>
+internal class DateTimeOffsetConverter : ValueConverter<DateTimeOffset, DateTimeOffset>
 {
     public DateTimeOffsetConverter()
         : base(

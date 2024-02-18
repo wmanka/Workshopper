@@ -1,11 +1,10 @@
-﻿using Workshopper.Application.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Workshopper.Application.Common.Models;
 using Workshopper.Domain.Common;
 
 namespace Workshopper.Infrastructure.Common.Persistence;
 
-public static class SpecificationEvaluator
+internal static class SpecificationEvaluator
 {
     public static IQueryable<TEntity> GetQuery<TEntity>(IQueryable<TEntity> inputQuery, Specification<TEntity> specification)
         where TEntity : DomainEntity

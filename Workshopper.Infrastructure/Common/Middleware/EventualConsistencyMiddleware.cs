@@ -6,7 +6,7 @@ using Workshopper.Infrastructure.Common.Persistence;
 
 namespace Workshopper.Infrastructure.Common.Middleware;
 
-public class EventualConsistencyMiddleware()
+internal class EventualConsistencyMiddleware()
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<EventualConsistencyMiddleware> _logger;
@@ -37,8 +37,6 @@ public class EventualConsistencyMiddleware()
                 }
 
                 await transaction.CommitAsync();
-
-                // todo: publish integration events?
             }
             catch (Exception)
             {
