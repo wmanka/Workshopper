@@ -1,17 +1,13 @@
-﻿using FluentAssertions;
-using Workshopper.Domain.Notifications;
+﻿using Workshopper.Domain.Notifications;
 
 namespace Workshopper.Domain.Tests.Unit.Notifications;
 
 public class NotificationTests
 {
-    [Fact]
-    public void Create_ShouldReturnNotification_WhenCalled()
+    [Theory]
+    [MemberData(nameof(GetNotificationsMemberData))]
+    public void Create_ShouldReturnNotification_WhenCalled(NotificationType notificationType, string content, Guid userId)
     {
-        var notificationType = NotificationType.SessionCanceled;
-        const string content = "Session canceled.";
-        var userId = Guid.NewGuid();
-
         var notification = Notification.Create(
             notificationType,
             content,
@@ -26,13 +22,10 @@ public class NotificationTests
         });
     }
 
-    [Fact]
-    public void MarkAsRead_ShouldMarkNotificationAsRead_WhenCalled()
+    [Theory]
+    [MemberData(nameof(GetNotificationsMemberData))]
+    public void MarkAsRead_ShouldMarkNotificationAsRead_WhenCalled(NotificationType notificationType, string content, Guid userId)
     {
-        var notificationType = NotificationType.SessionCanceled;
-        const string content = "Session canceled.";
-        var userId = Guid.NewGuid();
-
         var notification = Notification.Create(
             notificationType,
             content,
@@ -42,4 +35,21 @@ public class NotificationTests
 
         notification.IsRead.Should().BeTrue();
     }
+
+    public static IEnumerable<object[]> GetNotificationsMemberData =>
+        new List<object[]>
+        {
+            new object[]
+            {
+                NotificationType.SessionCreated, "Session created.", Guid.NewGuid()
+            },
+            new object[]
+            {
+                NotificationType.SessionUpdated, "Session updated.", Guid.NewGuid()
+            },
+            new object[]
+            {
+                NotificationType.SessionCanceled, "Session canceled.", Guid.NewGuid()
+            },
+        };
 }
