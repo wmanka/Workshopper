@@ -30,6 +30,8 @@ public sealed class User : DomainEntity
 
     public UserSettings UserSettings { get; private set; }
 
+    public Guid? ImageId { get; private set; }
+
     public static User Create(
         string email,
         string hash,
@@ -60,5 +62,15 @@ public sealed class User : DomainEntity
 
     private User()
     {
+    }
+
+    public void SetProfileImage(Guid fileId)
+    {
+        ImageId = fileId;
+    }
+
+    public void RemoveProfileImage()
+    {
+        ImageId = null;
     }
 }

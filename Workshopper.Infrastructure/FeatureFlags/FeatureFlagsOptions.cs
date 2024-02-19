@@ -1,6 +1,6 @@
 ﻿namespace Workshopper.Infrastructure.FeatureFlags;
 
-public class FeatureFlagsSettings
+public class FeatureFlagsOptions
 {
     public const string SectionName = "FeatureFlagsSettings";
 

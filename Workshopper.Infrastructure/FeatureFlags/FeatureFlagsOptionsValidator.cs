@@ -2,9 +2,9 @@
 
 namespace Workshopper.Infrastructure.FeatureFlags;
 
-public class FeatureFlagsOptionsValidator : IValidateOptions<FeatureFlagsSettings>
+public class FeatureFlagsOptionsValidator : IValidateOptions<FeatureFlagsOptions>
 {
-    public ValidateOptionsResult Validate(string? name, FeatureFlagsSettings options)
+    public ValidateOptionsResult Validate(string? name, FeatureFlagsOptions options)
     {
         if (string.IsNullOrWhiteSpace(options.Key))
         {

@@ -1,4 +1,5 @@
-﻿using ConfigCat.Client;
+﻿using Amazon.S3;
+using ConfigCat.Client;
 using FastEndpoints.Security;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,7 @@ using Workshopper.Application.Common.Abstractions;
 using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
 using Workshopper.Infrastructure.FeatureFlags;
+using Workshopper.Infrastructure.Files;
 using Workshopper.Infrastructure.MessageBus;
 using Workshopper.Infrastructure.Notifications;
 using Workshopper.Infrastructure.Notifications.Persistence;
@@ -38,7 +40,8 @@ public static class InfrastructureModule
             .AddFeatureFlags(configuration, environment)
             .AddTelemetry()
             .AddMessageBus(configuration)
-            .AddNotifications();
+            .AddNotifications()
+            .AddFilesStore();
     }
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
@@ -86,10 +89,10 @@ public static class InfrastructureModule
     {
         if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
         {
-            var featureFlagsSettings = new FeatureFlagsSettings();
-            configuration.Bind(FeatureFlagsSettings.SectionName, featureFlagsSettings);
+            var featureFlagsSettings = new FeatureFlagsOptions();
+            configuration.Bind(FeatureFlagsOptions.SectionName, featureFlagsSettings);
             services.AddSingleton(Options.Create(featureFlagsSettings));
-            services.AddSingleton<IValidateOptions<FeatureFlagsSettings>, FeatureFlagsOptionsValidator>();
+            services.AddSingleton<IValidateOptions<FeatureFlagsOptions>, FeatureFlagsOptionsValidator>();
 
             services.AddSingleton<IConfigCatClient>(provider =>
             {
@@ -188,6 +191,19 @@ public static class InfrastructureModule
     private static IServiceCollection AddNotifications(this IServiceCollection services)
     {
         services.AddSingleton<IUserIdProvider, UserIdProvider>();
+
+        return services;
+    }
+    private static IServiceCollection AddFilesStore(this IServiceCollection services)
+    {
+        services
+            .AddOptionsWithValidateOnStart<FilesStoreOptions>()
+            .BindConfiguration(FilesStoreOptions.SectionName);
+
+        services.AddSingleton<IValidateOptions<FilesStoreOptions>, FilesStoreOptionsValidator>();
+
+        services.AddSingleton<IAmazonS3, AmazonS3Client>();
+        services.AddSingleton<IFilesStore, FilesStore>();
 
         return services;
     }

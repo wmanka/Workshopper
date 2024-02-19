@@ -34,6 +34,9 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(x => x.User)
             .HasForeignKey<AttendeeProfile>(x => x.UserId);
 
+        builder.Property(x => x.ImageId)
+            .IsRequired(false);
+
         builder.OwnsOne(x => x.UserSettings,
             own =>
             {
