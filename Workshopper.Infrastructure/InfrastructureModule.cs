@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using System.Text.Json;
+using Amazon.S3;
 using ConfigCat.Client;
 using FastEndpoints.Security;
 using MassTransit;
@@ -41,7 +42,7 @@ public static class InfrastructureModule
             .AddTelemetry()
             .AddMessageBus(configuration)
             .AddNotifications()
-            .AddFilesStore();
+            .AddFilesStore(configuration, environment);
     }
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
@@ -194,15 +195,41 @@ public static class InfrastructureModule
 
         return services;
     }
-    private static IServiceCollection AddFilesStore(this IServiceCollection services)
-    {
-        services
-            .AddOptionsWithValidateOnStart<FilesStoreOptions>()
-            .BindConfiguration(FilesStoreOptions.SectionName);
 
+    private static IServiceCollection AddFilesStore(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
+    {
+        FilesStoreOptions filesStoreOptions;
+
+        if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
+        {
+            filesStoreOptions = new FilesStoreOptions();
+            configuration.Bind(FilesStoreOptions.SectionName, filesStoreOptions);
+        }
+        else
+        {
+            try
+            {
+                var filesStoreFilePath = Environment.GetEnvironmentVariable("FILES_STORE_FILE");
+                var filesStoreFileContent = File.ReadAllText(filesStoreFilePath!).Trim();
+                filesStoreOptions = JsonSerializer.Deserialize<FilesStoreOptions>(filesStoreFileContent)!;
+            }
+            catch (Exception e)
+            {
+                throw new InvalidOperationException("Invalid files store configuration.", e);
+            }
+        }
+
+        services.AddSingleton(Options.Create(filesStoreOptions));
         services.AddSingleton<IValidateOptions<FilesStoreOptions>, FilesStoreOptionsValidator>();
 
-        services.AddSingleton<IAmazonS3, AmazonS3Client>();
+        services.AddSingleton<IAmazonS3, AmazonS3Client>(_ =>
+        {
+            return new AmazonS3Client(
+                awsAccessKeyId: filesStoreOptions.AccessKeyId,
+                awsSecretAccessKey: filesStoreOptions.SecretAccessKey,
+                region: Amazon.RegionEndpoint.GetBySystemName(filesStoreOptions.Region));
+        });
+
         services.AddSingleton<IFilesStore, FilesStore>();
 
         return services;

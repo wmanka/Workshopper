@@ -1,5 +1,7 @@
-﻿using Workshopper.Api.Auth.Contracts.GetUserImage;
+using System.Text.Json;
+using Workshopper.Api.Auth.Contracts.GetUserImage;
 using Workshopper.Application.Users.Commands.GetImage;
+using Workshopper.Infrastructure.Files;
 
 namespace Workshopper.Api.Auth.GetUserImage;
 

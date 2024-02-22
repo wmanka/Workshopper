@@ -57,7 +57,6 @@ public class FilesStore : IFilesStore
                 Key = $"{FolderName}/{id}"
             });
 
-            // var file = File.Create(response.ResponseStream, response.Headers.ContentType);
             return new FileReponse(
                 response.ResponseStream,
                 response.Headers.ContentType,

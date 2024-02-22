@@ -55,6 +55,7 @@ services:
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
       ASPNETCORE_ENVIRONMENT: development.container
+      FILES_STORE_FILE: /run/secrets/files-store
     links:
       - postgres
     volumes:
@@ -65,6 +66,8 @@ services:
       test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
       interval: 30s
       timeout: 3s
+    secrets:
+      - files-store
 
   workshopper-auth:
     container_name: workshopper-auth
@@ -85,6 +88,7 @@ services:
       DB_PASSWORD: test
       DB_NAME: workshopper_dev
       ASPNETCORE_ENVIRONMENT: development.container
+      FILES_STORE_FILE: /run/secrets/files-store
     links:
       - postgres
     volumes:
@@ -95,6 +99,8 @@ services:
       test: [ "CMD", "curl", "--fail", "http://localhost:8080/health || exit 1" ]
       interval: 30s
       timeout: 3s
+    secrets:
+      - files-store
 
   workshopper-sessions:
     container_name: workshopper-sessions
@@ -188,3 +194,7 @@ networks:
   workshopper-net:
     name: workshopper-net
     driver: bridge
+
+secrets:
+  files-store:
+    file: ./secrets/files-store.secrets.json
