@@ -13,11 +13,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints.Generator" Version="5.22.0">
+        <PackageReference Include="FastEndpoints.Generator" Version="5.23.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.22.0"/>
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.23.0" />
     </ItemGroup>
 
     <ItemGroup>
