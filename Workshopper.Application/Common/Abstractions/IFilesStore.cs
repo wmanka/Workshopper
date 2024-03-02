@@ -4,9 +4,9 @@ namespace Workshopper.Application.Common.Abstractions;
 
 public interface IFilesStore // todo: to nuget
 {
-    Task UploadAsync(Guid id, IFormFile file);
+    Task<Guid> UploadAsync(IFormFile file);
 
-    Task<FileReponse?> DownloadAsync(Guid id);
+    Task<FileReponse?> DownloadAsync(Guid fileId);
 
-    Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid fileId);
 }

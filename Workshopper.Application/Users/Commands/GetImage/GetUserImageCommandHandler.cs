@@ -22,12 +22,7 @@ public class GetUserImageCommandHandler : CommandHandler<GetUserImageCommand, Fi
     public override async Task<FileReponse?> ExecuteAsync(GetUserImageCommand command, CancellationToken ct = new())
     {
         var currentUser = _currentUserProvider.GetCurrentUser();
-        if (currentUser is null)
-        {
-            ThrowError(UserErrors.UserNotFound);
-        }
-
-        if (currentUser.UserId != command.UserId)
+        if (currentUser is null || currentUser.UserId != command.UserId )
         {
             ThrowError(UserErrors.UserUnauthorized);
         }

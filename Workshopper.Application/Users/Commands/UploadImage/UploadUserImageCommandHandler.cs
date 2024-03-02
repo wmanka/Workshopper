@@ -38,17 +38,7 @@ public class UploadUserImageCommandHandler : CommandHandler<UploadUserImageComma
             ThrowError(UserErrors.UserNotFound);
         }
 
-        var imageFileId = Guid.NewGuid();
-
-        try
-        {
-            await _filesStore.UploadAsync(imageFileId, command.File);
-        }
-        catch (Exception)
-        {
-            ThrowError("User image file upload failed");
-        }
-
+        var imageFileId = await _filesStore.UploadAsync(command.File);
         user.SetProfileImage(imageFileId);
 
         _usersRepository.Update(user);

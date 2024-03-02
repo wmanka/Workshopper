@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using System.Net;
+using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -12,7 +13,10 @@ public class FilesStore : IFilesStore
     private readonly IAmazonS3 _s3;
     private readonly IOptions<FilesStoreOptions> _options;
     private readonly ILogger<FilesStore> _logger;
+
     private const string FolderName = "files";
+    private const string FileNameMetadataKey = "x-amz-meta-originalname";
+    private const string FileExtensionMetadataKey = "x-amz-meta-extension";
 
     public FilesStore(
         IAmazonS3 s3,
@@ -24,65 +28,75 @@ public class FilesStore : IFilesStore
         _logger = logger;
     }
 
-    public async Task UploadAsync(Guid id, IFormFile file)
+    public async Task<Guid> UploadAsync(IFormFile file)
     {
         try
         {
+            var fileId = Guid.NewGuid();
+
             await _s3.PutObjectAsync(new PutObjectRequest
             {
                 BucketName = _options.Value.BucketName,
-                Key = $"{FolderName}/{id}",
+                Key = $"{FolderName}/{fileId}",
                 InputStream = file.OpenReadStream(),
                 ContentType = file.ContentType,
                 Metadata =
                 {
-                    ["x-amz-meta-originalname"] = file.FileName,
-                    ["x-amz-meta-extension"] = Path.GetExtension(file.FileName)
+                    [FileNameMetadataKey] = file.FileName,
+                    [FileExtensionMetadataKey] = Path.GetExtension(file.FileName)
                 }
             });
+
+            return fileId;
         }
-        catch (AmazonS3Exception e)
+        catch (AmazonS3Exception ex)
         {
-            _logger.LogError(e, "Failed to upload file with id {Id} to S3 bucket", id);
-            throw new Exception("Failed to upload file to S3 bucket");
+            throw new FilesStoreException("An error occurred while uploading file to S3 bucket", ex);
         }
     }
-    public async Task<FileReponse?> DownloadAsync(Guid id)
+
+    public async Task<FileReponse?> DownloadAsync(Guid fileId)
     {
         try
         {
             var response = await _s3.GetObjectAsync(new GetObjectRequest
             {
                 BucketName = _options.Value.BucketName,
-                Key = $"{FolderName}/{id}"
+                Key = $"{FolderName}/{fileId}"
             });
 
             return new FileReponse(
                 response.ResponseStream,
                 response.Headers.ContentType,
-                response.Metadata["x-amz-meta-originalname"],
-                response.Metadata["x-amz-meta-extension"]);
+                response.Metadata[FileNameMetadataKey],
+                response.Metadata[FileExtensionMetadataKey]);
         }
-        catch (AmazonS3Exception e)
+        catch (AmazonS3Exception ex)
         {
-            _logger.LogError(e, "Failed to download file with id {Id} from S3 bucket", id);
+            _logger.LogError(ex, "An error occurred while downloading file with id {id} from S3 bucket", fileId);
             return null;
         }
     }
-    public async Task DeleteAsync(Guid id)
+
+    public async Task DeleteAsync(Guid fileId)
     {
         try
         {
-            await _s3.DeleteObjectAsync(new DeleteObjectRequest
+            var response = await _s3.DeleteObjectAsync(new DeleteObjectRequest
             {
                 BucketName = _options.Value.BucketName,
-                Key = $"{FolderName}/{id}"
+                Key = $"{FolderName}/{fileId}"
             });
+
+            var success = response.HttpStatusCode == HttpStatusCode.OK;
+            if (!success)
+            {
+                throw new FilesStoreException($"An error occurred while deleting file with id {fileId} from S3 bucket");
+            }
         }
-        catch (AmazonS3Exception e)
+        catch (AmazonS3Exception ex)
         {
-            _logger.LogError(e, "Failed to delete file with id {Id} from S3 bucket", id);
-            throw new Exception("Failed to delete file from S3 bucket");
+            throw new FilesStoreException($"An error occurred while deleting file with id {fileId} from S3 bucket", ex);
         }
     }
 }
