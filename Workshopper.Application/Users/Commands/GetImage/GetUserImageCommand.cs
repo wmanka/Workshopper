@@ -1,4 +1,4 @@
-﻿using Workshopper.Application.Common.Abstractions;
+﻿using Workshopper.Infrastructure.FilesStore;
 
 namespace Workshopper.Application.Users.Commands.GetImage;
 

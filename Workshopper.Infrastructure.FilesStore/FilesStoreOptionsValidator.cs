@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Workshopper.Infrastructure.Files;
+namespace Workshopper.Infrastructure.FilesStore;
 
 public class FilesStoreOptionsValidator : IValidateOptions<FilesStoreOptions>
 {

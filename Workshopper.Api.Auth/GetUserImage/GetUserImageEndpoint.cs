@@ -1,7 +1,5 @@
-using System.Text.Json;
 using Workshopper.Api.Auth.Contracts.GetUserImage;
 using Workshopper.Application.Users.Commands.GetImage;
-using Workshopper.Infrastructure.Files;
 
 namespace Workshopper.Api.Auth.GetUserImage;
 
@@ -10,8 +8,8 @@ public class GetUserImageEndpoint : Endpoint<GetUserImageRequest>
     public override void Configure()
     {
         Get("/users/{user-id}/images");
-        // Description(b => b
-        //     .ProducesProblemDetails(400, "application/json+problem"));
+        Description(b => b
+            .ProducesProblemDetails(400, "application/json+problem"));
 
         Summary(s =>
         {

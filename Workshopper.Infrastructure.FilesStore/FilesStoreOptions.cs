@@ -1,4 +1,4 @@
-﻿namespace Workshopper.Infrastructure.Files;
+﻿namespace Workshopper.Infrastructure.FilesStore;
 
 public class FilesStoreOptions
 {

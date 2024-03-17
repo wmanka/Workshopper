@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Workshopper.Domain\Workshopper.Domain.csproj" />
+      <ProjectReference Include="..\Workshopper.Infrastructure.FilesStore\Workshopper.Infrastructure.FilesStore.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Users.Specifications;
 using Workshopper.Domain.Users;
+using Workshopper.Infrastructure.FilesStore;
 
 namespace Workshopper.Application.Users.Commands.UploadImage;
 
@@ -10,6 +11,7 @@ public class UploadUserImageCommandHandler : CommandHandler<UploadUserImageComma
     private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IUsersRepository _usersRepository;
     private readonly IUnitOfWork _unitOfWork;
+
     public UploadUserImageCommandHandler(
         IFilesStore filesStore,
         ICurrentUserProvider currentUserProvider,

@@ -1,6 +1,7 @@
 ﻿using Workshopper.Application.Common.Abstractions;
 using Workshopper.Application.Users.Specifications;
 using Workshopper.Domain.Users;
+using Workshopper.Infrastructure.FilesStore;
 
 namespace Workshopper.Application.Users.Commands.GetImage;
 

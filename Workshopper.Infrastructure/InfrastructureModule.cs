@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using Amazon.S3;
-using ConfigCat.Client;
+﻿using ConfigCat.Client;
 using FastEndpoints.Security;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +15,7 @@ using Workshopper.Application.Common.Abstractions;
 using Workshopper.Infrastructure.Authentication;
 using Workshopper.Infrastructure.Common.Persistence;
 using Workshopper.Infrastructure.FeatureFlags;
-using Workshopper.Infrastructure.Files;
+using Workshopper.Infrastructure.FilesStore;
 using Workshopper.Infrastructure.MessageBus;
 using Workshopper.Infrastructure.Notifications;
 using Workshopper.Infrastructure.Notifications.Persistence;
@@ -86,7 +84,8 @@ public static class InfrastructureModule
         return services;
     }
 
-    private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
+    private static IServiceCollection AddFeatureFlags(this IServiceCollection services, IConfiguration configuration,
+        IHostEnvironment environment)
     {
         if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
         {
@@ -192,45 +191,6 @@ public static class InfrastructureModule
     private static IServiceCollection AddNotifications(this IServiceCollection services)
     {
         services.AddSingleton<IUserIdProvider, UserIdProvider>();
-
-        return services;
-    }
-
-    private static IServiceCollection AddFilesStore(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
-    {
-        FilesStoreOptions filesStoreOptions;
-
-        if (!environment.IsDevelopment() && !environment.IsEnvironment("Development.Container"))
-        {
-            filesStoreOptions = new FilesStoreOptions();
-            configuration.Bind(FilesStoreOptions.SectionName, filesStoreOptions);
-        }
-        else
-        {
-            try
-            {
-                var filesStoreFilePath = Environment.GetEnvironmentVariable("FILES_STORE_FILE");
-                var filesStoreFileContent = File.ReadAllText(filesStoreFilePath!).Trim();
-                filesStoreOptions = JsonSerializer.Deserialize<FilesStoreOptions>(filesStoreFileContent)!;
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException("Invalid files store configuration.", e);
-            }
-        }
-
-        services.AddSingleton(Options.Create(filesStoreOptions));
-        services.AddSingleton<IValidateOptions<FilesStoreOptions>, FilesStoreOptionsValidator>();
-
-        services.AddSingleton<IAmazonS3, AmazonS3Client>(_ =>
-        {
-            return new AmazonS3Client(
-                awsAccessKeyId: filesStoreOptions.AccessKeyId,
-                awsSecretAccessKey: filesStoreOptions.SecretAccessKey,
-                region: Amazon.RegionEndpoint.GetBySystemName(filesStoreOptions.Region));
-        });
-
-        services.AddSingleton<IFilesStore, FilesStore>();
 
         return services;
     }

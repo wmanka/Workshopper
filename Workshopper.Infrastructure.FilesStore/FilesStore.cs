@@ -4,9 +4,8 @@ using Amazon.S3.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Workshopper.Application.Common.Abstractions;
 
-namespace Workshopper.Infrastructure.Files;
+namespace Workshopper.Infrastructure.FilesStore;
 
 public class FilesStore : IFilesStore
 {
@@ -71,9 +70,9 @@ public class FilesStore : IFilesStore
                 response.Metadata[FileNameMetadataKey],
                 response.Metadata[FileExtensionMetadataKey]);
         }
-        catch (AmazonS3Exception ex)
+        catch (AmazonS3Exception ex) when (ex.Message is "The specified key does not exist")
         {
-            _logger.LogError(ex, "An error occurred while downloading file with id {id} from S3 bucket", fileId);
+            _logger.LogError(ex, "File with id {id} does not exsist", fileId);
             return null;
         }
     }

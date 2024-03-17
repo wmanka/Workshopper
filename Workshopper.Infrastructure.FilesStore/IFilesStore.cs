@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Workshopper.Application.Common.Abstractions;
+namespace Workshopper.Infrastructure.FilesStore;
 
-public interface IFilesStore // todo: to nuget
+public interface IFilesStore
 {
     Task<Guid> UploadAsync(IFormFile file);
 
